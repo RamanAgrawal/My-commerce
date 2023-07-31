@@ -2,10 +2,11 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, ShoppingCartIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Profile from '../../assets/logo.jpg'
+import {Link} from 'react-router-dom'
 const navigation = [
-  { name: 'Home', href: '#', current: true },
-  { name: 'Contect Us', href: '#', current: false },
-  { name: 'About Us', href: '#', current: false },
+  { name: 'Home', path: '/', current: true },
+  { name: 'Contect Us', path: '/contact', current: false },
+  { name: 'About Us', path: '/about', current: false },
 
 ]
 
@@ -43,9 +44,9 @@ export default function Navbar() {
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
-                      <a
+                      <Link
                         key={item.name}
-                        href={item.href}
+                        to={item.path}
                         className={classNames(
                           item.current ? 'border-b-2 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                           'rounded-md px-3 py-2 text-sm font-medium'
@@ -53,13 +54,14 @@ export default function Navbar() {
                         aria-current={item.current ? 'page' : undefined}
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <button
+               <Link to="/cart">
+                   <button
                   type="button"
                   className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                 >
@@ -67,6 +69,8 @@ export default function Navbar() {
                   <span className="sr-only">View notifications</span>
                   <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
+               </Link>
+            
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">

@@ -2,7 +2,10 @@ import './App.css'
 import SignIn from './pages/SignIn'
 import { createBrowserRouter ,RouterProvider} from 'react-router-dom';
 import SignUp from './pages/SignUpPage';
-import Home from './Home';
+import Home from './pages/Home';
+import CartPage from './pages/CartPage';
+import Contact from './pages/Contact';
+import About from './pages/About';
 
 function App() {
 
@@ -20,6 +23,21 @@ function App() {
     {
       path: "/signup",
       element: <SignUp />,
+     
+    },
+    {
+      path: "/cart",
+      element: <CartPage />,
+     
+    },
+    {
+      path: "/contact",
+      element: <Contact />,
+     
+    },
+    {
+      path: "/about",
+      element: <About />,
      
     },
   ]);

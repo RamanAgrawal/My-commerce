@@ -108,7 +108,7 @@ const products = [
 const classNames = (...classes: any) => {
     return classes.filter(Boolean).join(' ')
 }
-const ProductList = () => {
+const ProductList:React.FC = () => {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
 
     return (

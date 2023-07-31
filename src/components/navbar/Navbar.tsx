@@ -10,11 +10,11 @@ const navigation = [
 
 ]
 
-function classNames(...classes: any) {
+const classNames=(...classes: any) =>{
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Navbar() {
+const Navbar:React.FC=()=> {
   return (
     <Disclosure as="nav" className="bg-gray-800 border-red-600 fixed w-full z-10">
       {({ open }) => (
@@ -157,3 +157,5 @@ export default function Navbar() {
     </Disclosure>
   )
 }
+
+export default Navbar

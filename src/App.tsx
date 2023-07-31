@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import CartPage from './pages/CartPage';
 import Contact from './pages/Contact';
 import About from './pages/About';
+import CheckoutPage from './pages/CheckoutPage';
 
 function App() {
 
@@ -28,6 +29,11 @@ function App() {
     {
       path: "/cart",
       element: <CartPage />,
+     
+    },
+    {
+      path: "/checkout",
+      element: <CheckoutPage />,
      
     },
     {

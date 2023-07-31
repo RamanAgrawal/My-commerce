@@ -1,6 +1,17 @@
 import {Link} from 'react-router-dom'
 
-const products = [
+interface Product {
+  id: number;
+  name: string;
+  href: string;
+  color: string;
+  price: string;
+  quantity: number;
+  imageSrc: string;
+  imageAlt: string;
+}
+
+const products:Product[] = [
   {
     id: 1,
     name: 'Throwback Hip Bag',
@@ -25,7 +36,7 @@ const products = [
   // More products...
 ]
 
-const Cart=()=> {
+const Cart:React.FC =()=> {
 //   const [open, setOpen] = useState(true)
 
   return (
@@ -90,12 +101,12 @@ const Cart=()=> {
   </div>
   <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
   <div className="mt-6">
-    <a
-      href="#"
+    <Link
+      to="/checkout"
       className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
     >
       Checkout
-    </a>
+    </Link>
   </div>
   <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
     <p>

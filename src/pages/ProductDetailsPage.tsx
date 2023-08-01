@@ -1,11 +1,11 @@
 import Navbar from "../components/navbar/Navbar"
-import ProductDetails from "../components/product-list/ProductDetails"
+import ProductDetails from "../components/product/ProductDetails"
 
 const ProductDetailsPage = () => {
   return (
     <div>
       <Navbar/>
-      
+
       <ProductDetails/></div>
   )
 }

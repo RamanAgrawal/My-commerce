@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { StarIcon } from '@heroicons/react/20/solid'
 import { RadioGroup } from '@headlessui/react'
-
+import { fetchAllProducts } from './ProductApi'
 const product = {
   name: 'Basic Tee 6-Pack',
   price: '$192',
@@ -56,14 +56,23 @@ const product = {
 }
 const reviews = { href: '#', average: 4, totalCount: 117 }
 
-function classNames(...classes:any) {
+function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
-const ProductDetails=()=> {
+const ProductDetails = () => {
   const [selectedColor, setSelectedColor] = useState(product.colors[0])
   const [selectedSize, setSelectedSize] = useState(product.sizes[2])
+  const check = async () => {
+    try {
+      const res:any = await fetchAllProducts()
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
 
+  }
+  check()
   return (
     <div className="bg-white pt-12">
       <div className="pt-6">

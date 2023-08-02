@@ -1839,5 +1839,8 @@ const products= [
         ]
     }
 ]
-const category=products.map(i=>i.category)
-console.log(category);
+const category=[...new Set(products.map(i=>i.brand))]
+// console.log((category));
+console.log(category.map(p=>({value: p, label:p, checked: false})));
+
+

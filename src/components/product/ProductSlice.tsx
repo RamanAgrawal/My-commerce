@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchAllProducts, fetchProductsByFilters,Filter } from './ProductApi';
+import { fetchAllProducts, fetchProductsByFilters } from './ProductApi';
 
 
 export interface ProductData {
@@ -25,7 +27,7 @@ const initialState: ProductState = {
 
 export const fetchAllProductsAsync = createAsyncThunk(
   'product/fetchAllProducts',
-  async () => {
+  async (): Promise<ProductData[]> => {
     const response:any = await fetchAllProducts();
     // The value we return becomes the `fulfilled` action payload
     return response.data as ProductData[];
@@ -34,7 +36,7 @@ export const fetchAllProductsAsync = createAsyncThunk(
 
 export const fetchProductsByFiltersAsync = createAsyncThunk(
   'product/fetchProductsByFilters',
-  async (filter:Filter) => {
+  async (filter:any) => {
     const response = await fetchProductsByFilters(filter);
     // The value we return becomes the `fulfilled` action payload
     return response.data as ProductData[];
@@ -45,9 +47,9 @@ export const productSlice = createSlice({
   name: 'product',
   initialState,
   reducers: {
-    increment: (state) => {
-      // Do something with state
-    },
+    // increment: (state) => {
+    //   // Do something with state
+    // },
   },
   extraReducers: (builder) => {
     builder
@@ -68,7 +70,7 @@ export const productSlice = createSlice({
   },
 });
 
-export const { increment } = productSlice.actions;
+// export const { increment } = productSlice.actions;
 
 export const selectAllProducts = (state: { product: ProductState }) => state.product.products;
 

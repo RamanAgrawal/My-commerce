@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchAllProducts, fetchProductsByFilters } from './ProductApi';
+import { createAsyncThunk, createSlice, PayloadAction, Slice } from '@reduxjs/toolkit';
+import { Data, fetchAllProducts, fetchProductsByFilters } from './ProductApi';
 
 
 export interface ProductData {
@@ -11,18 +11,19 @@ export interface ProductData {
   thumbnail:string;
   imageAlt:string;
   color:string;
-  rating:number;
-  
+  rating:number; 
 }
 
 interface ProductState {
   products: ProductData[];
   status: 'idle' | 'loading' | 'completed';
+  totalItems:number
 }
 
 const initialState: ProductState = {
   products: [],
   status: 'idle',
+  totalItems:0
 };
 
 export const fetchAllProductsAsync = createAsyncThunk(
@@ -36,14 +37,14 @@ export const fetchAllProductsAsync = createAsyncThunk(
 
 export const fetchProductsByFiltersAsync = createAsyncThunk(
   'product/fetchProductsByFilters',
-  async (filter:any) => {
-    const response = await fetchProductsByFilters(filter);
+  async ({filter,sort,pagination}:any) => {
+    const response = await fetchProductsByFilters(filter,sort,pagination);
     // The value we return becomes the `fulfilled` action payload
-    return response.data as ProductData[];
+    return response.data
   }
 );
 
-export const productSlice = createSlice({
+export const productSlice:Slice<ProductState> = createSlice({
   name: 'product',
   initialState,
   reducers: {
@@ -63,9 +64,10 @@ export const productSlice = createSlice({
       .addCase(fetchProductsByFiltersAsync.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(fetchProductsByFiltersAsync.fulfilled, (state, action: PayloadAction<ProductData[]>) => {
+      .addCase(fetchProductsByFiltersAsync.fulfilled, (state, action: PayloadAction<Data>) => {
         state.status = 'completed';
-        state.products = action.payload;
+        state.products = action.payload.products;
+        state.totalItems = Number(action.payload.totalItems);
       });
   },
 });
@@ -73,5 +75,6 @@ export const productSlice = createSlice({
 // export const { increment } = productSlice.actions;
 
 export const selectAllProducts = (state: { product: ProductState }) => state.product.products;
+export const selectTotalItems = (state: { product: ProductState }) => state.product.totalItems;
 
 export default productSlice.reducer;

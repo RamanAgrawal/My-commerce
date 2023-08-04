@@ -33,7 +33,7 @@ function App() {
      
     },
     {
-      path: "/product-detail",
+      path: "/product-detail/:id",
       element: <ProductDetailsPage />,
      
     },

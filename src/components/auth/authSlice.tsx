@@ -3,7 +3,7 @@ import { createUser,UserData } from './authApi';
 
 interface AuthState{
     loggedInUser:null;
-    status:string
+    status:string;
 }
 
 const initialState:AuthState = {

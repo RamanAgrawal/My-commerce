@@ -49,8 +49,8 @@ const ProductList: FC = () => {
     const dispatch = useDispatch<AppDispatch>();
     const products = useSelector(selectAllProducts)
     const totalItems = useSelector(selectTotalItems)
-    const categories = useSelector(selectBrands)
-    const brands = useSelector(selectCategories)
+    const brands = useSelector(selectBrands)
+    const categories = useSelector(selectCategories)
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState<boolean>(false);
     const filters: Filter[] = [
 

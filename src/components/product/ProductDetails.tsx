@@ -6,7 +6,9 @@ import { RadioGroup } from '@headlessui/react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from '../../store/store'
-import { fetchSingleProductAsync, selectSingleProduct } from './ProductSlice'
+import { ProductData, fetchSingleProductAsync, selectSingleProduct } from './ProductSlice'
+import { addToCartAsync } from '../cart/CartSlice'
+import { selectLoggedInuser } from '../auth/authSlice'
 // const product = {
 //   name: 'Basic Tee 6-Pack',
 //   price: '$192',
@@ -98,11 +100,23 @@ const ProductDetails = () => {
   const dispatch = useDispatch<AppDispatch>();
   const param = useParams()
   const id = Number(param.id)
-  const product = useSelector(selectSingleProduct)
+  const product:ProductData|null = useSelector(selectSingleProduct)
+  const user=useSelector(selectLoggedInuser)
+  let userId:number;
+  if(user){
+    userId=Number(user.id)
+  }
   useEffect(() => {
     dispatch(fetchSingleProductAsync(id))
   }, [dispatch, id])
-  console.log(product);
+  // console.log(product);
+
+  
+  const handlecart: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+
+    e.preventDefault()
+    dispatch(addToCartAsync({...product,quantity:1,user:userId}))
+  }
 
   return (
     <div className="bg-white pt-12">
@@ -304,10 +318,11 @@ const ProductDetails = () => {
               </div>
 
               <button
+              onClick={handlecart}
                 type="submit"
                 className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
-                Add to bag
+                Add to Cart
               </button>
             </form>
           </div>

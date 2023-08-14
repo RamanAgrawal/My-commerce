@@ -80,9 +80,7 @@ export const productSlice:Slice<ProductState> = createSlice({
   name: 'product',
   initialState,
   reducers: {
-    // increment: (state) => {
-    //   // Do something with state
-    // },
+    
   },
   extraReducers: (builder) => {
     builder

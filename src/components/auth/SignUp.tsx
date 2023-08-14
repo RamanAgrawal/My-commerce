@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../store/store';
-import { createUserAsync } from './authSlice';
+import { createUserAsync, selectLoggedInuser } from './authSlice';
 
 
 type FormData = {
@@ -14,26 +14,12 @@ type FormData = {
 const Signup = () => {
 
   const { handleSubmit, register, formState: { errors } } = useForm<FormData>()
-
+const user=useSelector(selectLoggedInuser)
   const dispatch=useDispatch<AppDispatch>()
 
-  // const submitHandler=(e)=>{
-  //   e.preventDefault()
-  //   console.log("loda");
-    
-  //   handleSubmit(data=>{
-  //     const userData={
-  //       email:data.email,
-  //       password:data.password
-  //     }
-  //     console.log(userData);
-      
-  //     dispatch(createUserAsync(userData))
-  //   })
-  // }
 
   return (
-    <>
+    <>{user&&<Navigate to={'/'} replace={true}/>}
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img

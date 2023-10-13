@@ -90,7 +90,7 @@ dispatch(deleteItemFromCartAsync(id))
  
     <Link
       to="/checkout"
-      className="flex mt-6 items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+      className="flex mt-6 items-center justify-center rounded-md border border-transparent bg-yellow-400 px-6 py-3 text-base font-semibold text-black shadow-sm hover:bg-yellow-500"
     >
       Checkout
     </Link>

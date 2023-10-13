@@ -12,10 +12,12 @@ import ProductDetailsPage from './pages/ProductDetailsPage';
 import Protected from './components/auth/Protected';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from './store/store';
-
+import PageNotFound from './pages/404Page'
 import { selectLoggedInuser } from './components/auth/authSlice';
 import { fetchCartAsync } from './components/cart/CartSlice';
-
+import OrderSuccess from './pages/OrderSuccess';
+import UserOrderPage from './pages/UserOrderPage';
+import UserProfilePage from './pages/UserProfilePage';
 
 const router = createBrowserRouter([
     {
@@ -60,19 +62,35 @@ const router = createBrowserRouter([
       element: <About />,
      
     },
+    {
+      path: "/orders",
+      element: <UserOrderPage />,
+     
+    },
+    {
+      path: "/profile",
+      element: <UserProfilePage />,
+     
+    },
+    {
+      path: "/order-succcess/:id",
+      element: <OrderSuccess />,
+     
+    },
+    {
+      path: "*",
+      element: <PageNotFound/>,
+     
+    },
    
   ]);
 function App() {
   const dispatch=useDispatch<AppDispatch>()
   const user=useSelector(selectLoggedInuser)
-  let userId:number;
-  if(user){
-      userId=Number(user.id)
-  }
  
   useEffect(()=>{
-    if(user){
-      dispatch(fetchCartAsync(userId))
+    if(user?.id){
+      dispatch(fetchCartAsync(+user.id))
     }
   },[dispatch,user])
   

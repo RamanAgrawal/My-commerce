@@ -6,6 +6,7 @@ import { createUserAsync, selectLoggedInuser } from './authSlice';
 
 
 type FormData = {
+  name:string;
   email: string;
   password: string;
   confirm_password: string;
@@ -35,8 +36,24 @@ const user=useSelector(selectLoggedInuser)
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form noValidate className="space-y-6" onSubmit={handleSubmit(data=>{
             console.log(data);
-            dispatch(createUserAsync({email:data.email,password:data.password}))
+            dispatch(createUserAsync({name:data.name,email:data.email,password:data.password,addresses:[]}))
           })}>
+              <div>
+              <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
+               Full Name
+              </label>
+              <div className="mt-2">
+                <input
+                  id="text"
+                  {...register("name", { required: "please enter Your name"})}
+
+                  type="text"
+                  required
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+                <p className="text-red-500">{errors?.name?.message}</p>
+              </div>
+            </div>
             <div>
               <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                 Email address
@@ -44,7 +61,8 @@ const user=useSelector(selectLoggedInuser)
               <div className="mt-2">
                 <input
                   id="email"
-                  {...register("email",{required:'email is required',pattern:{value:/\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi,message:"enter a valid email"}})}
+                  {...register("email", { required: "please enter a valid email", pattern: { value: /\b[\w.-]+@[\w.-]+\.\w{2,4}\b/gi, message: 'invalid email' } })}
+
                   type="email"
                   autoComplete="email"
                   required

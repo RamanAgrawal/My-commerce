@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, Slice } from '@reduxjs/toolkit';
-import { addTocart, deleteItemFromCart, fetchCartItems, updatecart } from './CartApi';
+import { addTocart, deleteItemFromCart, fetchCartItems, resetCart, updatecart } from './CartApi';
 import { AxiosResponse } from 'axios';
 
 export interface CartItem {
@@ -63,6 +63,14 @@ export const deleteItemFromCartAsync = createAsyncThunk(
         return response.data
     }
 );
+export const resetCartAsync = createAsyncThunk(
+    'cart/resetCart',
+    async (userId:number) => {
+        const response = await resetCart(userId) as AxiosResponse
+        // The value we return becomes the `fulfilled` action payload
+        return response.data
+    }
+);
 
 
 const cartSlice: Slice<CartState> = createSlice({
@@ -114,6 +122,13 @@ const cartSlice: Slice<CartState> = createSlice({
                 
                 state.items.splice(index,1)
                 
+            })
+            .addCase(resetCartAsync.pending,(state)=>{
+                state.status='loading';
+            })
+            .addCase(resetCartAsync.fulfilled,(state)=>{
+                state.status='completed';
+                state.items=[]
             })
           
 

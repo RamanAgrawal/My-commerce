@@ -1,56 +1,70 @@
+import { AxiosResponse } from "axios";
 import { CartItem } from "./CartSlice"
 
-export const addTocart=(item:CartItem)=>{
+export const addTocart = (item: CartItem) => {
     console.log(item);
-    
-    return new Promise(async(resolve)=>{
-        const response=await fetch('http://localhost:3000/cart',{
-            method:"POST",
-            body:JSON.stringify(item),
-            headers:{"content-type":"application/json"}
-        })  
-        const data=await response.json()
+
+    return new Promise(async (resolve) => {
+        const response = await fetch('http://localhost:3000/cart', {
+            method: "POST",
+            body: JSON.stringify(item),
+            headers: { "content-type": "application/json" }
+        })
+        const data = await response.json()
         console.log(data);
-        
-        resolve({data})
+
+        resolve({ data })
     })
 }
-export const fetchCartItems=(userId:number)=>{
-    return new Promise(async(resolve)=>{
-        const response=await fetch('http://localhost:3000/cart?user='+userId)
-        const data=await response.json()
+export const fetchCartItems = (userId: number) => {
+    return new Promise(async (resolve) => {
+        const response = await fetch('http://localhost:3000/cart?user=' + userId)
+        const data = await response.json()
         console.log(data);
-        
-        resolve({data})
+
+        resolve({ data })
     })
 }
 
-export const updatecart=(update:CartItem)=>{
+export const updatecart = (update: CartItem) => {
     console.log(update);
-    
-    return new Promise(async(resolve)=>{
-        const response=await fetch('http://localhost:3000/cart/'+update.id,{
-            method:"PATCH",
-            body:JSON.stringify(update),
-            headers:{"content-type":"application/json"}
-        })  
-        const data=await response.json()
+
+    return new Promise(async (resolve) => {
+        const response = await fetch('http://localhost:3000/cart/' + update.id, {
+            method: "PATCH",
+            body: JSON.stringify(update),
+            headers: { "content-type": "application/json" }
+        })
+        const data = await response.json()
         console.log(data);
-        
-        resolve({data})
+
+        resolve({ data })
     })
 }
-export const deleteItemFromCart=(itemId:number)=>{
-    console.log("in api id: ",itemId);
-    
-    return new Promise(async(resolve)=>{
-        const response=await fetch('http://localhost:3000/cart/'+itemId,{
-            method:"DELETE",
-            headers:{"content-type":"application/json"}
+export const deleteItemFromCart = (itemId: number) => {
+    // console.log("in api id: ", itemId);
+
+    return new Promise(async (resolve) => {
+        const response = await fetch('http://localhost:3000/cart/' + itemId, {
+            method: "DELETE",
+            headers: { "content-type": "application/json" }
         })
-        const data=await response.json()
+        const data = await response.json()
         console.log(data);
-        
-        resolve({data:{id:itemId}})
+
+        resolve({ data: { id: itemId } })
+    })
+}
+
+export const resetCart =  (userID: number) => {
+    // console.log("in cart api", userID);
+    
+    return new Promise(async(resolve) => {
+        const response = await fetchCartItems(userID) as AxiosResponse
+        const items = response.data
+        for (const item of items) {
+            await deleteItemFromCart(item.id)
+        }
+        resolve({status:'success'})
     })
 }

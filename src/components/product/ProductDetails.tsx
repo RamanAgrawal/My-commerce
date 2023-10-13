@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from '../../store/store'
 import { ProductData, fetchSingleProductAsync, selectSingleProduct } from './ProductSlice'
-import { addToCartAsync } from '../cart/CartSlice'
+import { CartItem, addToCartAsync } from '../cart/CartSlice'
 import { selectLoggedInuser } from '../auth/authSlice'
 // const product = {
 //   name: 'Basic Tee 6-Pack',
@@ -113,9 +113,22 @@ const ProductDetails = () => {
 
   
   const handlecart: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-
     e.preventDefault()
-    dispatch(addToCartAsync({...product,quantity:1,user:userId}))
+    // if(product){
+    //   const newItem={...product,quantity:1,user:userId}
+    //   delete newItem['id'];
+    //   dispatch(addToCartAsync(newItem))
+
+    // }
+
+    if (product) {
+      const newItem = { ...product } as CartItem;
+      // delete newItem.id;
+      newItem.quantity = 1;
+      newItem.user = userId;
+      dispatch(addToCartAsync(newItem));
+    }
+    
   }
 
   return (

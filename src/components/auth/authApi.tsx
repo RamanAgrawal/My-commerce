@@ -1,36 +1,51 @@
+/* eslint-disable no-async-promise-executor */
+import { AuthRes } from "./authSlice";
 
-export interface UserData{
-email:string;
-password:string
+export interface UserData {
+    name: string;
+    email: string;
+    password: string
 }
 
-export const createUser=(userData:UserData)=>{
-    return new Promise(async(resolve)=>{
-        const response=await fetch('http://localhost:3000/users',{
-            method:"POST",
-            body:JSON.stringify(userData),
-            headers:{"content-type":"application/json"}
+export const createUser = (userData: UserData) => {
+    return new Promise(async (resolve) => {
+        const response = await fetch('http://localhost:3000/users', {
+            method: "POST",
+            body: JSON.stringify(userData),
+            headers: { "content-type": "application/json" }
         })
-        const data=await response.json()
-        resolve({data})
+        const data = await response.json()
+        resolve({ data })
     })
 }
-export const checkUser=(loginInfo:UserData)=>{
-    return new Promise(async(resolve,reject)=>{
-        const email=loginInfo.email;
-        const password=loginInfo.password
-        const response=await fetch('http://localhost:3000/users?email='+email)
-        const data=await response.json()
-        if(data.length){
-            if(password===data[0].password){
-                resolve({data:data[0]})
-            }else{
-                reject({message:"please enter valid password"})
+export const checkUser = (loginInfo: UserData) => {
+    return new Promise(async (resolve, reject) => {
+        const email = loginInfo.email;
+        const password = loginInfo.password
+        const response = await fetch('http://localhost:3000/users?email=' + email)
+        const data = await response.json()
+        if (data.length) {
+            if (password === data[0].password) {
+                resolve({ data: data[0] })
+            } else {
+                reject({ message: "please enter valid password" })
             }
-            
-        }else{
-            reject({message:'user not found'})
+
+        } else {
+            reject({ message: 'user not found' })
         }
-        
+
+    })
+}
+
+export const updateUser = (update: AuthRes) => {
+    return new Promise(async (resolve) => {
+        const response = await fetch('http://localhost:3000/users/' + update.id, {
+            method: "PATCH",
+            body: JSON.stringify(update),
+            headers: { "content-type": "application/json" }
+        })
+        const data = await response.json()
+        resolve({ data })
     })
 }

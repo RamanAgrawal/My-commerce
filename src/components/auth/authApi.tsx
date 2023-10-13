@@ -2,7 +2,7 @@
 import { AuthRes } from "./authSlice";
 
 export interface UserData {
-    name: string;
+    name?: string;
     email: string;
     password: string
 }

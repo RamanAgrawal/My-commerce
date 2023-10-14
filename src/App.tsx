@@ -18,6 +18,7 @@ import { fetchCartAsync } from './components/cart/CartSlice';
 import OrderSuccess from './pages/OrderSuccess';
 import UserOrderPage from './pages/UserOrderPage';
 import UserProfilePage from './pages/UserProfilePage';
+import AddAddress from './pages/AddAddress';
 
 const router = createBrowserRouter([
     {
@@ -70,6 +71,11 @@ const router = createBrowserRouter([
     {
       path: "/profile",
       element: <UserProfilePage />,
+     
+    },
+    {
+      path: "/addaddress",
+      element: <AddAddress />,
      
     },
     {

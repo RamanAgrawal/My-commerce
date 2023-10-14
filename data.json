@@ -2400,6 +2400,32 @@
       "password": "Raman@123",
       "addresses": [],
       "id": 3
+    },
+    {
+      "name": "Ram Agrawal ",
+      "email": "iramanagrawall@gmail.com",
+      "password": "Agrawal@1",
+      "addresses": [
+        {
+          "name": "Raman",
+          "email": "agrawalraman28@gmail.com",
+          "phoneNo": "+918959095100",
+          "street": "agrawal material suppliers, near ambe rice mill, near ambe rice mill, near ambe rice mill",
+          "city": "thankhamharia",
+          "state": "Chhattisgarh",
+          "pincode": "123654"
+        },
+        {
+          "name": "Raman",
+          "email": "iramanagrawal@gmail.com",
+          "phoneNo": "+918959095100",
+          "street": "agrawal material suppliers, near ambe rice mill, near ambe rice mill, near ambe rice mill",
+          "city": "thankhamharia",
+          "state": "Chhattisgarh",
+          "pincode": "333333"
+        }
+      ],
+      "id": 4
     }
   ],
   "cart": [
@@ -2442,6 +2468,26 @@
       ],
       "quantity": 1,
       "id": 2
+    },
+    {
+      "title": "iPhone X",
+      "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+      "price": 899,
+      "discountPercentage": 17.94,
+      "rating": 4.44,
+      "stock": 34,
+      "brand": "Apple",
+      "category": "smartphones",
+      "thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+      "images": [
+        "https://i.dummyjson.com/data/products/2/1.jpg",
+        "https://i.dummyjson.com/data/products/2/2.jpg",
+        "https://i.dummyjson.com/data/products/2/3.jpg",
+        "https://i.dummyjson.com/data/products/2/thumbnail.jpg"
+      ],
+      "quantity": 1,
+      "user": 4,
+      "id": 5
     }
   ],
   "order": [
@@ -2592,6 +2638,78 @@
       "selectedPaymentMethod": "cash",
       "status": "pending",
       "id": 2
+    },
+    {
+      "products": [
+        {
+          "title": "iPhone X",
+          "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+          "price": 899,
+          "discountPercentage": 17.94,
+          "rating": 4.44,
+          "stock": 34,
+          "brand": "Apple",
+          "category": "smartphones",
+          "thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+          "images": [
+            "https://i.dummyjson.com/data/products/2/1.jpg",
+            "https://i.dummyjson.com/data/products/2/2.jpg",
+            "https://i.dummyjson.com/data/products/2/3.jpg",
+            "https://i.dummyjson.com/data/products/2/thumbnail.jpg"
+          ],
+          "quantity": 1,
+          "user": 2,
+          "id": 6
+        }
+      ],
+      "totalAmount": 899,
+      "totalItems": 1,
+      "user": {
+        "email": "iramanagrawal@gmail.com",
+        "password": "Agrawal@1",
+        "addresses": [
+          {
+            "name": "Raman",
+            "email": "iramanagrawal@gmail.com",
+            "phoneNo": "09522063370",
+            "street": "Shivam mobiles, thakur road",
+            "city": "JAGDALPUR",
+            "state": "k10",
+            "pincode": "147852"
+          },
+          {
+            "name": "Raman",
+            "email": "iramanagrawal@gmail.com",
+            "phoneNo": "+918959095100",
+            "street": "agrawal material suppliers, near ambe rice mill, near ambe rice mill, near ambe rice mill",
+            "city": "thankhamharia",
+            "state": "Chhattisgarh",
+            "pincode": "123654"
+          },
+          {
+            "name": "Aman",
+            "email": "agrawalraman277@gmail.com",
+            "phoneNo": "09522063370",
+            "street": "Near ambe rice mile than khamharia",
+            "city": "Bemetara",
+            "state": "Chhattisgarh",
+            "pincode": "4657542"
+          }
+        ],
+        "id": "2"
+      },
+      "selectedAddress": {
+        "name": "Aman",
+        "email": "agrawalraman277@gmail.com",
+        "phoneNo": "09522063370",
+        "street": "Near ambe rice mile than khamharia",
+        "city": "Bemetara",
+        "state": "Chhattisgarh",
+        "pincode": "4657542"
+      },
+      "selectedPaymentMethod": "cash",
+      "status": "pending",
+      "id": 3
     }
   ]
 }

@@ -124,7 +124,7 @@ const ProductDetails = () => {
 
     if (product) {
       const newItem = { ...product } as CartItemI;
-      // delete newItem.id;
+      delete newItem.id;
       newItem.quantity = 1;
       newItem.user = userId;
       dispatch(addToCartAsync(newItem));

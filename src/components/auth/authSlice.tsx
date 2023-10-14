@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice, SerializedError, Slice } from '@reduxjs/toolkit';
-import { checkUser, createUser, updateUser } from './authApi';
+import { checkUser, createUser } from './authApi';
 import { AxiosResponse } from 'axios';
 import { AuthResI, UserDataI } from '../../models/Models';
+import { updateUser } from '../user/userApi';
 
 
 const temUser=  {

@@ -1,5 +1,5 @@
 /* eslint-disable no-async-promise-executor */
-import { AuthResI, UserDataI } from "../../models/Models";
+import {  UserDataI } from "../../models/Models";
 
 export const createUser = (userData: UserDataI) => {
     return new Promise(async (resolve) => {
@@ -32,14 +32,3 @@ export const checkUser = (loginInfo: UserDataI) => {
     })
 }
 
-export const updateUser = (update: AuthResI) => {
-    return new Promise(async (resolve) => {
-        const response = await fetch('http://localhost:3000/users/' + update.id, {
-            method: "PATCH",
-            body: JSON.stringify(update),
-            headers: { "content-type": "application/json" }
-        })
-        const data = await response.json()
-        resolve({ data })
-    })
-}

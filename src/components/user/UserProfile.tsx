@@ -18,12 +18,10 @@ const UserProfile: FC = () => {
   const handleEdit = (address: AddressI, id: number): void => {
     console.log(address, id);
 
-  }
+}
 
   return (
-    <div
-      className="mx-auto max-w-7xl px-6 sm:px-6 lg:px-32 bg-white 4 pt-36"
-    >
+    <div className="mx-auto max-w-6xl px-2 sm:px-6 lg:px-8 bg-white 4 pt-44">
       <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
         <div className="flow-root">
           <h2 className='text-2xl font-bold mb-2'>

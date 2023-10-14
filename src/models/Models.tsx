@@ -41,6 +41,12 @@ export interface ProductDataI {
     description:string
   }
 
+  export interface CategoryI {
+    value: string,
+    label: string,
+    checked: boolean
+  }
+
 export interface CartItemI {
     id: number;
     title: string;

@@ -1,4 +1,4 @@
-// import axios from "axios";
+/* eslint-disable no-async-promise-executor */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ProductDataI } from "../../models/Models";
 
@@ -23,11 +23,7 @@ export const fetchSingleProduct = (id:number) => {
   }
   );
 }
-export interface Category {
-  value: string,
-  label: string,
-  checked: boolean
-}
+
 export const fetchCategories = () => {
   return new Promise((resolve) => {
     //TODO: we will not hard-code server URL here
@@ -56,10 +52,6 @@ export const fetchProductsByFilters = async (filter: any, sort: any, pagination:
   let queryString = '';
   for (const key in filter) {
     const categoryVal = filter[key]
-    console.log(key);
-
-    console.log(categoryVal);
-
     if (categoryVal.length) {
       const lastval = categoryVal[categoryVal.length - 1]
       queryString += `${key}=${lastval}&`;

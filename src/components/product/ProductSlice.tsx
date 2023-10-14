@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { createAsyncThunk, createSlice, PayloadAction, Slice } from '@reduxjs/toolkit';
-import { Data,Category, fetchAllProducts,fetchCategories, fetchProductsByFilters, fetchBrands, fetchSingleProduct } from './ProductApi';
+import { Data, fetchAllProducts,fetchCategories, fetchProductsByFilters, fetchBrands, fetchSingleProduct } from './ProductApi';
 import { ProductDataI } from '../../models/Models';
+import { CategoryI } from '../../models/Models';
 
 
 
@@ -11,8 +12,8 @@ interface ProductStateI {
   products: ProductDataI[];
   status: 'idle' | 'loading' | 'completed';
   totalItems:number
-  categories:Category[]
-  brands:Category[]
+  categories:CategoryI[]
+  brands:CategoryI[]
   selectedProduct:ProductDataI|null
 }
 
@@ -93,7 +94,7 @@ export const productSlice:Slice<ProductStateI> = createSlice({
       .addCase(fetchCategoriesAsync.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(fetchCategoriesAsync.fulfilled, (state, action: PayloadAction<Category[]>) => {
+      .addCase(fetchCategoriesAsync.fulfilled, (state, action: PayloadAction<CategoryI[]>) => {
         state.status = 'completed';
         state.categories = action.payload;
         
@@ -101,7 +102,7 @@ export const productSlice:Slice<ProductStateI> = createSlice({
       .addCase(fetchBrandsAsync.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(fetchBrandsAsync.fulfilled, (state, action: PayloadAction<Category[]>) => {
+      .addCase(fetchBrandsAsync.fulfilled, (state, action: PayloadAction<CategoryI[]>) => {
         state.status = 'completed';
         state.brands = action.payload;
         

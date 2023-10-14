@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { Fragment, useEffect, useState, ChangeEvent, Dispatch, SetStateAction, FC } from 'react'
-import { fetchProductsByFiltersAsync, selectAllProducts, ProductData, selectTotalItems, selectCategories, fetchCategoriesAsync, fetchBrandsAsync, selectBrands } from './ProductSlice'
+import { fetchProductsByFiltersAsync, selectAllProducts, selectTotalItems, selectCategories, fetchCategoriesAsync, fetchBrandsAsync, selectBrands } from './ProductSlice'
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from '../../store/store'
 import { ITEM_PER_PAGE } from '../../constent'
+import { ProductDataI } from '../../models/Models'
 
 interface Sort {
     name: string;
@@ -351,7 +352,7 @@ const MobileFilters: FC<MobileFiltersProps> = ({ mobileFiltersOpen, setMobileFil
 }
 
 interface ConnectedProductListProps {
-    products: ProductData[];
+    products: ProductDataI[];
 }
 const ProductGrid: FC<ConnectedProductListProps> = ({ products }) => {
     return (<div className="lg:col-span-3">
@@ -360,7 +361,7 @@ const ProductGrid: FC<ConnectedProductListProps> = ({ products }) => {
                 <h2 className="text-2xl font-bold tracking-tight text-gray-900"> Products</h2>
 
                 <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
-                    {products.map((product: ProductData) => (
+                    {products.map((product: ProductDataI) => (
                         <div key={product.id} className="group relative p-2 shadow-slate-500 shadow-2xl rounded-md">
                             <Link to={`product-detail/${product.id}`}>
 

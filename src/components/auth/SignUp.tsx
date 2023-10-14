@@ -3,18 +3,13 @@ import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../store/store';
 import { createUserAsync, selectLoggedInuser } from './authSlice';
+import { SignupFormDataI } from '../../models/Models';
 
 
-type FormData = {
-  name:string;
-  email: string;
-  password: string;
-  confirm_password: string;
-};
 
 const Signup = () => {
 
-  const { handleSubmit, register, formState: { errors } } = useForm<FormData>()
+  const { handleSubmit, register, formState: { errors } } = useForm<SignupFormDataI>()
 const user=useSelector(selectLoggedInuser)
   const dispatch=useDispatch<AppDispatch>()
 

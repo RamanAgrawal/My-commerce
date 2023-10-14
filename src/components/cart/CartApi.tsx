@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
-import { CartItem } from "./CartSlice"
+import { CartItemI } from "../../models/Models";
 
-export const addTocart = (item: CartItem) => {
+export const addTocart = (item: CartItemI) => {
     console.log(item);
 
     return new Promise(async (resolve) => {
@@ -26,7 +26,7 @@ export const fetchCartItems = (userId: number) => {
     })
 }
 
-export const updatecart = (update: CartItem) => {
+export const updatecart = (update: CartItemI) => {
     console.log(update);
 
     return new Promise(async (resolve) => {

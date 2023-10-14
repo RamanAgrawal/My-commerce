@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
 import {ChangeEvent} from 'react'
 import {Link} from 'react-router-dom'
-import { CartItem, deleteItemFromCartAsync, selectCart, updateCartAsync,} from './CartSlice';
+import {  deleteItemFromCartAsync, selectCart, updateCartAsync,} from './CartSlice';
 import { AppDispatch } from '../../store/store';
+import { CartItemI } from '../../models/Models';
 
 
 
@@ -11,7 +12,7 @@ const products=useSelector(selectCart)
 const dispatch=useDispatch<AppDispatch>()
 const totalAmount=products.reduce((amount,item)=>item.price*item.quantity + amount,0)
 const totalItems=products.reduce((total,item)=>item.quantity + total,0)
-const handleQuntity=(e:ChangeEvent<HTMLSelectElement>,item:CartItem)=>{
+const handleQuntity=(e:ChangeEvent<HTMLSelectElement>,item:CartItemI)=>{
 
   dispatch(updateCartAsync({...item,quantity:+e.target.value}))
 }

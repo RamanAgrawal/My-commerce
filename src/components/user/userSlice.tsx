@@ -1,16 +1,14 @@
 import { Slice, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { fetchLoggedInUserOrder } from "./userApi"
+import { fetchLoggedInUserOrder } from "./UserApi"
 import { AxiosResponse } from "axios"
-import { Order } from "../order/OrderSlice"
-interface OrderRes extends Order{
-    id:string
-}
-interface UserState {
-    userOrder: OrderRes[]
+import {  OrderResI } from "../../models/Models"
+
+interface UserStateI {
+    userOrder: OrderResI[]
     status: string;
     userDetails:string;
 }
-const initialState: UserState = {
+const initialState: UserStateI = {
     userDetails:'',
     userOrder: [],
     status: 'idle'
@@ -41,6 +39,6 @@ const userSlice: Slice = createSlice({
 })
 
 
-export const selectUserOrders=(state:{user:UserState})=>state.user.userOrder;
-export const selectUserDetails=(state:{user:UserState})=>state.user.userDetails;
+export const selectUserOrders=(state:{user:UserStateI})=>state.user.userOrder;
+export const selectUserDetails=(state:{user:UserStateI})=>state.user.userDetails;
 export default userSlice.reducer

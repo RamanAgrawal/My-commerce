@@ -1,29 +1,16 @@
 import { createAsyncThunk, createSlice, SerializedError, Slice } from '@reduxjs/toolkit';
 import { AxiosResponse } from 'axios';
 import { createOrder } from './orderApi';
-import { CartItem } from '../cart/CartSlice';
-import { AuthRes } from '../auth/authSlice';
-import { Address } from '../checkout/Checkout';
-export interface Order{
-    products: CartItem[];
-    totalAmount: number;
-    totalItems: number;
-    user: AuthRes | null;
-    selectedAddress: Address;
-    selectedPaymentMethod: string;
-    status: string;
-}
-interface OrderRes extends Order{
-    id:string
-}
-interface OrderState{
-    orders:Order[];
+import { OrderI, OrderResI } from '../../models/Models';
+
+interface OrderStateI{
+    orders:OrderI[];
     status:string;
-    currentOrder:OrderRes|null
+    currentOrder:OrderResI|null
     error:SerializedError|null
 }
 
-const initialState:OrderState = {
+const initialState:OrderStateI = {
     orders:[],
     status: 'idle',
     currentOrder:null,
@@ -33,8 +20,8 @@ const initialState:OrderState = {
 
 export const createOrderAsync = createAsyncThunk(
     'order/createOrder',
-    async (order:Order) => {
-        const response = await createOrder(order) as AxiosResponse<OrderRes>;
+    async (order:OrderI) => {
+        const response = await createOrder(order) as AxiosResponse<OrderResI>;
         // The value we return becomes the `fulfilled` action payload
         return response.data 
     }
@@ -42,7 +29,7 @@ export const createOrderAsync = createAsyncThunk(
 
 
 
-const orderSlice:Slice<OrderState> = createSlice({
+const orderSlice:Slice<OrderStateI> = createSlice({
     name: "order",
     initialState,
     reducers: {
@@ -66,6 +53,6 @@ const orderSlice:Slice<OrderState> = createSlice({
 });
 
 export const { resetOrder} = orderSlice.actions
-// export const selectOrder=(state:{order:OrderState})=>state.order.orders
-export const selectCurrentOrder=(state:{order:OrderState})=>state.order.currentOrder
+// export const selectOrder=(state:{order:OrderStateI})=>state.order.orders
+export const selectCurrentOrder=(state:{order:OrderStateI})=>state.order.currentOrder
 export default orderSlice.reducer

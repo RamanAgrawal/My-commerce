@@ -1,28 +1,17 @@
 import { createAsyncThunk, createSlice, Slice } from '@reduxjs/toolkit';
 import { addTocart, deleteItemFromCart, fetchCartItems, resetCart, updatecart } from './CartApi';
 import { AxiosResponse } from 'axios';
+import { CartItemI } from '../../models/Models';
 
-export interface CartItem {
-    id: number;
-    title: string;
-    price: number;
-    thumbnail:string;
-    imageAlt:string;
-    color:string;
-    rating:number; 
-    images:string[];
-    description:string;
-    user:number;
-    quantity:number
-}
 
-interface CartState {
+
+interface CartStateI {
     value: number;
-    items: CartItem[],
+    items: CartItemI[],
     status:string
 }
 
-const initialState: CartState = {
+const initialState: CartStateI = {
     items: [],
     value: 0,
     status:'idle'
@@ -31,28 +20,28 @@ const initialState: CartState = {
 
 export const addToCartAsync = createAsyncThunk(
     'cart/addToCart',
-    async (item:CartItem) => {
-        const response = await addTocart(item) as AxiosResponse<CartItem>;
+    async (item:CartItemI) => {
+        const response = await addTocart(item) as AxiosResponse<CartItemI>;
         // The value we return becomes the `fulfilled` action payload
-        return response.data as CartItem
+        return response.data as CartItemI
     }
 );
 export const fetchCartAsync = createAsyncThunk(
     'cart/fetchCartItems',
     async (id:number) => {
-        const response = await fetchCartItems(id) as AxiosResponse<CartItem[]>;
+        const response = await fetchCartItems(id) as AxiosResponse<CartItemI[]>;
         // The value we return becomes the `fulfilled` action payload
-        return response.data as CartItem[]
+        return response.data as CartItemI[]
     }
     
 );
 
 export const updateCartAsync = createAsyncThunk(
     'cart/updateCart',
-    async (update:CartItem) => {
-        const response = await updatecart(update) as AxiosResponse<CartItem>;
+    async (update:CartItemI) => {
+        const response = await updatecart(update) as AxiosResponse<CartItemI>;
         // The value we return becomes the `fulfilled` action payload
-        return response.data as CartItem
+        return response.data as CartItemI
     }
 );
 export const deleteItemFromCartAsync = createAsyncThunk(
@@ -73,7 +62,7 @@ export const resetCartAsync = createAsyncThunk(
 );
 
 
-const cartSlice: Slice<CartState> = createSlice({
+const cartSlice: Slice<CartStateI> = createSlice({
     name: "cart",
     initialState,
     reducers: {},
@@ -136,6 +125,6 @@ const cartSlice: Slice<CartState> = createSlice({
 });
 
 
-export const selectCart= (state:{cart:CartState})=>state.cart.items
-export const selectTotalvalue= (state:{cart:CartState})=>state.cart.value
+export const selectCart= (state:{cart:CartStateI})=>state.cart.items
+export const selectTotalvalue= (state:{cart:CartStateI})=>state.cart.value
 export default cartSlice.reducer

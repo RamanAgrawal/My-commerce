@@ -1,6 +1,8 @@
-import { Order } from "./OrderSlice"
+/* eslint-disable no-async-promise-executor */
+import { OrderI } from "../../models/Models"
 
-export const  createOrder=(order:Order)=>{
+
+export const  createOrder=(order:OrderI)=>{
     return new Promise(async(resolve) => {
         const responce=await fetch('http://localhost:3000/order',{
             method:'POST',

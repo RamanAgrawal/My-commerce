@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from '../../store/store'
-import { selectLoggedInuser } from '../auth/authSlice'
-import { fetchLoggedInUserOrderAsync, selectUserOrders } from './userSlice'
+import { selectLoggedInuser } from '../auth/AuthSlice'
+import { fetchLoggedInUserOrderAsync, selectUserOrders } from './UserSlice'
 
 
 

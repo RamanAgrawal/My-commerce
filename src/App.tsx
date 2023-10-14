@@ -13,7 +13,7 @@ import Protected from './components/auth/Protected';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from './store/store';
 import PageNotFound from './pages/404Page'
-import { selectLoggedInuser } from './components/auth/authSlice';
+import { selectLoggedInuser } from './components/auth/AuthSlice';
 import { fetchCartAsync } from './components/cart/CartSlice';
 import OrderSuccess from './pages/OrderSuccess';
 import UserOrderPage from './pages/UserOrderPage';

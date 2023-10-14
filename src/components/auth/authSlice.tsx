@@ -1,51 +1,48 @@
 import { createAsyncThunk, createSlice, SerializedError, Slice } from '@reduxjs/toolkit';
-import { checkUser, createUser, updateUser, UserData } from './authApi';
+import { checkUser, createUser, updateUser } from './AuthApi';
 import { AxiosResponse } from 'axios';
-import { Address } from '../checkout/Checkout';
+import { AuthResI, UserDataI } from '../../models/Models';
 
-interface AuthState {
-    loggedInUser: AuthRes | null;
+interface AuthStateI {
+    loggedInUser: AuthResI | null;
     status: string;
     error: SerializedError | null
 }
 
-const initialState: AuthState = {
+const initialState: AuthStateI = {
     loggedInUser: null,
     status: 'idle',
     error: null
 }
-export interface AuthRes extends UserData {
-    id?: string | undefined;
-    addresses: Address[]
-}
+
 
 export const createUserAsync = createAsyncThunk(
     'users/createUser',
-    async (userData: AuthRes) => {
-        const response = await createUser(userData) as AxiosResponse<AuthRes>;
+    async (userData: AuthResI) => {
+        const response = await createUser(userData) as AxiosResponse<AuthResI>;
         // The value we return becomes the `fulfilled` action payload
-        return response.data as AuthRes
+        return response.data as AuthResI
     }
 );
 
 export const checkUserAsync = createAsyncThunk(
     'users/checkUser',
-    async (loginInfo: UserData) => {
-        const response = await checkUser(loginInfo) as AxiosResponse<AuthRes>;
-        return response.data as AuthRes
+    async (loginInfo: UserDataI) => {
+        const response = await checkUser(loginInfo) as AxiosResponse<AuthResI>;
+        return response.data as AuthResI
     }
 );
 
 
 export const updateUserAsync = createAsyncThunk(
     'users/updateUser',
-    async (update: AuthRes) => {
-        const response = await updateUser(update) as AxiosResponse<AuthRes>;
-        return response.data as AuthRes
+    async (update: AuthResI) => {
+        const response = await updateUser(update) as AxiosResponse<AuthResI>;
+        return response.data as AuthResI
     }
 );
 
-const authSlice: Slice<AuthState> = createSlice({
+const authSlice: Slice<AuthStateI> = createSlice({
     name: "auth",
     initialState,
     reducers: {},
@@ -84,6 +81,6 @@ const authSlice: Slice<AuthState> = createSlice({
 });
 
 // export const { } = authSlice.actions
-export const selectLoggedInuser = (state: { auth: AuthState }) => state.auth.loggedInUser
-export const selectError = (state: { auth: AuthState }) => state.auth.error
+export const selectLoggedInuser = (state: { auth: AuthStateI }) => state.auth.loggedInUser
+export const selectError = (state: { auth: AuthStateI }) => state.auth.error
 export default authSlice.reducer

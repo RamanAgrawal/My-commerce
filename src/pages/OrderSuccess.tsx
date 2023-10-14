@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../store/store";
 import { resetCartAsync } from "../components/cart/CartSlice";
-import { selectLoggedInuser } from "../components/auth/authSlice";
+import { selectLoggedInuser } from "../components/auth/AuthSlice";
 import { resetOrder } from "../components/order/OrderSlice";
 
 const OrderSuccess = () => {

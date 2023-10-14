@@ -6,9 +6,10 @@ import { RadioGroup } from '@headlessui/react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from '../../store/store'
-import { ProductData, fetchSingleProductAsync, selectSingleProduct } from './ProductSlice'
-import { CartItem, addToCartAsync } from '../cart/CartSlice'
-import { selectLoggedInuser } from '../auth/authSlice'
+import {  fetchSingleProductAsync, selectSingleProduct } from './ProductSlice'
+import {  addToCartAsync } from '../cart/CartSlice'
+import { selectLoggedInuser } from '../auth/AuthSlice'
+import { CartItemI, ProductDataI } from '../../models/Models'
 // const product = {
 //   name: 'Basic Tee 6-Pack',
 //   price: '$192',
@@ -100,7 +101,7 @@ const ProductDetails = () => {
   const dispatch = useDispatch<AppDispatch>();
   const param = useParams()
   const id = Number(param.id)
-  const product:ProductData|null = useSelector(selectSingleProduct)
+  const product:ProductDataI|null = useSelector(selectSingleProduct)
   const user=useSelector(selectLoggedInuser)
   let userId:number;
   if(user){
@@ -122,7 +123,7 @@ const ProductDetails = () => {
     // }
 
     if (product) {
-      const newItem = { ...product } as CartItem;
+      const newItem = { ...product } as CartItemI;
       // delete newItem.id;
       newItem.quantity = 1;
       newItem.user = userId;

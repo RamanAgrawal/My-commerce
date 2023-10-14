@@ -1,6 +1,6 @@
 // import axios from "axios";
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ProductData } from "./ProductSlice";
+import { ProductDataI } from "../../models/Models";
 
 export const fetchAllProducts = () => {
   return new Promise((resolve) => {
@@ -24,7 +24,6 @@ export const fetchSingleProduct = (id:number) => {
   );
 }
 export interface Category {
-
   value: string,
   label: string,
   checked: boolean
@@ -48,7 +47,7 @@ export const fetchBrands = () => {
   );
 }
 export interface Data {
-  products: ProductData[]
+  products: ProductDataI[]
   totalItems: string | null
 }
 export const fetchProductsByFilters = async (filter: any, sort: any, pagination: any) => {

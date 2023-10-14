@@ -1,18 +1,13 @@
 import {Link, Navigate} from 'react-router-dom'
 import {useForm} from 'react-hook-form'
-import { checkUserAsync, selectError, selectLoggedInuser } from './authSlice';
+import { checkUserAsync, selectError, selectLoggedInuser } from './AuthSlice';
 import { AppDispatch } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
-
-
-type FormData = {
-  email: string;
-  password: string;
-};
+import { LoginFormDataI } from '../../models/Models';
 
 
 const Login = () => {
-const {register,handleSubmit,formState:{errors}}=useForm<FormData>()
+const {register,handleSubmit,formState:{errors}}=useForm<LoginFormDataI>()
 const dispatch=useDispatch<AppDispatch>()
 const error=useSelector(selectError)
 const user=useSelector(selectLoggedInuser)

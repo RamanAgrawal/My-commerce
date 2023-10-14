@@ -2,32 +2,25 @@
 import { Link, Navigate } from 'react-router-dom'
 import { ChangeEvent, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { CartItem, deleteItemFromCartAsync, selectCart, updateCartAsync, } from '../cart/CartSlice';
+import {  deleteItemFromCartAsync, selectCart, updateCartAsync, } from '../cart/CartSlice';
 import { AppDispatch } from '../../store/store';
 import { useForm } from 'react-hook-form';
-import { selectLoggedInuser, updateUserAsync } from '../auth/authSlice';
-import { Order, createOrderAsync, selectCurrentOrder } from '../order/OrderSlice';
+import { selectLoggedInuser, updateUserAsync } from '../auth/AuthSlice';
+import {  createOrderAsync, selectCurrentOrder } from '../order/OrderSlice';
+import { AddressI, CartItemI, OrderI } from '../../models/Models';
 
 
 
-export interface Address {
-    name: string;
-    city: string,
-    pincode: string,
-    street: string,
-    state: string,
-    email: string,
-    phoneNo: string,
-}
+
 
 // Checkout component
 const Checkout = () => {
     // React Hook Form setup for form handling
-    const { register, handleSubmit, reset } = useForm<Address>();
+    const { register, handleSubmit, reset } = useForm<AddressI>();
 
 
     // States to manage selected address and payment method
-    const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);
+    const [selectedAddress, setSelectedAddress] = useState<AddressI | null>(null);
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string>('cash');
 
     // Selecting data from Redux store using useSelector
@@ -43,7 +36,7 @@ const Checkout = () => {
     const totalItems = products.reduce((total, item) => item.quantity + total, 0);
 
     // Function to handle quantity change for items in the cart
-    const handleQuantity = (e: ChangeEvent<HTMLSelectElement>, item: CartItem) => {
+    const handleQuantity = (e: ChangeEvent<HTMLSelectElement>, item: CartItemI) => {
         dispatch(updateCartAsync({ ...item, quantity: +e.target.value }));
     }
 
@@ -67,7 +60,7 @@ const Checkout = () => {
     // Function to place an order
     const handleOrder = () => {
         if (selectedAddress && selectedPaymentMethod) {
-            const order: Order = {
+            const order: OrderI = {
                 products,
                 totalAmount,
                 totalItems,
@@ -229,7 +222,7 @@ const Checkout = () => {
                                 Choose from Existing Address
                             </p>
                             <ul role="list" className="divide-y divide-gray-100">
-                                {user && user.addresses.map((address: Address, index) => (
+                                {user && user.addresses.map((address: AddressI, index) => (
                                     <li key={index} className="flex justify-between gap-x-6 py-3 border-solid border-4 mb-3 p-2">
                                         <div className="flex gap-x-4 overflow-hidden">
                                             <input type="radio"

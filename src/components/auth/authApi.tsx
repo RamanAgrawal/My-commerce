@@ -1,13 +1,7 @@
 /* eslint-disable no-async-promise-executor */
-import { AuthRes } from "./authSlice";
+import { AuthResI, UserDataI } from "../../models/Models";
 
-export interface UserData {
-    name?: string;
-    email: string;
-    password: string
-}
-
-export const createUser = (userData: UserData) => {
+export const createUser = (userData: UserDataI) => {
     return new Promise(async (resolve) => {
         const response = await fetch('http://localhost:3000/users', {
             method: "POST",
@@ -18,7 +12,7 @@ export const createUser = (userData: UserData) => {
         resolve({ data })
     })
 }
-export const checkUser = (loginInfo: UserData) => {
+export const checkUser = (loginInfo: UserDataI) => {
     return new Promise(async (resolve, reject) => {
         const email = loginInfo.email;
         const password = loginInfo.password
@@ -38,7 +32,7 @@ export const checkUser = (loginInfo: UserData) => {
     })
 }
 
-export const updateUser = (update: AuthRes) => {
+export const updateUser = (update: AuthResI) => {
     return new Promise(async (resolve) => {
         const response = await fetch('http://localhost:3000/users/' + update.id, {
             method: "PATCH",

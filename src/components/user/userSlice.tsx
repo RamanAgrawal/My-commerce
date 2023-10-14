@@ -1,5 +1,5 @@
 import { Slice, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { fetchLoggedInUserOrder } from "./UserApi"
+import { fetchLoggedInUserOrder } from "./userApi"
 import { AxiosResponse } from "axios"
 import {  OrderResI } from "../../models/Models"
 

@@ -3,7 +3,7 @@ import { checkUser, createUser, updateUser } from './AuthApi';
 import { AxiosResponse } from 'axios';
 import { AuthResI, UserDataI } from '../../models/Models';
 
-interface AuthStateI {
+interface AuthStateI  {
     loggedInUser: AuthResI | null;
     status: string;
     error: SerializedError | null

@@ -1,5 +1,5 @@
 
-import Login from '../components/auth/Login'
+import Login from '../features/auth/Login'
 
 const SignIn = () => {
   return (

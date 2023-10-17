@@ -1,10 +1,10 @@
-import { useDispatch, useSelector } from "react-redux";
-import AddAddressForm from "../components/AddAddressForm"
+import AddAddressForm from "../features/AddAddressForm"
 import { AddressI } from "../models/Models";
-import { selectLoggedInuser, updateUserAsync } from "../components/auth/authSlice";
+import { selectLoggedInuser, updateUserAsync } from "../features/auth/authSlice";
 import { AppDispatch } from "../store/store";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 const AddAddress = () => {
     const user = useSelector(selectLoggedInuser);

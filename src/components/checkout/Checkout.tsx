@@ -42,7 +42,7 @@ const Checkout = () => {
     }
 
     // Function to delete an item from the cart
-    const handleDelete = (id: number) => {
+    const handleDelete = (id: any) => {
         dispatch(deleteItemFromCartAsync(id));
     }
 
@@ -84,7 +84,6 @@ const Checkout = () => {
         }
         reset();
     }
-
 
     return (
         <>  {!products.length && (alert("please add something first"), <Navigate to={'/'} />)}

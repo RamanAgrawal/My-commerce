@@ -11,6 +11,15 @@ export const fetchLoggedInUserOrder=(userID:number)=>{
         
     })
 }
+export const fetchLoggedInUser=(userID:number)=>{
+    return new Promise(async(resolve)=>{
+        const response=await axios('http://localhost:3000/users/'+userID)
+        const data=await response.data
+        resolve({data})
+        console.log(data);
+        
+    })
+}
 export const updateUser = (update: AuthResI) => {
     return new Promise(async (resolve) => {
         const response = await fetch('http://localhost:3000/users/' + update.id, {

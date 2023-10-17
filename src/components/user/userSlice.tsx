@@ -6,10 +6,10 @@ import {  OrderResI } from "../../models/Models"
 interface UserStateI {
     userOrder: OrderResI[]
     status: string;
-    userDetails:string;
+    userInfo:string;
 }
 const initialState: UserStateI = {
-    userDetails:'',
+    userInfo:'',
     userOrder: [],
     status: 'idle'
 }
@@ -40,5 +40,5 @@ const userSlice: Slice = createSlice({
 
 
 export const selectUserOrders=(state:{user:UserStateI})=>state.user.userOrder;
-export const selectUserDetails=(state:{user:UserStateI})=>state.user.userDetails;
+export const selectUserDetails=(state:{user:UserStateI})=>state.user.userInfo;
 export default userSlice.reducer

@@ -33,22 +33,22 @@ export interface ProductDataI {
     id: number;
     title: string;
     price: number;
-    thumbnail:string;
-    imageAlt:string;
-    color:string;
-    rating:number; 
-    images:string[];
-    description:string
-  }
+    thumbnail: string;
+    imageAlt: string;
+    color: string;
+    rating: number;
+    images: string[];
+    description: string
+}
 
-  export interface CategoryI {
+export interface CategoryI {
     value: string,
     label: string,
     checked: boolean
-  }
+}
 
 export interface CartItemI {
-    id: number;
+    id?: number;
     title: string;
     price: number;
     thumbnail: string;
@@ -61,7 +61,7 @@ export interface CartItemI {
     quantity: number
 }
 
-export interface OrderI{
+export interface OrderI {
     products: CartItemI[];
     totalAmount: number;
     totalItems: number;
@@ -70,6 +70,6 @@ export interface OrderI{
     selectedPaymentMethod: string;
     status: string;
 }
-export interface OrderResI extends OrderI{
-    id:string
+export interface OrderResI extends OrderI {
+    id: string
 }

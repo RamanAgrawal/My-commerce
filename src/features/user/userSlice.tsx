@@ -1,23 +1,37 @@
 import { Slice, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { fetchLoggedInUserOrder } from "./userApi"
+import { fetchLoggedInUser, fetchLoggedInUserOrder, updateUser } from "./userApi"
 import { AxiosResponse } from "axios"
-import {  OrderResI } from "../../models/Models"
+import {  AuthResI, OrderResI } from "../../models/Models"
 
 interface UserStateI {
     userOrder: OrderResI[]
     status: string;
-    userInfo:string;
+    userInfo:AuthResI | null;
 }
 const initialState: UserStateI = {
-    userInfo:'',
+    userInfo:null,
     userOrder: [],
     status: 'idle'
 }
 
 export const fetchLoggedInUserOrderAsync = createAsyncThunk(
-    'users/fetchLoggedInUser',
+    'user/fetchLoggedInUserOrder',
     async (userId: number) => {
         const response = await fetchLoggedInUserOrder(userId) as AxiosResponse
+        return response.data
+    }
+)
+export const fetchLoggedInUserAsync = createAsyncThunk(
+    'user/fetchLoggedInUser',
+    async (userId: number) => {
+        const response = await fetchLoggedInUser(userId) as AxiosResponse
+        return response.data
+    }
+)
+export const updateUserAsync = createAsyncThunk(
+    'user/updateUser',
+    async (userId:AuthResI) => {
+        const response = await updateUser(userId) as AxiosResponse
         return response.data
     }
 )
@@ -35,10 +49,24 @@ const userSlice: Slice = createSlice({
                 state.status = "completed"
                 state.userOrder=action.payload
             })
+            .addCase(fetchLoggedInUserAsync.pending, (state) => {
+                state.status = "loading"
+            })
+            .addCase(fetchLoggedInUserAsync.fulfilled, (state,action) => {
+                state.status = "completed"
+                state.userInfo=action.payload
+            })
+            .addCase(updateUserAsync.pending, (state) => {
+                state.status = "loading"
+            })
+            .addCase(updateUserAsync.fulfilled, (state,action) => {
+                state.status = "completed"
+                state.userInfo=action.payload
+            })
     }
 })
 
 
 export const selectUserOrders=(state:{user:UserStateI})=>state.user.userOrder;
-export const selectUserDetails=(state:{user:UserStateI})=>state.user.userInfo;
+export const selectUserInfo=(state:{user:UserStateI})=>state.user.userInfo;
 export default userSlice.reducer

@@ -5,40 +5,40 @@ import { AuthResI, UserDataI } from '../../models/Models';
 import { updateUser } from '../user/userApi';
 
 
-const temUser=  {
-    email: "iramanagrawal@gmail.com",
-    password: "Agrawal@1",
-    addresses: [
-      {
-        name: "Raman",
-        email: "iramanagrawal@gmail.com",
-        phoneNo: "09522063370",
-        street: "Shivam mobiles, thakur road",
-        city: "JAGDALPUR",
-        state: "k10",
-        pincode: "147852"
-      },
-      {
-        name: "Raman",
-        email: "iramanagrawal@gmail.com",
-        phoneNo: "+918959095100",
-        street: "agrawal material suppliers, near ambe rice mill, near ambe rice mill, near ambe rice mill",
-        city: "thankhamharia",
-        state: "Chhattisgarh",
-        pincode: "123654"
-      },
-      {
-        name: "Aman",
-        email: "agrawalraman277@gmail.com",
-        phoneNo: "09522063370",
-        street: "Near ambe rice mile than khamharia",
-        city: "Bemetara",
-        state: "Chhattisgarh",
-        pincode: "4657542"
-      }
-    ],
-    id: '2'
-  }
+// const temUser=  {
+//     email: "iramanagrawal@gmail.com",
+//     password: "Agrawal@1",
+//     addresses: [
+//       {
+//         name: "Raman",
+//         email: "iramanagrawal@gmail.com",
+//         phoneNo: "09522063370",
+//         street: "Shivam mobiles, thakur road",
+//         city: "JAGDALPUR",
+//         state: "k10",
+//         pincode: "147852"
+//       },
+//       {
+//         name: "Raman",
+//         email: "iramanagrawal@gmail.com",
+//         phoneNo: "+918959095100",
+//         street: "agrawal material suppliers, near ambe rice mill, near ambe rice mill, near ambe rice mill",
+//         city: "thankhamharia",
+//         state: "Chhattisgarh",
+//         pincode: "123654"
+//       },
+//       {
+//         name: "Aman",
+//         email: "agrawalraman277@gmail.com",
+//         phoneNo: "09522063370",
+//         street: "Near ambe rice mile than khamharia",
+//         city: "Bemetara",
+//         state: "Chhattisgarh",
+//         pincode: "4657542"
+//       }
+//     ],
+//     id: '2'
+//   }
 interface AuthStateI  {
     loggedInUser: AuthResI | null;
     status: string;
@@ -46,7 +46,7 @@ interface AuthStateI  {
 }
 
 const initialState: AuthStateI = {
-    loggedInUser: temUser,
+    loggedInUser: null,
     status: 'idle',
     error: null
 }

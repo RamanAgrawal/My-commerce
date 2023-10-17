@@ -5,10 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import {  deleteItemFromCartAsync, selectCart, updateCartAsync, } from '../cart/CartSlice';
 import { AppDispatch } from '../../store/store';
 import { useForm } from 'react-hook-form';
-import { selectLoggedInuser, updateUserAsync } from '../auth/authSlice';
+import {  updateUserAsync } from '../auth/authSlice';
 import {  createOrderAsync, selectCurrentOrder } from '../order/OrderSlice';
 import { AddressI, CartItemI, OrderI } from '../../models/Models';
 import AddAddressForm from '../AddAddressForm';
+import { selectUserInfo } from '../user/userSlice';
 
 
 
@@ -26,7 +27,7 @@ const Checkout = () => {
 
     // Selecting data from Redux store using useSelector
     const products = useSelector(selectCart);
-    const user = useSelector(selectLoggedInuser);
+    const user = useSelector(selectUserInfo);
     const currentOrder = useSelector(selectCurrentOrder);
 
     // Dispatch function for Redux actions

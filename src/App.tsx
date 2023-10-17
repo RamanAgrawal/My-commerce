@@ -19,6 +19,7 @@ import OrderSuccess from './pages/OrderSuccess';
 import UserOrderPage from './pages/UserOrderPage';
 import UserProfilePage from './pages/UserProfilePage';
 import AddAddress from './pages/AddAddress';
+import { fetchLoggedInUserAsync } from './features/user/userSlice';
 
 const router = createBrowserRouter([
     {
@@ -97,6 +98,7 @@ function App() {
   useEffect(()=>{
     if(user?.id){
       dispatch(fetchCartAsync(+user.id))
+      dispatch(fetchLoggedInUserAsync(+user.id))
     }
   },[dispatch,user])
   

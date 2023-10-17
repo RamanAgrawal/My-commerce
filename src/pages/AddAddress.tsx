@@ -1,13 +1,14 @@
 import AddAddressForm from "../features/AddAddressForm"
 import { AddressI } from "../models/Models";
-import { selectLoggedInuser, updateUserAsync } from "../features/auth/authSlice";
+import {  updateUserAsync } from "../features/auth/authSlice";
 import { AppDispatch } from "../store/store";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { selectUserInfo } from "../features/user/userSlice";
 
 const AddAddress = () => {
-    const user = useSelector(selectLoggedInuser);
+    const user = useSelector(selectUserInfo);
     const dispatch = useDispatch<AppDispatch>();
     const navigate=useNavigate()
     // React Hook Form setup for form handling

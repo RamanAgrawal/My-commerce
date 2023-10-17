@@ -3,13 +3,13 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../store/store";
 import { resetCartAsync } from "../features/cart/CartSlice";
-import { selectLoggedInuser } from "../features/auth/authSlice";
 import { resetOrder } from "../features/order/OrderSlice";
+import { selectUserInfo } from "../features/user/userSlice";
 
 const OrderSuccess = () => {
 
   const param = useParams()
-  const user = useSelector(selectLoggedInuser)
+  const user = useSelector(selectUserInfo)
   const dispatch = useDispatch<AppDispatch>()
   useEffect(() => {
     if (user?.id) {

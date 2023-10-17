@@ -1,14 +1,13 @@
-
 import { useSelector } from 'react-redux'
-import { selectLoggedInuser } from '../auth/authSlice'
 import { FC } from 'react'
 import { Link } from 'react-router-dom'
 import { AddressI } from '../../models/Models'
+import { selectUserInfo } from './userSlice'
 
 
 const UserProfile: FC = () => {
 
-  const user = useSelector(selectLoggedInuser)
+  const user = useSelector(selectUserInfo)
 
 
   const handleDelete = (id: number) => {

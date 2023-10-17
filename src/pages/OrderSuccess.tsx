@@ -2,9 +2,9 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../store/store";
-import { resetCartAsync } from "../components/cart/CartSlice";
-import { selectLoggedInuser } from "../components/auth/authSlice";
-import { resetOrder } from "../components/order/OrderSlice";
+import { resetCartAsync } from "../features/cart/CartSlice";
+import { selectLoggedInuser } from "../features/auth/authSlice";
+import { resetOrder } from "../features/order/OrderSlice";
 
 const OrderSuccess = () => {
 

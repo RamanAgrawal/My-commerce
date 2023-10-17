@@ -9,12 +9,12 @@ import Contact from './pages/Contact';
 import About from './pages/About';
 import CheckoutPage from './pages/CheckoutPage';
 import ProductDetailsPage from './pages/ProductDetailsPage';
-import Protected from './components/auth/Protected';
+import Protected from './features/auth/Protected';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from './store/store';
 import PageNotFound from './pages/404Page'
-import { selectLoggedInuser } from './components/auth/authSlice';
-import { fetchCartAsync } from './components/cart/CartSlice';
+import { selectLoggedInuser } from './features/auth/authSlice';
+import { fetchCartAsync } from './features/cart/CartSlice';
 import OrderSuccess from './pages/OrderSuccess';
 import UserOrderPage from './pages/UserOrderPage';
 import UserProfilePage from './pages/UserProfilePage';

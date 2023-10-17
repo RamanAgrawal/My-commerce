@@ -1,5 +1,5 @@
 
-import Navbar from '../components/navbar/Navbar'
+import Navbar from '../features/navbar/Navbar'
 
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 

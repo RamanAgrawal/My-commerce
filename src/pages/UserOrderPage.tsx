@@ -1,5 +1,5 @@
-import Navbar from "../components/navbar/Navbar"
-import UserOrder from "../components/user/UserOrder"
+import Navbar from "../features/navbar/Navbar"
+import UserOrder from "../features/user/UserOrder"
 
 
 const UserOrderPage = () => {

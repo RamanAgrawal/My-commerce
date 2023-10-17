@@ -1,5 +1,5 @@
-import Navbar from "../components/navbar/Navbar"
-import UserProfile from "../components/user/UserProfile"
+import Navbar from "../features/navbar/Navbar"
+import UserProfile from "../features/user/UserProfile"
 
 
 const UserProfilePage = () => {

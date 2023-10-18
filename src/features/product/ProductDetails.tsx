@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from '../../store/store'
 import {  fetchSingleProductAsync, selectSingleProduct } from './ProductSlice'
 import {  addToCartAsync } from '../cart/CartSlice'
-import { selectLoggedInuser } from '../auth/authSlice'
+import { selectLoggedInUser } from '../auth/authSlice'
 import { CartItemI, ProductDataI } from '../../models/Models'
 // const product = {
 //   name: 'Basic Tee 6-Pack',
@@ -102,7 +102,7 @@ const ProductDetails = () => {
   const param = useParams()
   const id = Number(param.id)
   const product:ProductDataI|null = useSelector(selectSingleProduct)
-  const user=useSelector(selectLoggedInuser)
+  const user=useSelector(selectLoggedInUser)
   let userId:number;
   if(user){
     userId=Number(user.id)

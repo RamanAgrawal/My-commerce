@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, SerializedError, Slice } from '@reduxjs/toolkit';
-import { checkUser, createUser } from './authApi';
+import { checkUser, createUser, signOut } from './authApi';
 import { AxiosResponse } from 'axios';
 import { AuthResI, UserDataI } from '../../models/Models';
 import { updateUser } from '../user/userApi';
@@ -64,9 +64,17 @@ export const createUserAsync = createAsyncThunk(
 );
 
 export const checkUserAsync = createAsyncThunk(
-    'users/checkUser',
+    'user/checkUser',
     async (loginInfo: UserDataI) => {
         const response = await checkUser(loginInfo) as AxiosResponse<AuthResI>;
+        return response.data as AuthResI
+    }
+);
+
+export const signOutAsync = createAsyncThunk(
+    'user/signOut',
+    async () => {
+        const response = await signOut() as AxiosResponse<AuthResI>;
         return response.data as AuthResI
     }
 );
@@ -114,11 +122,18 @@ const authSlice: Slice<AuthStateI> = createSlice({
                 state.status = 'completed'
                 state.loggedInUser = action.payload
             })
+            .addCase(signOutAsync.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(signOutAsync.fulfilled, (state) => {
+                state.status = 'completed'
+                state.loggedInUser = null
+            })
 
     },
 });
 
 // export const { } = authSlice.actions
-export const selectLoggedInuser = (state: { auth: AuthStateI }) => state.auth.loggedInUser
+export const selectLoggedInUser = (state: { auth: AuthStateI }) => state.auth.loggedInUser
 export const selectError = (state: { auth: AuthStateI }) => state.auth.error
 export default authSlice.reducer

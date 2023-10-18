@@ -2,7 +2,7 @@ import { Link, Navigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../store/store';
-import { createUserAsync, selectLoggedInuser } from './authSlice';
+import { createUserAsync, selectLoggedInUser } from './authSlice';
 import { SignupFormDataI } from '../../models/Models';
 
 
@@ -10,7 +10,7 @@ import { SignupFormDataI } from '../../models/Models';
 const Signup = () => {
 
   const { handleSubmit, register, formState: { errors } } = useForm<SignupFormDataI>()
-const user=useSelector(selectLoggedInuser)
+const user=useSelector(selectLoggedInUser)
   const dispatch=useDispatch<AppDispatch>()
 
 

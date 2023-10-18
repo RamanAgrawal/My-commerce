@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react'
 import { useSelector } from 'react-redux'
-import { selectLoggedInUser } from './authSlice'
+import { selectLoggedInUser } from '../authSlice'
 import { Navigate } from 'react-router-dom'
 interface ProtectedProps {
     children: ReactNode;

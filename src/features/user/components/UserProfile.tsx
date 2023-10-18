@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { FC, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { AddressI } from '../../models/Models'
-import { selectUserInfo, updateUserAsync } from './userSlice'
-import { AppDispatch } from '../../store/store'
-import EditAddressModal from './components/EditAddressModal'
+import { AddressI } from '../../../models/Models'
+import { selectUserInfo, updateUserAsync } from '../userSlice'
+import { AppDispatch } from '../../../store/store'
+import EditAddressModal from './EditAddressModal'
 
 const UserProfile: FC = () => {
   const [openModal, setOpenModal] = useState(false)

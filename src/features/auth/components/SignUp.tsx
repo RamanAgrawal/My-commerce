@@ -1,9 +1,9 @@
 import { Link, Navigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch } from '../../store/store';
-import { createUserAsync, selectLoggedInUser } from './authSlice';
-import { SignupFormDataI } from '../../models/Models';
+import { AppDispatch } from '../../../store/store';
+import { createUserAsync, selectLoggedInUser } from '../authSlice';
+import { SignupFormDataI } from '../../../models/Models';
 
 
 

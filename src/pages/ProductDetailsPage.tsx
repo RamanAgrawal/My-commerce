@@ -1,5 +1,5 @@
 import Navbar from "../features/navbar/Navbar"
-import ProductDetails from "../features/product/ProductDetails"
+import ProductDetails from "../features/product/components/ProductDetails"
 
 const ProductDetailsPage = () => {
   return (

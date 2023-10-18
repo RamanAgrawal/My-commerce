@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { Fragment, useEffect, useState, ChangeEvent, Dispatch, SetStateAction, FC } from 'react'
-import { fetchProductsByFiltersAsync, selectAllProducts, selectTotalItems, selectCategories, fetchCategoriesAsync, fetchBrandsAsync, selectBrands } from './ProductSlice'
+import { fetchProductsByFiltersAsync, selectAllProducts, selectTotalItems, selectCategories, fetchCategoriesAsync, fetchBrandsAsync, selectBrands } from '../ProductSlice'
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch } from '../../store/store'
-import { ITEM_PER_PAGE } from '../../constent'
-import { ProductDataI } from '../../models/Models'
+import { AppDispatch } from '../../../store/store'
+import { ITEM_PER_PAGE } from '../../../constent'
+import { ProductDataI } from '../../../models/Models'
 
 interface Sort {
     name: string;

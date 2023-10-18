@@ -2408,6 +2408,23 @@
         }
       ],
       "id": 4
+    },
+    {
+      "name": "Raman Agrawal",
+      "email": "rams@gmail.com",
+      "password": "Agrawal@1",
+      "addresses": [
+        {
+          "name": "Raman",
+          "email": "rams@gmail.com",
+          "phoneNo": "+918959095100",
+          "street": "agrawal material suppliers, near ambe rice mill, near ambe rice mill, near ambe rice mill",
+          "city": "thankhamharia",
+          "state": "Chhattisgarh",
+          "pincode": "491338"
+        }
+      ],
+      "id": 5
     }
   ],
   "cart": [
@@ -2470,7 +2487,7 @@
       ],
       "quantity": 1,
       "user": 2,
-      "id": 6
+      "id": 3
     }
   ],
   "order": [
@@ -3051,6 +3068,61 @@
       "selectedPaymentMethod": "cash",
       "status": "pending",
       "id": 8
+    },
+    {
+      "products": [
+        {
+          "title": "iPhone X",
+          "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+          "price": 899,
+          "discountPercentage": 17.94,
+          "rating": 4.44,
+          "stock": 34,
+          "brand": "Apple",
+          "category": "smartphones",
+          "thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+          "images": [
+            "https://i.dummyjson.com/data/products/2/1.jpg",
+            "https://i.dummyjson.com/data/products/2/2.jpg",
+            "https://i.dummyjson.com/data/products/2/3.jpg",
+            "https://i.dummyjson.com/data/products/2/thumbnail.jpg"
+          ],
+          "quantity": 1,
+          "user": 5,
+          "id": 4
+        }
+      ],
+      "totalAmount": 899,
+      "totalItems": 1,
+      "user": {
+        "name": "Raman Agrawal",
+        "email": "rams@gmail.com",
+        "password": "Agrawal@1",
+        "addresses": [
+          {
+            "name": "Raman",
+            "email": "rams@gmail.com",
+            "phoneNo": "+918959095100",
+            "street": "agrawal material suppliers, near ambe rice mill, near ambe rice mill, near ambe rice mill",
+            "city": "thankhamharia",
+            "state": "Chhattisgarh",
+            "pincode": "491338"
+          }
+        ],
+        "id": 5
+      },
+      "selectedAddress": {
+        "name": "Raman",
+        "email": "rams@gmail.com",
+        "phoneNo": "+918959095100",
+        "street": "agrawal material suppliers, near ambe rice mill, near ambe rice mill, near ambe rice mill",
+        "city": "thankhamharia",
+        "state": "Chhattisgarh",
+        "pincode": "491338"
+      },
+      "selectedPaymentMethod": "cash",
+      "status": "pending",
+      "id": 9
     }
   ]
 }

@@ -9,7 +9,7 @@ import Contact from './pages/Contact';
 import About from './pages/About';
 import CheckoutPage from './pages/CheckoutPage';
 import ProductDetailsPage from './pages/ProductDetailsPage';
-import Protected from './features/auth/Protected';
+import Protected from './features/auth/components/Protected';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from './store/store';
 import PageNotFound from './pages/404Page'

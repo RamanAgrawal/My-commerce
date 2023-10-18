@@ -1,4 +1,4 @@
-import Signup from "../features/auth/SignUp"
+import Signup from "../features/auth/components/SignUp"
 
 
 const SignUp = () => {

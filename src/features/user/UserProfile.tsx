@@ -1,32 +1,50 @@
-import { useSelector } from 'react-redux'
-import { FC } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { FC, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AddressI } from '../../models/Models'
-import { selectUserInfo } from './userSlice'
-
+import { selectUserInfo, updateUserAsync } from './userSlice'
+import { AppDispatch } from '../../store/store'
+import EditAddressModal from './components/EditAddressModal'
 
 const UserProfile: FC = () => {
+  const [openModal, setOpenModal] = useState(false)
+  const userInfo = useSelector(selectUserInfo)
+  const dispatch = useDispatch<AppDispatch>()
+  const [address, setAddress] = useState<AddressI>({ name: '', street: '', state: '', pincode: '', phoneNo: '' ,city:'',email:''})
+  const [selectedEditIndex, setSelectedEditIndex] = useState<number>(-1);
 
-  const user = useSelector(selectUserInfo)
-
-
-  const handleDelete = (id: number) => {
-    console.log(id);
+  const handleDelete = (index: number) => {
+    const newItem = userInfo?.addresses.filter((_, i) => i !== index)
+    if (userInfo) {
+      dispatch(updateUserAsync({ ...userInfo, addresses: newItem || [] }))
+    }
   }
 
-  const handleEdit = (address: AddressI, id: number): void => {
-    console.log(address, id);
-
-}
+  const handleEdit = (addressUpdate:AddressI) => {
+    
+    if(userInfo){
+      const newUser = { ...userInfo, addresses: [...userInfo.addresses] }; // for shallow copy issue
+      newUser.addresses.splice(selectedEditIndex, 1, addressUpdate);
+      dispatch(updateUserAsync(newUser))
+      setSelectedEditIndex(-1);
+      setOpenModal(false)
+    }
+  };
+  const handleEditForm = (address:AddressI,index:number) => {
+    setOpenModal(true)
+    setAddress(address)
+    setSelectedEditIndex(index)
+  }
 
   return (
     <div className="mx-auto max-w-6xl px-2 sm:px-6 lg:px-8 bg-white 4 pt-44">
+      <EditAddressModal editAddressData={address} open={openModal} setOpen={setOpenModal} handleSubmitHandler={handleEdit} />
       <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
         <div className="flow-root">
           <h2 className='text-2xl font-bold mb-2'>
-            Name: {user?.name ? user.name : 'Guest'}</h2>
+            Name: {userInfo?.name ? userInfo.name : 'Guest'}</h2>
           <h3 className='text-2xl font-bold mb-2'>
-            {user?.email}</h3>
+            {userInfo?.email}</h3>
 
         </div>
       </div>
@@ -43,7 +61,7 @@ const UserProfile: FC = () => {
               Add Address </p>
           </Link>
           {
-            user?.addresses.map((address, index) => (
+            userInfo?.addresses.map((address, index) => (
 
               <div key={index} className='p-4 mt-3 border-2 relative border-gray-400 h-60 lg:w-[32%] md:w-[24rem] box-border rounded-md'>
 
@@ -55,8 +73,9 @@ const UserProfile: FC = () => {
 
                 <div className='flex gap-2 absolute bottom-[20px]'>
                   <button
-                    onClick={() => handleEdit(address, index)}
+                    onClick={() => handleEditForm(address,index)}
                     type="button"
+
                     className="font-medium text-indigo-600 hover:text-indigo-500"
                   >
                     Edit

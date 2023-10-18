@@ -2407,22 +2407,31 @@
       "password": "Agrawal@1",
       "addresses": [
         {
-          "name": "Raman",
+          "name": "Raman Agrawal",
           "email": "agrawalraman28@gmail.com",
-          "phoneNo": "+918959095100",
+          "phoneNo": "125458721",
           "street": "agrawal material suppliers, near ambe rice mill, near ambe rice mill, near ambe rice mill",
           "city": "thankhamharia",
           "state": "Chhattisgarh",
+          "pincode": "232323"
+        },
+        {
+          "name": "Raman",
+          "email": "agrawalraman28@gmail.com",
+          "phoneNo": "09522063370",
+          "street": "Shivam mobiles, thakur road",
+          "city": "JAGDALPUR",
+          "state": "k10",
           "pincode": "123654"
         },
         {
           "name": "Raman",
-          "email": "iramanagrawal@gmail.com",
-          "phoneNo": "+918959095100",
-          "street": "agrawal material suppliers, near ambe rice mill, near ambe rice mill, near ambe rice mill",
-          "city": "thankhamharia",
-          "state": "Chhattisgarh",
-          "pincode": "333333"
+          "email": "agrawalraman28@gmail.com",
+          "phoneNo": "09522063370",
+          "street": "Shivam mobiles, thakur road",
+          "city": "JAGDALPUR",
+          "state": "k10",
+          "pincode": "123654"
         }
       ],
       "id": 4
@@ -2489,6 +2498,26 @@
       "quantity": 1,
       "user": 2,
       "id": 6
+    },
+    {
+      "title": "iPhone X",
+      "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+      "price": 899,
+      "discountPercentage": 17.94,
+      "rating": 4.44,
+      "stock": 34,
+      "brand": "Apple",
+      "category": "smartphones",
+      "thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+      "images": [
+        "https://i.dummyjson.com/data/products/2/1.jpg",
+        "https://i.dummyjson.com/data/products/2/2.jpg",
+        "https://i.dummyjson.com/data/products/2/3.jpg",
+        "https://i.dummyjson.com/data/products/2/thumbnail.jpg"
+      ],
+      "quantity": 1,
+      "user": 4,
+      "id": 7
     }
   ],
   "order": [

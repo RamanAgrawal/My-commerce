@@ -82,8 +82,8 @@ const Checkout = () => {
             dispatch(
                 updateUserAsync({ ...user, addresses: [...user.addresses, address] })
             );
+            reset();
         }
-        reset();
     }
 
     return (
@@ -91,7 +91,7 @@ const Checkout = () => {
             {currentOrder && <Navigate to={`/order-succcess/${currentOrder.id}`} replace={true} />}
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5 p-10">
                 <div className="lg:col-span-3 bg-white p-10">
-                <AddAddressForm handleSubmitHandler={handleSubmitHandler}/>
+                <AddAddressForm handleSubmitHandler={handleSubmitHandler} hideCancelButton/>
                     <div className="border-b border-gray-900/10 pb-12">
                             <h2 className="text-base font-semibold leading-7 text-gray-900">Address</h2>
                             <p className="mt-1 text-sm leading-6 text-gray-600">

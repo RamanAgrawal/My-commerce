@@ -1,6 +1,6 @@
-import Protected from "../features/auth/Protected"
+import Protected from "../features/auth/components/Protected"
 import Navbar from "../features/navbar/Navbar"
-import UserOrder from "../features/user/UserOrder"
+import UserOrder from "../features/user/components/UserOrder"
 
 
 const UserOrderPage = () => {

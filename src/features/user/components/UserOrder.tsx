@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch } from '../../store/store'
-import { fetchLoggedInUserOrderAsync, selectUserInfo, selectUserOrders } from './userSlice'
+import { AppDispatch } from '../../../store/store'
+import { fetchLoggedInUserOrderAsync, selectUserInfo, selectUserOrders } from '../userSlice'
 
 
 

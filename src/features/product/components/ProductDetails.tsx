@@ -5,11 +5,11 @@ import { StarIcon } from '@heroicons/react/20/solid'
 import { RadioGroup } from '@headlessui/react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch } from '../../store/store'
-import {  fetchSingleProductAsync, selectSingleProduct } from './ProductSlice'
-import {  addToCartAsync } from '../cart/CartSlice'
-import { selectLoggedInUser } from '../auth/authSlice'
-import { CartItemI, ProductDataI } from '../../models/Models'
+import { AppDispatch } from '../../../store/store'
+import {  fetchSingleProductAsync, selectSingleProduct } from '../ProductSlice'
+import {  addToCartAsync } from '../../cart/CartSlice'
+import { selectLoggedInUser } from '../../auth/authSlice'
+import { CartItemI, ProductDataI } from '../../../models/Models'
 // const product = {
 //   name: 'Basic Tee 6-Pack',
 //   price: '$192',

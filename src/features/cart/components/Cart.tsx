@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
 import {ChangeEvent} from 'react'
 import {Link} from 'react-router-dom'
-import {  deleteItemFromCartAsync, selectCart, updateCartAsync,} from './CartSlice';
-import { AppDispatch } from '../../store/store';
-import { CartItemI } from '../../models/Models';
+import {  deleteItemFromCartAsync, selectCart, updateCartAsync,} from '../CartSlice';
+import { AppDispatch } from '../../../store/store';
+import { CartItemI } from '../../../models/Models';
 
 
 

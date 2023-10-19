@@ -2335,56 +2335,7 @@
     }
   ],
   "users": [
-    {
-      "email": "agrawalraman28@gmail.com",
-      "password": "Agrawal@1",
-      "addresses": [
-        {
-          "name": "Raman",
-          "email": "agrawalraman28@gmail.com",
-          "phoneNo": "+918959095100",
-          "street": "agrawal material suppliers, near ambe rice mill, near ambe rice mill, near ambe rice mill",
-          "city": "thankhamharia",
-          "state": "Chhattisgarh",
-          "pincode": "142536"
-        },
-        {
-          "name": "Raman",
-          "email": "agrawalraman28@gmail.com",
-          "phoneNo": "+918959095100",
-          "street": "agrawal material suppliers, near ambe rice mill, near ambe rice mill, near ambe rice mill",
-          "city": "thankhamharia",
-          "state": "Chhattisgarh",
-          "pincode": "491338"
-        }
-      ],
-      "id": 1
-    },
-    {
-      "email": "iramanagrawal@gmail.com",
-      "password": "Agrawal@1",
-      "addresses": [
-        {
-          "name": "Raman Agrawal",
-          "email": "iramanagrawal@gmail.com",
-          "phoneNo": "+918959095100",
-          "street": "agrawal material suppliers, near ambe rice mill, near ambe rice mill, near ambe rice mill",
-          "city": "thankhamharia",
-          "state": "Chhattisgarh",
-          "pincode": "123654"
-        },
-        {
-          "name": "Aman",
-          "email": "agrawalraman277@gmail.com",
-          "phoneNo": "09522063370",
-          "street": "Near ambe rice mile than khamharia",
-          "city": "Bemetara",
-          "state": "Chhattisgarh",
-          "pincode": "4657542"
-        }
-      ],
-      "id": 2
-    },
+ 
     {
       "name": "Raman",
       "email": "agrawalraman28@gmail.com",
@@ -2407,6 +2358,7 @@
           "pincode": "123654"
         }
       ],
+      "role":"user",
       "id": 4
     },
     {

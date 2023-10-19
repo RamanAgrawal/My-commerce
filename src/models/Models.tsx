@@ -16,6 +16,7 @@ export interface AddressI {
 export interface AuthResI extends UserDataI {
     id?: string | undefined;
     addresses: AddressI[]
+    role:string;
 }
 export interface LoginFormDataI {
     email: string;

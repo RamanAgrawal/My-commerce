@@ -2425,6 +2425,14 @@
         }
       ],
       "id": 5
+    },
+    {
+      "name": "Admin",
+      "email": "admin@gmail.com",
+      "password": "Admin@123",
+      "addresses": [],
+      "role": "admin",
+      "id": 6
     }
   ],
   "cart": [

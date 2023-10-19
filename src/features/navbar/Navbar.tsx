@@ -3,10 +3,13 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, ShoppingCartIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Profile from '../../assets/logo.jpg'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { selectLoggedInUser } from '../auth/authSlice'
 const navigation = [
-  { name: 'Home', path: '/', current: true },
-  { name: 'Contect Us', path: '/contact', current: false },
-  { name: 'About Us', path: '/about', current: false },
+  { name: 'Home', path: '/', current: true,user:true },
+  { name: 'Contect Us', path: '/contact', current: false,user:true },
+  { name: 'About Us', path: '/about', current: false,user:true },
+  { name: 'Admin', path: '/admin', current: false,admin:true },
 
 ]
 
@@ -15,6 +18,7 @@ const classNames=(...classes: Array<string>) =>{
 }
 
 const Navbar:React.FC=()=> {
+  const user=useSelector(selectLoggedInUser)
   return (
     <Disclosure as="nav" className="bg-gray-800 border-red-600 fixed w-full z-10">
       {({ open }) => (
@@ -43,8 +47,7 @@ const Navbar:React.FC=()=> {
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
-                    {navigation.map((item) => (
-                      <Link
+                    {navigation.map((item) => ( item[user.role]?<Link
                         key={item.name}
                         to={item.path}
                         className={classNames(
@@ -54,7 +57,7 @@ const Navbar:React.FC=()=> {
                         aria-current={item.current ? 'page' : undefined}
                       >
                         {item.name}
-                      </Link>
+                      </Link>:null
                     ))}
                   </div>
                 </div>

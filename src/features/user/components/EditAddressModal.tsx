@@ -1,6 +1,6 @@
 import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import AddAddressForm from '../../AddAddressForm'
+import AddAddressForm from '../../../components/AddAddressForm'
 import { AddressI } from '../../../models/Models';
 
 interface EditAddressModalProps {

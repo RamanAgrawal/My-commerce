@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import {  updateUserAsync } from '../auth/authSlice';
 import {  createOrderAsync, selectCurrentOrder } from '../order/OrderSlice';
 import { AddressI, CartItemI, OrderI } from '../../models/Models';
-import AddAddressForm from '../AddAddressForm';
+import AddAddressForm from '../../components/AddAddressForm';
 import { selectUserInfo } from '../user/userSlice';
 
 

@@ -1,4 +1,4 @@
-/* eslint-disable no-async-promise-executor */
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ProductDataI } from "../../models/Models";
 
@@ -22,6 +22,40 @@ export const fetchSingleProduct = (id:number) => {
       .then((data) => resolve({ data }));
   }
   );
+}
+
+export const createProduct = (product:unknown) => {
+  return new Promise((resolve) => {
+    //TODO: we will not hard-code server URL here
+    fetch('http://localhost:3000/products/',{
+      method: 'POST',
+      body: JSON.stringify(product),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+
+    })
+      .then((response) => response.json())
+      .then((data) => resolve({ data }));
+  }
+  );
+}
+
+export const updateProduct = (update: ProductDataI) => {
+
+  return new Promise(async (resolve) => {
+      const response = await fetch('http://localhost:3000/products/' +update.id, {
+          method: "PATCH",
+          body: JSON.stringify(update),
+          headers: { "content-type": "application/json" }
+      })
+      console.log(update.id);
+      
+      const data = await response.json()
+      console.log(data);
+
+      resolve({ data })
+  })
 }
 
 export const fetchCategories = () => {

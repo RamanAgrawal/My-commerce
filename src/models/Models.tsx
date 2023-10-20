@@ -1,3 +1,4 @@
+
 export interface UserDataI {
     name?: string;
     email: string;
@@ -39,7 +40,12 @@ export interface ProductDataI {
     color: string;
     rating: number;
     images: string[];
-    description: string
+    description: string;
+    stock?: number;
+    discountPercentage?: number;
+    brand?: string;
+    category?: string;
+    deleted?:boolean
 }
 
 export interface CategoryI {

@@ -4,7 +4,8 @@ import {
     selectOrders,
     //  selectTotalOrders
 } from '../../order/OrderSlice';
-import { ITEM_PER_PAGE } from '../../../constent';
+import { discountedPrice } from '../../../utils';
+import { ITEM_PER_PAGE} from '../../../constent'
 import { AppDispatch } from '../../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { PencilIcon, EyeIcon } from '@heroicons/react/24/outline';
@@ -21,8 +22,8 @@ const AdminOrders = () => {
     useEffect(() => {
         const pagination = { _page: page, _limit: ITEM_PER_PAGE }
         dispatch(fetchAllOrdersAsync(pagination))
+      
     }, [dispatch, page])
-    setPage(1)
 
     return (
         <div className="overflow-x-auto">
@@ -60,7 +61,7 @@ const AdminOrders = () => {
                                                             src={item.thumbnail}
                                                         />
                                                     </div>
-                                                    <span>{item.title} - #{item.quantity} - ${item.price}</span>
+                                                    <span>{item.title} - #{item.quantity} - ${discountedPrice(item)}</span>
                                                 </div>))}
                                             </td>
                                             <td className="py-3 px-6 text-center">
@@ -85,7 +86,7 @@ const AdminOrders = () => {
                                             <td className="py-3 px-6 text-center">
                                                 <div className="flex item-center justify-center">
                                                     <div className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
-                                                        <EyeIcon className='w-6 h-6' />
+                                                        <EyeIcon className='w-6 h-6' onClick={ ()=> setPage(1)} />
                                                     </div>
                                                     <div className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                                         <PencilIcon className='w-6 h-6' />

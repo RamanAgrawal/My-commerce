@@ -17,8 +17,9 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from '../../../store/store'
-import { ITEM_PER_PAGE } from '../../../constent'
+import { discountedPrice } from '../../../utils'
 import { ProductDataI } from '../../../models/Models'
+import { ITEM_PER_PAGE} from '../../../constent'
 
 interface Sort {
     name: string;
@@ -403,8 +404,8 @@ const ProductGrid: FC<ConnectedProductListProps> = ({ products }) => {
                                         </div>
                                         <div>
 
-                                            <p className="text-sm font-medium text-gray-900">${product.price}</p>
-                                            <p className="text-sm font-medium text-gray-900">{product.price}</p>
+                                            <p className="text-sm font-medium text-gray-900">${discountedPrice(product)}</p>
+                                            <p className="text-sm font-medium text-gray-600 line-through">${product.price}</p>
                                         </div>
                                     </div>
 

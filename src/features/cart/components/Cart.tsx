@@ -4,13 +4,14 @@ import {Link} from 'react-router-dom'
 import {  deleteItemFromCartAsync, selectCart, updateCartAsync,} from '../CartSlice';
 import { AppDispatch } from '../../../store/store';
 import { CartItemI } from '../../../models/Models';
+import { discountedPrice } from '../../../utils';
 
 
 
 const Cart:React.FC =()=> {
 const products=useSelector(selectCart)
 const dispatch=useDispatch<AppDispatch>()
-const totalAmount=products.reduce((amount,item)=>item.price*item.quantity + amount,0)
+const totalAmount=products.reduce((amount,item)=>discountedPrice(item)*item.quantity + amount,0)
 const totalItems=products.reduce((total,item)=>item.quantity + total,0)
 const handleQuntity=(e:ChangeEvent<HTMLSelectElement>,item:CartItemI)=>{
 
@@ -46,7 +47,7 @@ dispatch(deleteItemFromCartAsync(id))
                   <h3>
                     <p >{product.title}</p>
                   </h3>
-                  <p className="ml-4">{product.price}</p>
+                  <p className="ml-4">${discountedPrice(product)}</p>
                 </div>
                 <p className="mt-1 text-sm text-gray-500">{product.rating}</p>
               </div>

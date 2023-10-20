@@ -10,6 +10,7 @@ const navigation = [
   { name: 'Contect Us', path: '/contact', current: false,user:true },
   { name: 'About Us', path: '/about', current: false,user:true },
   { name: 'Admin', path: '/admin', current: false,admin:true },
+  { name: 'Orders', path: '/admin/orders', current: false,admin:true },
 
 ]
 

@@ -14,6 +14,11 @@ export interface AddressI {
     phoneNo: string,
 }
 
+export interface PaginationI{
+    _page:number;
+    _limit:number;
+}
+
 export interface AuthResI extends UserDataI {
     id?: string | undefined;
     addresses: AddressI[]
@@ -76,7 +81,13 @@ export interface OrderI {
     selectedAddress: AddressI;
     selectedPaymentMethod: string;
     status: string;
+    id?: string
 }
 export interface OrderResI extends OrderI {
-    id: string
+    id?: string
+}
+
+export interface AdminOrdersI {
+    orders:OrderResI[];
+    totalOrders:number;
 }

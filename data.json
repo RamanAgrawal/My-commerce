@@ -2409,6 +2409,7 @@
           "pincode": "491338"
         }
       ],
+      "role": "user",
       "id": 5
     },
     {
@@ -2597,7 +2598,7 @@
         "pincode": "147852"
       },
       "selectedPaymentMethod": "cash",
-      "status": "pending",
+      "status": "dispatched",
       "id": 1
     },
     {
@@ -2670,7 +2671,7 @@
         "pincode": "123654"
       },
       "selectedPaymentMethod": "cash",
-      "status": "pending",
+      "status": "delivered",
       "id": 2
     },
     {
@@ -2742,7 +2743,7 @@
         "pincode": "4657542"
       },
       "selectedPaymentMethod": "cash",
-      "status": "pending",
+      "status": "delivered",
       "id": 3
     },
     {
@@ -3212,6 +3213,62 @@
       "selectedPaymentMethod": "cash",
       "status": "pending",
       "id": 10
+    },
+    {
+      "products": [
+        {
+          "title": "HP Pavilion 15-DK1056WM",
+          "description": "HP Pavilion 15-DK1056WM Gaming Laptop 10th Gen Core i5, 8GB, 256GB SSD, GTX 1650 4GB, Windows 10",
+          "price": 1099,
+          "discountPercentage": 6.18,
+          "rating": 4.43,
+          "stock": 89,
+          "brand": "HP Pavilion",
+          "category": "laptops",
+          "thumbnail": "https://i.dummyjson.com/data/products/10/thumbnail.jpeg",
+          "images": [
+            "https://i.dummyjson.com/data/products/10/1.jpg",
+            "https://i.dummyjson.com/data/products/10/2.jpg",
+            "https://i.dummyjson.com/data/products/10/3.jpg",
+            "https://i.dummyjson.com/data/products/10/thumbnail.jpeg"
+          ],
+          "quantity": 1,
+          "user": 5,
+          "id": 7
+        }
+      ],
+      "totalAmount": 1031,
+      "totalItems": 1,
+      "user": {
+        "name": "Raman Agrawal",
+        "email": "rams@gmail.com",
+        "password": "Agrawal@1",
+        "addresses": [
+          {
+            "name": "Raman",
+            "email": "rams@gmail.com",
+            "phoneNo": "+918959095100",
+            "street": "agrawal material suppliers, near ambe rice mill, near ambe rice mill, near ambe rice mill",
+            "city": "thankhamharia",
+            "state": "Chhattisgarh",
+            "pincode": "491338"
+          }
+        ],
+        "role": "user",
+        "id": 5
+      },
+      "selectedAddress": {
+        "name": "Raman",
+        "email": "rams@gmail.com",
+        "phoneNo": "+918959095100",
+        "street": "agrawal material suppliers, near ambe rice mill, near ambe rice mill, near ambe rice mill",
+        "city": "thankhamharia",
+        "state": "Chhattisgarh",
+        "pincode": "491338"
+      },
+      "selectedPaymentMethod": "cash",
+      "status": "delivered",
+      "id": 11
     }
   ]
 }

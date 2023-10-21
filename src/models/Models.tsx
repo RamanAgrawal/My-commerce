@@ -18,6 +18,10 @@ export interface PaginationI{
     _page:number;
     _limit:number;
 }
+export interface SortI{
+    _sort:string;
+    _order:string;
+}
 
 export interface AuthResI extends UserDataI {
     id?: string | undefined;

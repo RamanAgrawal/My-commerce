@@ -73,13 +73,16 @@ const cartSlice: Slice<CartStateI> = createSlice({
             })
             .addCase(addToCartAsync.fulfilled, (state, action) => {
                 state.status = 'completed'
-                // const index=state.items.findIndex(item=>item.id===action.payload.id)
-                // if(index!==null){
-                //     state.items[index].quantity++
-                // }else{
-                    state.items.push(action.payload)
-
-                // }
+                const index = state.items.findIndex(item => item.productId === action.payload.productId);
+                if (index !== -1) {
+                  // Product is already in the cart, increase its quantity
+                  state.items[index].quantity += 1;
+                  console.log("quantity: ",state.items[index].quantity);
+                  
+                } else {
+                  // Product is not in the cart, add it with quantity 1
+                  state.items.push({ ...action.payload, quantity: 1 });
+                }
                 state.value+=action.payload.price
             })
             .addCase(fetchCartAsync.pending, (state) => {

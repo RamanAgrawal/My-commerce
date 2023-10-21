@@ -1,5 +1,5 @@
 /* eslint-disable no-async-promise-executor */
-import { OrderI, PaginationI } from "../../models/Models"
+import { OrderI, PaginationI, SortI } from "../../models/Models"
 
 
 export const createOrder = (order: OrderI) => {
@@ -14,13 +14,30 @@ export const createOrder = (order: OrderI) => {
     })
 }
 
-export const fetchAllOrders = (pagination: PaginationI) => {
+export const updateOrder = (order: OrderI) => {
+    return new Promise(async (resolve) => {
+        const responce = await fetch('http://localhost:3000/order/' +order.id, {
+            method: 'PATCH',
+            body: JSON.stringify(order),
+            headers: { "content-type": "application/json" }
+        })
+        const data = responce.json()
+        resolve({ data })
+    })
+}
 
+export const fetchAllOrders = (pagination: PaginationI,sort:SortI) => {
 
+    let queryString=''
     // Convert the object into a query string
-    const queryString = Object.entries(pagination)
-        .map(([key, value]) => `${key}=${value}`)
+     queryString += Object.entries(pagination)
+        .map(([key, value]) => `${key}=${value}&`)
         .join('&');
+        
+     queryString += Object.entries(sort)
+     .map(([key, value]) => `${key}=${value}`)
+     .join('&');
+     console.log(queryString);
 
 
     return new Promise(async (resolve) => {

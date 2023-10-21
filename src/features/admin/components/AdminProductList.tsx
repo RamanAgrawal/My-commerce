@@ -19,7 +19,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from '../../../store/store'
 import { discountedPrice } from '../../../utils'
 import { ProductDataI } from '../../../models/Models'
-import { ITEM_PER_PAGE} from '../../../constent'
+import { ITEM_PER_PAGE } from '../../../constent'
 
 interface Sort {
     name: string;
@@ -410,7 +410,10 @@ const ProductGrid: FC<ConnectedProductListProps> = ({ products }) => {
                                     </div>
 
                                 </Link>
-                                {product.deleted&& <p className='text-sm text-red-400'>Product deleted</p>}
+                                {product.deleted && <p className='text-sm text-red-400'>Product deleted</p>}
+                                {(product.stock ?? 0) <= 0 && (
+                                    <p className='text-sm text-red-400'>out of stock</p>
+                                )}
                             </div>
                             <div className=' mt-10'>
                                 <Link to={`/admin/product-form/edit/${product.id}`}

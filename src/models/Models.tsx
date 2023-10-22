@@ -1,3 +1,4 @@
+
 export interface UserDataI {
     name?: string;
     email: string;
@@ -13,9 +14,19 @@ export interface AddressI {
     phoneNo: string,
 }
 
+export interface PaginationI{
+    _page:number;
+    _limit:number;
+}
+export interface SortI{
+    _sort:string;
+    _order:string;
+}
+
 export interface AuthResI extends UserDataI {
     id?: string | undefined;
     addresses: AddressI[]
+    role:string;
 }
 export interface LoginFormDataI {
     email: string;
@@ -38,7 +49,12 @@ export interface ProductDataI {
     color: string;
     rating: number;
     images: string[];
-    description: string
+    description: string;
+    stock?: number;
+    discountPercentage?: number;
+    brand?: string;
+    category?: string;
+    deleted?:boolean
 }
 
 export interface CategoryI {
@@ -59,6 +75,7 @@ export interface CartItemI {
     description: string;
     user: number;
     quantity: number
+    productId: number;
 }
 
 export interface OrderI {
@@ -69,7 +86,13 @@ export interface OrderI {
     selectedAddress: AddressI;
     selectedPaymentMethod: string;
     status: string;
+    id?: string
 }
 export interface OrderResI extends OrderI {
-    id: string
+    id?: string
+}
+
+export interface AdminOrdersI {
+    orders:OrderResI[];
+    totalOrders:number;
 }

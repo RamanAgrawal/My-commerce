@@ -3,6 +3,7 @@ import { selectLoggedInUser, signOutAsync } from '../authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { AppDispatch } from '../../../store/store';
+import { clearCart } from '../../cart/CartSlice';
 
 function Logout() {
   const dispatch = useDispatch<AppDispatch>();
@@ -10,6 +11,7 @@ function Logout() {
 
   useEffect(() => {
     dispatch(signOutAsync());
+    dispatch(clearCart)
   });
 
   // but useEffect runs after render, so we have to delay navigate part

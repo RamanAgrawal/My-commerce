@@ -29,9 +29,18 @@ const user=useSelector(selectLoggedInUser)
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form noValidate className="space-y-6" onSubmit={handleSubmit(data=>{
-            console.log(data);
-            dispatch(createUserAsync({name:data.name,email:data.email,password:data.password,addresses:[]}))
+          <form noValidate 
+          className="space-y-6" 
+          onSubmit={handleSubmit(data=>{
+            dispatch(createUserAsync(
+              {
+                name:data.name,
+                email:data.email,
+                password:data.password,
+                addresses:[],
+                role:'user'
+              }
+              ))
           })}>
               <div>
               <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">

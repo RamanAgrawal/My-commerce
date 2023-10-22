@@ -10,6 +10,7 @@ import {  createOrderAsync, selectCurrentOrder } from '../order/OrderSlice';
 import { AddressI, CartItemI, OrderI } from '../../models/Models';
 import AddAddressForm from '../../components/AddAddressForm';
 import { selectUserInfo } from '../user/userSlice';
+import { discountedPrice } from '../../utils';
 
 
 
@@ -34,7 +35,7 @@ const Checkout = () => {
     const dispatch = useDispatch<AppDispatch>();
 
     // Calculate total amount and total items in the cart
-    const totalAmount = products.reduce((amount, item) => item.price * item.quantity + amount, 0);
+    const totalAmount = products.reduce((amount, item) => discountedPrice(item) * item.quantity + amount, 0);
     const totalItems = products.reduce((total, item) => item.quantity + total, 0);
 
     // Function to handle quantity change for items in the cart
@@ -196,7 +197,7 @@ const Checkout = () => {
                                                         <h3>
                                                             <p >{product.title}</p>
                                                         </h3>
-                                                        <p className="ml-4">{product.price}</p>
+                                                        <p className="ml-4">${discountedPrice(product)}</p>
                                                     </div>
                                                     <p className="mt-1 text-sm text-gray-500">{product.rating}</p>
                                                 </div>

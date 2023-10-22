@@ -3,18 +3,38 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, ShoppingCartIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Profile from '../../assets/logo.jpg'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { selectLoggedInUser } from '../auth/authSlice'
 const navigation = [
-  { name: 'Home', path: '/', current: true },
-  { name: 'Contect Us', path: '/contact', current: false },
-  { name: 'About Us', path: '/about', current: false },
+  { name: 'Home', path: '/', current: true,user:true },
+  { name: 'Contect Us', path: '/contact', current: false,user:true },
+  { name: 'About Us', path: '/about', current: false,user:true },
+  { name: 'Products', path: '/admin', current: false,admin:true },
+  { name: 'Orders', path: '/admin/orders', current: false,admin:true },
 
 ]
+
+
 
 const classNames=(...classes: Array<string>) =>{
   return classes.filter(Boolean).join(' ')
 }
 
 const Navbar:React.FC=()=> {
+  const user=useSelector(selectLoggedInUser);
+  
+  const filteredNavigation = navigation.filter((item) => {
+    if (user) {
+      if (user.role === 'user' && item.user) {
+        return true;
+      }
+      if (user.role === 'admin' && item.admin) {
+        return true;
+      }
+    }
+    return false;
+  });
+  
   return (
     <Disclosure as="nav" className="bg-gray-800 border-red-600 fixed w-full z-10">
       {({ open }) => (
@@ -43,8 +63,7 @@ const Navbar:React.FC=()=> {
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
-                    {navigation.map((item) => (
-                      <Link
+                    {filteredNavigation.map((item) => (<Link
                         key={item.name}
                         to={item.path}
                         className={classNames(
@@ -134,10 +153,9 @@ const Navbar:React.FC=()=> {
 
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 px-2 pb-3 pt-2">
-              {navigation.map((item) => (
+              {filteredNavigation.map((item) => (
                 <Disclosure.Button key={item.name}>
-                  
-                  <Link
+         <Link
 
                     to={item.path}
                     className={classNames(

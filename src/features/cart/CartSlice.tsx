@@ -65,7 +65,13 @@ export const resetCartAsync = createAsyncThunk(
 const cartSlice: Slice<CartStateI> = createSlice({
     name: "cart",
     initialState,
-    reducers: {},
+    reducers: {
+
+        clearCart: (state) => {
+            state.items = []
+            state.value = 0
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(addToCartAsync.pending, (state) => {
@@ -90,6 +96,18 @@ const cartSlice: Slice<CartStateI> = createSlice({
             })
             .addCase(fetchCartAsync.fulfilled, (state, action) => {
                 state.status = 'completed'
+                // action.payload.forEach((fetchedItem) => {
+                //     // Check if the fetched item is already in the state
+                //     const existingCartItem = state.items.find((cartItem) => cartItem.productId === fetchedItem.productId);
+                
+                //     if (existingCartItem) {
+                //       // If the item is already in the state, increment the quantity
+                //       existingCartItem.quantity += fetchedItem.quantity;
+                //     } else {
+                //       // If the item is not in the state, add it to the state's items array
+                //       state.items.push(fetchedItem);
+                //     }
+                //   });
                 state.items=action.payload
                 // state.value+=action.payload.price
             })
@@ -127,7 +145,7 @@ const cartSlice: Slice<CartStateI> = createSlice({
     },
 });
 
-
+export const { clearCart } = cartSlice.actions;
 export const selectCart= (state:{cart:CartStateI})=>state.cart.items
 export const selectTotalvalue= (state:{cart:CartStateI})=>state.cart.value
 export default cartSlice.reducer

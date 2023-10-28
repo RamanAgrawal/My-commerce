@@ -33,7 +33,7 @@ const ProductForm = () => {
 
     useEffect(() => {
         if (params.id) {
-            dispatch(fetchSingleProductAsync(+params.id))
+            dispatch(fetchSingleProductAsync(params.id))
         } else {
             dispatch(clearSelectedProduct({}))
         }

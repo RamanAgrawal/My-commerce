@@ -50,7 +50,7 @@ const ProductDetails = () => {
   const [selectedSize, setSelectedSize] = useState(sizes[2])
   const dispatch = useDispatch<AppDispatch>();
   const param = useParams()
-  const id = Number(param.id)
+  const id = param.id
   const product: ProductDataI | null = useSelector(selectSingleProduct)
   const user = useSelector(selectLoggedInUser)
   let userId: number;
@@ -58,6 +58,7 @@ const ProductDetails = () => {
     userId = Number(user.id)
   }
   useEffect(() => {
+    if(id)
     dispatch(fetchSingleProductAsync(id))
   }, [dispatch, id])
   // console.log(product);
@@ -109,7 +110,7 @@ const ProductDetails = () => {
         </nav> */}
 
         {/* Image gallery */}
-        <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+       {product.images&& <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
           <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
             <img
               src={product.images[0]}
@@ -140,7 +141,7 @@ const ProductDetails = () => {
               className="h-full w-full object-cover object-center"
             />
           </div>
-        </div>
+        </div>}
 
         {/* Product info */}
         <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">

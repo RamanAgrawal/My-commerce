@@ -14,7 +14,7 @@ export const fetchAllProducts = () => {
   }
   );
 }
-export const fetchSingleProduct = (id:number) => {
+export const fetchSingleProduct = (id:string) => {
   return new Promise((resolve) => {
     //TODO: we will not hard-code server URL here
     fetch('http://localhost:3000/products/'+id)

@@ -61,7 +61,7 @@ const UserProfile: FC = () => {
               Add Address </p>
           </Link>
           {
-            userInfo?.addresses.map((address, index) => (
+            userInfo?.addresses?.map((address, index) => (
 
               <div key={index} className='p-4 mt-3 border-2 relative border-gray-400 h-60 lg:w-[32%] md:w-[24rem] box-border rounded-md'>
 

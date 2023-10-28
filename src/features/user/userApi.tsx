@@ -11,7 +11,7 @@ export const fetchLoggedInUserOrder=(userID:number)=>{
         
     })
 }
-export const fetchLoggedInUser=(userID:number)=>{
+export const fetchLoggedInUser=(userID:string)=>{
     return new Promise(async(resolve)=>{
         const response=await axios('http://localhost:3000/users/'+userID)
         const data=await response.data

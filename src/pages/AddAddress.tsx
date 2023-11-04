@@ -1,6 +1,6 @@
 import AddAddressForm from "../components/AddAddressForm"
 import { AddressI } from "../models/Models";
-import {  updateUserAsync } from "../features/auth/authSlice";
+import {  updateUserAsync } from "../features/user/userSlice";
 import { AppDispatch } from "../store/store";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";

@@ -1,6 +1,6 @@
 /* eslint-disable no-async-promise-executor */
 import { AxiosResponse } from "axios";
-import { CartItemI } from "../../models/Models";
+import { CartItemI, CartItemResI } from "../../models/Models";
 
 export const addTocart = (item: CartItemI) => {
     return new Promise(async (resolve) => {
@@ -13,15 +13,19 @@ export const addTocart = (item: CartItemI) => {
         resolve({ data })
     })
 }
-export const fetchCartItems = (userId: number) => {
+export const fetchCartItems = (userId: string) => {
     return new Promise(async (resolve) => {
-        const response = await fetch('http://localhost:3000/cart?user=' + userId)
+        console.log(userId);
+        
+        const response = await fetch('http://localhost:3000/cart/' +userId)
         const data = await response.json()
+        console.log(data);
+        
         resolve({ data })
     })
 }
 
-export const updatecart = (update: CartItemI) => {
+export const updatecart = (update:Omit<CartItemResI,'user' | 'product'>) => {
     return new Promise(async (resolve) => {
         const response = await fetch('http://localhost:3000/cart/' + update.id, {
             method: "PATCH",
@@ -34,7 +38,7 @@ export const updatecart = (update: CartItemI) => {
         resolve({ data })
     })
 }
-export const deleteItemFromCart = (itemId: number) => {
+export const deleteItemFromCart = (itemId: string) => {
     return new Promise(async (resolve) => {
         const response = await fetch('http://localhost:3000/cart/' + itemId, {
             method: "DELETE",
@@ -45,7 +49,7 @@ export const deleteItemFromCart = (itemId: number) => {
     })
 }
 
-export const resetCart = (userID: number) => {
+export const resetCart = (userID: string) => {
     // console.log("in cart api", userID);
 
     return new Promise(async (resolve) => {

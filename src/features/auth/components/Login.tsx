@@ -1,5 +1,5 @@
-import {Link, Navigate} from 'react-router-dom'
-import {useForm} from 'react-hook-form'
+import { Link, Navigate } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
 import { checkUserAsync, selectError, selectLoggedInUser } from '../authSlice';
 import { AppDispatch } from '../../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,21 +7,30 @@ import { LoginFormDataI } from '../../../models/Models';
 
 
 const Login = () => {
-const {register,handleSubmit,formState:{errors}}=useForm<LoginFormDataI>()
-const dispatch=useDispatch<AppDispatch>()
-const error=useSelector(selectError)
-const user=useSelector(selectLoggedInUser)
+  const { register, handleSubmit, formState: { errors } } = useForm<LoginFormDataI>()
+  const dispatch = useDispatch<AppDispatch>()
+  const error = useSelector(selectError)
+  const user = useSelector(selectLoggedInUser)
 
+  let route;
+  if (user?.role === 'admin') {
+    route = <Navigate to={'/admin'} replace={true} />
+  } else {
+    route = <Navigate to={'/'} replace={true} />
+  }
+
+  console.log(error);
+  
 
   return (
     <>{
-      user&&<Navigate to={'/'} replace={true}/>
+      user && route
     }
-    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
             className="mx-auto h-10 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+            src="ecommerce.png"
             alt="Your Company"
           />
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
@@ -31,10 +40,9 @@ const user=useSelector(selectLoggedInUser)
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form noValidate
-           className="space-y-6"onSubmit={handleSubmit(data=>{
-            dispatch(checkUserAsync(data))
-            
-          })}>
+            className="space-y-6" onSubmit={handleSubmit(data => {
+              dispatch(checkUserAsync(data))
+            })}>
             <div>
               <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                 Email address
@@ -42,10 +50,9 @@ const user=useSelector(selectLoggedInUser)
               <div className="mt-2">
                 <input
                   id="email"
-                  {...register("email",{required:"please enter a valid email",pattern:{value:/\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi,message:'invalid email'}})}
+                  {...register("email", { required: "please enter a valid email", pattern: { value: /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi, message: 'invalid email' } })}
                   type="email"
                   autoComplete="email"
-                  
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
                 <p className="text-red-500">{errors.email?.message}</p>
@@ -66,8 +73,8 @@ const user=useSelector(selectLoggedInUser)
               <div className="mt-2">
                 <input
                   id="password"
-                  {...register("password",{required:"enter your passwoed first"})}
-                  type="password"                 
+                  {...register("password", { required: "enter your passwoed first" })}
+                  type="password"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
                 <p className="text-red-500">{errors.password?.message}</p>

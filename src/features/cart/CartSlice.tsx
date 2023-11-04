@@ -1,13 +1,13 @@
 import { createAsyncThunk, createSlice, Slice } from '@reduxjs/toolkit';
 import { addTocart, deleteItemFromCart, fetchCartItems, resetCart, updatecart } from './CartApi';
 import { AxiosResponse } from 'axios';
-import { CartItemI } from '../../models/Models';
+import { CartItemI, CartItemResI } from '../../models/Models';
 
 
 
 interface CartStateI {
     value: number;
-    items: CartItemI[],
+    items: CartItemResI[],
     status:string
 }
 
@@ -21,42 +21,47 @@ const initialState: CartStateI = {
 export const addToCartAsync = createAsyncThunk(
     'cart/addToCart',
     async (item:CartItemI) => {
-        const response = await addTocart(item) as AxiosResponse<CartItemI>;
+        console.log("in cart slice",item);
+        
+        const response = await addTocart(item) as AxiosResponse<CartItemResI>;
         // The value we return becomes the `fulfilled` action payload
-        return response.data as CartItemI
+    
+        return response.data as CartItemResI
     }
 );
 export const fetchCartAsync = createAsyncThunk(
     'cart/fetchCartItems',
-    async (id:number) => {
-        const response = await fetchCartItems(id) as AxiosResponse<CartItemI[]>;
+    async (id:string) => {
+        const response = await fetchCartItems(id) as AxiosResponse<CartItemResI[]>;
         // The value we return becomes the `fulfilled` action payload
-        return response.data as CartItemI[]
+        console.log('response: ',response.data);
+        return response.data as CartItemResI[]
     }
     
 );
 
 export const updateCartAsync = createAsyncThunk(
     'cart/updateCart',
-    async (update:CartItemI) => {
-        const response = await updatecart(update) as AxiosResponse<CartItemI>;
+    async (update:Omit<CartItemResI,'user' | 'product'>) => {
+        const response = await updatecart(update) as AxiosResponse<CartItemResI>;
         // The value we return becomes the `fulfilled` action payload
-        return response.data as CartItemI
+        return response.data as CartItemResI
     }
 );
 export const deleteItemFromCartAsync = createAsyncThunk(
     'cart/deleteItemFromCart',
-    async (itemId:number) => {
-        const response = await deleteItemFromCart(itemId) as AxiosResponse<{id:number}>;
+    async (itemId:string) => {
+        const response = await deleteItemFromCart(itemId) as AxiosResponse<{id:string}>;
         // The value we return becomes the `fulfilled` action payload
         return response.data
     }
 );
 export const resetCartAsync = createAsyncThunk(
     'cart/resetCart',
-    async (userId:number) => {
+    async (userId:string) => {
         const response = await resetCart(userId) as AxiosResponse
         // The value we return becomes the `fulfilled` action payload
+        
         return response.data
     }
 );
@@ -79,17 +84,17 @@ const cartSlice: Slice<CartStateI> = createSlice({
             })
             .addCase(addToCartAsync.fulfilled, (state, action) => {
                 state.status = 'completed'
-                const index = state.items.findIndex(item => item.productId === action.payload.productId);
-                if (index !== -1) {
-                  // Product is already in the cart, increase its quantity
-                  state.items[index].quantity += 1;
-                  console.log("quantity: ",state.items[index].quantity);
+                // const index = state.items.findIndex(item => item.product.id === action.payload.product);
+                // if (index !== -1) {
+                //   // Product is already in the cart, increase its quantity
+                //   state.items[index].quantity += 1;
+                //   console.log("quantity: ",state.items[index].quantity);
                   
-                } else {
+                // } else {
                   // Product is not in the cart, add it with quantity 1
                   state.items.push({ ...action.payload, quantity: 1 });
-                }
-                state.value+=action.payload.price
+                // }
+                state.value+=action.payload.product.price
             })
             .addCase(fetchCartAsync.pending, (state) => {
                 state.status = 'loading';

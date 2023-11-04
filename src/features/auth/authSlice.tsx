@@ -17,7 +17,7 @@ const initialState: AuthStateI = {
 
 export const createUserAsync = createAsyncThunk(
     'users/createUser',
-    async (userData: AuthResI) => {
+    async (userData: Omit<AuthResI,'id'>) => {
         const response = await createUser(userData) as AxiosResponse<AuthResI>;
         // The value we return becomes the `fulfilled` action payload
         console.log(response.data);

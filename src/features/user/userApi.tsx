@@ -2,7 +2,7 @@
 import axios from "axios"
 import { AuthResI } from "../../models/Models"
 
-export const fetchLoggedInUserOrder=(userID:number)=>{
+export const fetchLoggedInUserOrder=(userID:string)=>{
     return new Promise(async(resolve)=>{
         const response=await axios('http://localhost:3000/order/?user.id='+userID)
         const data=await response.data

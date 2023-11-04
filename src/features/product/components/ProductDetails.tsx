@@ -3,13 +3,13 @@
 import { useState, useEffect } from 'react'
 import { StarIcon } from '@heroicons/react/20/solid'
 import { RadioGroup } from '@headlessui/react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from '../../../store/store'
 import { fetchSingleProductAsync, selectSingleProduct } from '../ProductSlice'
-import { addToCartAsync } from '../../cart/CartSlice'
+import { addToCartAsync, selectCart } from '../../cart/CartSlice'
 import { selectLoggedInUser } from '../../auth/authSlice'
-import { CartItemI, ProductDataI } from '../../../models/Models'
+import { ProductDataI } from '../../../models/Models'
 import { discountedPrice } from '../../../utils'
 
 interface Colors {
@@ -49,30 +49,37 @@ const ProductDetails = () => {
   const [selectedColor, setSelectedColor] = useState(colors[0])
   const [selectedSize, setSelectedSize] = useState(sizes[2])
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate()
   const param = useParams()
   const id = param.id
   const product: ProductDataI | null = useSelector(selectSingleProduct)
+  const cart = useSelector(selectCart);
   const user = useSelector(selectLoggedInUser)
-  let userId: number;
+  let userId: string;
   if (user) {
-    userId = Number(user.id)
+    userId = user.id
   }
   useEffect(() => {
-    if(id)
-    dispatch(fetchSingleProductAsync(id))
+    if (id)
+      dispatch(fetchSingleProductAsync(id))
   }, [dispatch, id])
   // console.log(product);
+  let incart: any;
+  if (product) {
 
+    incart = cart.find(item => item.product.id === product.id)
+  }
 
   const handleCart: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    e.preventDefault()
-    if (product) {
+    e.preventDefault();
+    if (incart) {
+      navigate('/cart')
+    }
+    else if (product) {
 
-      const newItem = { ...product } as CartItemI;
-      delete newItem.id;
-      newItem.quantity = 1;
-      newItem.productId = product.id;
-      newItem.user = userId;
+      const newItem = { user: userId, product: product.id, quantity: 1 };
+      console.log(newItem);
+
       dispatch(addToCartAsync(newItem));
     }
   }
@@ -110,7 +117,7 @@ const ProductDetails = () => {
         </nav> */}
 
         {/* Image gallery */}
-       {product.images&& <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+        {product.images && <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
           <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
             <img
               src={product.images[0]}
@@ -276,14 +283,14 @@ const ProductDetails = () => {
                   </div>
                 </RadioGroup>
               </div>
-
-              <button
-                onClick={handleCart}
-                type="submit"
-                className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              >
-                Add to Cart
-              </button>
+                {(product?.stock && product.stock <= 0 ? <p className="text-red-500 mt-10 px-8 py-3 rounded-md flex items-center justify-center bg-indigo-600 hover:bg-indigo-700">Out of stock</p> :
+                <button
+                  onClick={handleCart}
+                  type="submit"
+                  className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                >
+                  {incart ? "Go to cart" : "Add to Cart"}
+                </button>)}
             </form>
           </div>
 

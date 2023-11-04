@@ -9,7 +9,7 @@ import { AppDispatch } from '../../../store/store'
 import { fetchSingleProductAsync, selectSingleProduct } from '../../product/ProductSlice'
 import { addToCartAsync } from '../../cart/CartSlice'
 import { selectLoggedInUser } from '../../auth/authSlice'
-import { CartItemI, ProductDataI } from '../../../models/Models'
+import { ProductDataI } from '../../../models/Models'
 import { discountedPrice } from '../../../utils'
 
 interface Colors {
@@ -53,9 +53,9 @@ const AdminProductDetails = () => {
   const id = param.id
   const product: ProductDataI | null = useSelector(selectSingleProduct)
   const user = useSelector(selectLoggedInUser)
-  let userId: number;
+  let userId: string;
   if (user) {
-    userId = Number(user.id)
+    userId = user.id
   }
   useEffect(() => {
     if (id)
@@ -63,24 +63,15 @@ const AdminProductDetails = () => {
   }, [dispatch, id])
   // console.log(product);
 
-
-  const handlecart: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+  const handleCart: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault()
-    // if(product){
-    //   const newItem={...product,quantity:1,user:userId}
-    //   delete newItem['id'];
-    //   dispatch(addToCartAsync(newItem))
-
-    // }
-
     if (product) {
-      const newItem = { ...product } as CartItemI;
-      delete newItem.id;
-      newItem.quantity = 1;
-      newItem.user = userId;
+
+      const newItem = { user: userId, product: product.id, quantity: 1 };
+      console.log(newItem);
+
       dispatch(addToCartAsync(newItem));
     }
-
   }
 
   return (
@@ -256,7 +247,7 @@ const AdminProductDetails = () => {
               </div>
 
               <button
-                onClick={handlecart}
+                onClick={handleCart}
                 type="submit"
                 className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >

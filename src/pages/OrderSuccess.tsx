@@ -14,8 +14,8 @@ const OrderSuccess = () => {
   useEffect(() => {
     if (user?.id) {
       console.log("in orderpage:  ",user.id);
-      dispatch(resetCartAsync(+user.id))
-      dispatch(resetOrder)
+      dispatch(resetCartAsync(user.id))
+      dispatch(resetOrder({}))
     }
   }, [dispatch,user])
 

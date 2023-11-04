@@ -4,7 +4,6 @@ import {
     clearSelectedProduct,
     createProductAsync,
     fetchSingleProductAsync,
-    //  fetchSingleProductAsync, 
     selectBrands,
     selectCategories,
     selectSingleProduct,

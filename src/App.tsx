@@ -149,7 +149,7 @@ function App() {
 
   useEffect(() => {
     if (user?.id) {
-      dispatch(fetchCartAsync(+user.id))
+      dispatch(fetchCartAsync(user.id))
       console.log(user);
       
       dispatch(fetchLoggedInUserAsync(user.id))

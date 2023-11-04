@@ -1,9 +1,11 @@
 /* eslint-disable no-async-promise-executor */
-import { OrderI, PaginationI, SortI } from "../../models/Models"
+import { OrderI, PaginationI, SortI, UpdateOrderI } from "../../models/Models"
 
 
 export const createOrder = (order: OrderI) => {
     return new Promise(async (resolve) => {
+        console.log("in create order", order);
+        
         const responce = await fetch('http://localhost:3000/order', {
             method: 'POST',
             body: JSON.stringify(order),
@@ -14,11 +16,12 @@ export const createOrder = (order: OrderI) => {
     })
 }
 
-export const updateOrder = (order: OrderI) => {
+export const updateOrder = (order: UpdateOrderI) => {
     return new Promise(async (resolve) => {
+   
         const responce = await fetch('http://localhost:3000/order/' +order.id, {
             method: 'PATCH',
-            body: JSON.stringify(order),
+            body: JSON.stringify(order.status),
             headers: { "content-type": "application/json" }
         })
         const data = responce.json()

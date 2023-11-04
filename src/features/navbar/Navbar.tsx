@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { selectLoggedInUser } from '../auth/authSlice'
 const navigation = [
-  { name: 'Home', path: '/', current: true,user:true },
+  { name: 'Home', path: '/', current: false,user:true },
   { name: 'Contect Us', path: '/contact', current: false,user:true },
   { name: 'About Us', path: '/about', current: false,user:true },
   { name: 'Products', path: '/admin', current: false,admin:true },
@@ -57,7 +57,7 @@ const Navbar:React.FC=()=> {
                 <div className="flex flex-shrink-0 items-center">
                   <img
                     className="h-8 w-auto"
-                    src="https://e7.pngegg.com/pngimages/928/468/png-clipart-canada-amazon-com-california-amazon-drive-amazon-prime-adidas-logo-s-text-service.png"
+                    src="ecommerce.png"
                     alt="Your Company"
                   />
                 </div>

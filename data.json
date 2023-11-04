@@ -2560,7 +2560,7 @@
         "state": "k10",
         "pincode": "147852"
       },
-      "selectedPaymentMethod": "cash",
+      "PaymentMethod": "cash",
       "status": "dispatched",
       "id": 1
     },
@@ -2633,7 +2633,7 @@
         "state": "Chhattisgarh",
         "pincode": "123654"
       },
-      "selectedPaymentMethod": "cash",
+      "PaymentMethod": "cash",
       "status": "delivered",
       "id": 2
     },
@@ -2705,7 +2705,7 @@
         "state": "Chhattisgarh",
         "pincode": "4657542"
       },
-      "selectedPaymentMethod": "cash",
+      "PaymentMethod": "cash",
       "status": "delivered",
       "id": 3
     },
@@ -2778,7 +2778,7 @@
         "state": "Chhattisgarh",
         "pincode": "4657542"
       },
-      "selectedPaymentMethod": "cash",
+      "PaymentMethod": "cash",
       "status": "pending",
       "id": 4
     },
@@ -2871,7 +2871,7 @@
         "state": "Chhattisgarh",
         "pincode": "123654"
       },
-      "selectedPaymentMethod": "card",
+      "PaymentMethod": "card",
       "status": "pending",
       "id": 5
     },
@@ -2944,7 +2944,7 @@
         "state": "Chhattisgarh",
         "pincode": "123654"
       },
-      "selectedPaymentMethod": "cash",
+      "PaymentMethod": "cash",
       "status": "pending",
       "id": 6
     },
@@ -3008,7 +3008,7 @@
         "state": "Chhattisgarh",
         "pincode": "123654"
       },
-      "selectedPaymentMethod": "cash",
+      "PaymentMethod": "cash",
       "status": "pending",
       "id": 7
     },
@@ -3063,7 +3063,7 @@
         "state": "k10",
         "pincode": "123654"
       },
-      "selectedPaymentMethod": "cash",
+      "PaymentMethod": "cash",
       "status": "pending",
       "id": 8
     },
@@ -3118,7 +3118,7 @@
         "state": "Chhattisgarh",
         "pincode": "491338"
       },
-      "selectedPaymentMethod": "cash",
+      "PaymentMethod": "cash",
       "status": "pending",
       "id": 9
     },
@@ -3173,7 +3173,7 @@
         "state": "Chhattisgarh",
         "pincode": "491338"
       },
-      "selectedPaymentMethod": "cash",
+      "PaymentMethod": "cash",
       "status": "pending",
       "id": 10
     },
@@ -3229,7 +3229,7 @@
         "state": "Chhattisgarh",
         "pincode": "491338"
       },
-      "selectedPaymentMethod": "cash",
+      "PaymentMethod": "cash",
       "status": "delivered",
       "id": 11
     },
@@ -3283,7 +3283,7 @@
         "state": "Chhattisgarh",
         "pincode": "491338"
       },
-      "selectedPaymentMethod": "cash",
+      "PaymentMethod": "cash",
       "status": "pending",
       "id": 12
     }

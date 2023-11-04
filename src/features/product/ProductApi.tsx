@@ -2,18 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ProductDataI } from "../../models/Models";
 
-export const fetchAllProducts = () => {
-  return new Promise((resolve) => {
-    //TODO: we will not hard-code server URL here
-    // const response = await axios('http://localhost:3000/products') 
-    // const data = await response.data
-    // resolve({data})
-    fetch('http://localhost:3000/products')
-      .then((response) => response.json())
-      .then((data) => resolve({ data }));
-  }
-  );
-}
+
 export const fetchSingleProduct = (id:string) => {
   return new Promise((resolve) => {
     //TODO: we will not hard-code server URL here
@@ -80,7 +69,7 @@ export interface Data {
   products: ProductDataI[]
   totalItems: string | null
 }
-export const fetchProductsByFilters = async (filter: any, sort: any, pagination: any) => {
+export const fetchProductsByFilters = async (filter: any, sort: any, pagination: any ,admin:boolean) => {
   // const filter: Filter = { category: "smartphone" };
   // TODO: on the server, we will support multi values
   let queryString = '';
@@ -98,12 +87,17 @@ export const fetchProductsByFilters = async (filter: any, sort: any, pagination:
   for (const key in pagination) {
     queryString += `${key}=${pagination[key]}&`;
   }
+  if(admin){
+queryString+=`admin=${admin}&`
+  }
   // console.log(queryString);
 
 
   return new Promise<{ data: Data }>(async (resolve) => {
     // TODO: we will not hard-code server URL here
     const response = await fetch('http://localhost:3000/products?' + queryString);
+    console.log(response);
+    
     const productData = await response.json();
     const totalItems = await response.headers.get("X-Total-Count")
     resolve({ data: { products: productData, totalItems } });

@@ -2,43 +2,7 @@ import { createAsyncThunk, createSlice, SerializedError, Slice } from '@reduxjs/
 import { checkUser, createUser, signOut } from './authApi';
 import { AxiosResponse } from 'axios';
 import { AuthResI, UserDataI } from '../../models/Models';
-import { updateUser } from '../user/userApi';
 
-
-// const temUser=  {
-//     email: "iramanagrawal@gmail.com",
-//     password: "Agrawal@1",
-//     addresses: [
-//       {
-//         name: "Raman",
-//         email: "iramanagrawal@gmail.com",
-//         phoneNo: "09522063370",
-//         street: "Shivam mobiles, thakur road",
-//         city: "JAGDALPUR",
-//         state: "k10",
-//         pincode: "147852"
-//       },
-//       {
-//         name: "Raman",
-//         email: "iramanagrawal@gmail.com",
-//         phoneNo: "+918959095100",
-//         street: "agrawal material suppliers, near ambe rice mill, near ambe rice mill, near ambe rice mill",
-//         city: "thankhamharia",
-//         state: "Chhattisgarh",
-//         pincode: "123654"
-//       },
-//       {
-//         name: "Aman",
-//         email: "agrawalraman277@gmail.com",
-//         phoneNo: "09522063370",
-//         street: "Near ambe rice mile than khamharia",
-//         city: "Bemetara",
-//         state: "Chhattisgarh",
-//         pincode: "4657542"
-//       }
-//     ],
-//     id: '2'
-//   }
 interface AuthStateI  {
     loggedInUser: AuthResI | null;
     status: string;
@@ -50,7 +14,6 @@ const initialState: AuthStateI = {
     status: 'idle',
     error: null
 }
-
 
 export const createUserAsync = createAsyncThunk(
     'users/createUser',
@@ -80,14 +43,6 @@ export const signOutAsync = createAsyncThunk(
 );
 
 
-export const updateUserAsync = createAsyncThunk(
-    'users/updateUser',
-    async (update: AuthResI) => {
-        const response = await updateUser(update) as AxiosResponse<AuthResI>;
-        return response.data as AuthResI
-    }
-);
-
 const authSlice: Slice<AuthStateI> = createSlice({
     name: "auth",
     initialState,
@@ -115,13 +70,7 @@ const authSlice: Slice<AuthStateI> = createSlice({
                 state.status = 'completed'
                 state.error = action.error
             })
-            .addCase(updateUserAsync.pending, (state) => {
-                state.status = 'loading';
-            })
-            .addCase(updateUserAsync.fulfilled, (state, action) => {
-                state.status = 'completed'
-                state.loggedInUser = action.payload
-            })
+          
             .addCase(signOutAsync.pending, (state) => {
                 state.status = 'loading';
             })

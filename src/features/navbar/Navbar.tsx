@@ -5,6 +5,7 @@ import Profile from '../../assets/logo.jpg'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { selectLoggedInUser } from '../auth/authSlice'
+import { selectUserInfo } from '../user/userSlice'
 const navigation = [
   { name: 'Home', path: '/', current: false,user:true },
   { name: 'Contect Us', path: '/contact', current: false,user:true },
@@ -21,7 +22,7 @@ const classNames=(...classes: Array<string>) =>{
 }
 
 const Navbar:React.FC=()=> {
-  const user=useSelector(selectLoggedInUser);
+  const user=useSelector(selectUserInfo);
   
   const filteredNavigation = navigation.filter((item) => {
     if (user) {

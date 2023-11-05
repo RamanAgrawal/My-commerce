@@ -5,9 +5,10 @@ export const createUser = (userData: UserDataI) => {
     console.log(userData);
     
     return new Promise(async (resolve) => {
-        const response = await fetch('/api/auth/signup', {
+        const response = await fetch('https://ecommerce-backend-tawny.vercel.app/api/auth/signup', {
             method: "POST",
             body: JSON.stringify(userData),
+            credentials: 'include',
             headers: { "content-type": "application/json" }
         })
         const data = await response.json()
@@ -17,7 +18,7 @@ export const createUser = (userData: UserDataI) => {
 export const loginUser = (loginInfo: UserDataI) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const response = await fetch('/api/auth/login', {
+            const response = await fetch('https://ecommerce-backend-tawny.vercel.app/api/auth/login', {
                 method: "POST",
                 credentials: 'include',
                 body: JSON.stringify(loginInfo),

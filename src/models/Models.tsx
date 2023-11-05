@@ -65,7 +65,7 @@ export interface CategoryI {
 
 export interface CartItemI {
     product: string
-    user: string;
+    // user: string;
     quantity: number
 }
 

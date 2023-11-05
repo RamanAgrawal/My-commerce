@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from '../../../store/store'
 import { fetchSingleProductAsync, selectSingleProduct } from '../../product/ProductSlice'
 import { addToCartAsync } from '../../cart/CartSlice'
-import { selectLoggedInUser } from '../../auth/authSlice'
+// import { selectLoggedInUser } from '../../auth/authSlice'
 import { ProductDataI } from '../../../models/Models'
 import { discountedPrice } from '../../../utils'
 
@@ -52,11 +52,11 @@ const AdminProductDetails = () => {
   const param = useParams()
   const id = param.id
   const product: ProductDataI | null = useSelector(selectSingleProduct)
-  const user = useSelector(selectLoggedInUser)
-  let userId: string;
-  if (user) {
-    userId = user.id
-  }
+  // const user = useSelector(selectLoggedInUser)
+  // let userId: string;
+  // if (user) {
+  //   userId = user.id
+  // }
   useEffect(() => {
     if (id)
       dispatch(fetchSingleProductAsync(id))
@@ -67,7 +67,7 @@ const AdminProductDetails = () => {
     e.preventDefault()
     if (product) {
 
-      const newItem = { user: userId, product: product.id, quantity: 1 };
+      const newItem = { product: product.id, quantity: 1 };
       console.log(newItem);
 
       dispatch(addToCartAsync(newItem));

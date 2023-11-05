@@ -5,19 +5,24 @@ import { CartItemI, CartItemResI } from "../../models/Models";
 export const addTocart = (item: CartItemI) => {
     return new Promise(async (resolve) => {
         const response = await fetch('http://localhost:3000/cart', {
+            credentials: 'include',
             method: "POST",
             body: JSON.stringify(item),
             headers: { "content-type": "application/json" }
         })
         const data = await response.json()
+        console.log('dfsdfsd',data);
+        
         resolve({ data })
     })
 }
-export const fetchCartItems = (userId: string) => {
+export const fetchCartItems = () => {
     return new Promise(async (resolve) => {
-        console.log(userId);
+        // console.log(userId);
         
-        const response = await fetch('http://localhost:3000/cart/' +userId)
+        const response = await fetch('http://localhost:3000/cart',{
+            credentials: 'include',
+        })
         const data = await response.json()
         console.log(data);
         

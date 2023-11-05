@@ -11,8 +11,8 @@ const UserOrder = () => {
   const user = useSelector(selectUserInfo);
   const order = useSelector(selectUserOrders);
   useEffect(() => {
-    if (user?.id) {
-      dispatch(fetchLoggedInUserOrderAsync(user.id));
+    if (user) {
+      dispatch(fetchLoggedInUserOrderAsync());
     }
 
   }, [dispatch,user]);

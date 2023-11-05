@@ -54,11 +54,11 @@ const ProductDetails = () => {
   const id = param.id
   const product: ProductDataI | null = useSelector(selectSingleProduct)
   const cart = useSelector(selectCart);
-  const user = useSelector(selectLoggedInUser)
-  let userId: string;
-  if (user) {
-    userId = user.id
-  }
+  // const user = useSelector(selectLoggedInUser)
+  // let userId: string;
+  // if (user) {
+  //   userId = user.id
+  // }
   useEffect(() => {
     if (id)
       dispatch(fetchSingleProductAsync(id))
@@ -77,7 +77,7 @@ const ProductDetails = () => {
     }
     else if (product) {
 
-      const newItem = { user: userId, product: product.id, quantity: 1 };
+      const newItem = { product: product.id, quantity: 1 };
       console.log(newItem);
 
       dispatch(addToCartAsync(newItem));

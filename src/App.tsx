@@ -13,7 +13,7 @@ import Protected from './features/auth/components/Protected';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from './store/store';
 import PageNotFound from './pages/404Page'
-import { selectLoggedInUser } from './features/auth/authSlice';
+import { checkAuthAsync, selectLoggedInUser } from './features/auth/authSlice';
 import { fetchCartAsync } from './features/cart/CartSlice';
 import OrderSuccess from './pages/OrderSuccess';
 import UserOrderPage from './pages/UserOrderPage';
@@ -146,13 +146,16 @@ const router = createBrowserRouter([
 function App() {
   const dispatch = useDispatch<AppDispatch>()
   const user = useSelector(selectLoggedInUser)
-
   useEffect(() => {
-    if (user?.id) {
-      dispatch(fetchCartAsync(user.id))
+    dispatch(checkAuthAsync());
+  }, [dispatch]);
+  useEffect(() => {
+    if (user) {
+
+      dispatch(fetchCartAsync())
       console.log(user);
       
-      dispatch(fetchLoggedInUserAsync(user.id))
+      dispatch(fetchLoggedInUserAsync())
     }
   }, [dispatch, user])
 

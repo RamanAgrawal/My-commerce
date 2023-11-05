@@ -54,11 +54,11 @@ export const deleteItemFromCart = (itemId: string) => {
     })
 }
 
-export const resetCart = (userID: string) => {
+export const resetCart = () => {
     // console.log("in cart api", userID);
 
     return new Promise(async (resolve) => {
-        const response = await fetchCartItems(userID) as AxiosResponse
+        const response = await fetchCartItems() as AxiosResponse
         const items = response.data
         for (const item of items) {
             await deleteItemFromCart(item.id)

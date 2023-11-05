@@ -5,7 +5,10 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   server: {
     proxy: {
-      '/api': 'https://ecommerce-backend-tawny.vercel.app',
+      '/api':{
+        target: 'https://ecommerce-backend-tawny.vercel.app', 
+        changeOrigin: true
+      }
     },
   },
   plugins: [react()],

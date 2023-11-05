@@ -147,9 +147,6 @@ function App() {
   const dispatch = useDispatch<AppDispatch>()
   const user = useSelector(selectLoggedInUser)
   useEffect(() => {
-    dispatch(checkAuthAsync());
-  }, [dispatch]);
-  useEffect(() => {
     if (user) {
 
       dispatch(fetchCartAsync())

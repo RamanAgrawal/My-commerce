@@ -123,7 +123,7 @@ const ProductList: FC = () => {
                     setMobileFiltersOpen={setMobileFiltersOpen}
                 />
 
-                <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 border-red-400">
+                <main className=" px-4 sm:px-6 lg:px-8 border-red-400">
                     <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-9">
                         <h1 className="text-4xl font-bold tracking-tight text-gray-900 ">All Products</h1>
                         <div className="flex items-center">
@@ -359,15 +359,15 @@ interface ConnectedProductListProps {
 const ProductGrid: FC<ConnectedProductListProps> = ({ products }) => {
     return (<div className="lg:col-span-3">
         <div className="bg-white">
-            <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
+            <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-0 lg:max-w-full lg:px-8">
                 <h2 className="text-2xl font-bold tracking-tight text-gray-900"> Products</h2>
 
                 <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
                     {products.map((product: ProductDataI) => (
-                        <div key={product.id} className="group relative p-2 shadow-slate-500 shadow-2xl rounded-md">
+                        <div key={product.id} style={{boxShadow: 'rgba(218, 223, 225) 1px 2px 15px 0px'}} className="group relative p-5 rounded-md">
                             <Link to={`product-detail/${product.id}`}>
 
-                                <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-32">
+                                <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-44">
                                     <img
                                         src={product.thumbnail}
                                         alt={product.title}

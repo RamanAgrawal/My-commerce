@@ -23,6 +23,7 @@ const classNames=(...classes: Array<string>) =>{
 
 const Navbar:React.FC=()=> {
   const user=useSelector(selectUserInfo);
+ 
   
   const filteredNavigation = navigation.filter((item) => {
     if (user) {
@@ -40,7 +41,7 @@ const Navbar:React.FC=()=> {
     <Disclosure as="nav" className="bg-gray-800 border-red-600 fixed w-full z-10">
       {({ open }) => (
         <>
-          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+          <div className="mx-auto px-2 sm:px-6 lg:px-8">
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
@@ -58,7 +59,7 @@ const Navbar:React.FC=()=> {
                 <div className="flex flex-shrink-0 items-center">
                   <img
                     className="h-8 w-auto"
-                    src="ecommerce.png"
+                    src="/ecommerce.png"
                     alt="Your Company"
                   />
                 </div>

@@ -4,7 +4,7 @@ import { AuthResI } from "../../models/Models"
 
 export const fetchLoggedInUserOrder=()=>{
     return new Promise(async(resolve)=>{
-        const response=await axios('http://localhost:3000/order')
+        const response=await axios('/api/order')
         const data=await response.data
         resolve({data})
         console.log(data);
@@ -13,7 +13,7 @@ export const fetchLoggedInUserOrder=()=>{
 }
 export const fetchLoggedInUser=()=>{
     return new Promise(async(resolve)=>{
-        const response=await fetch('http://localhost:3000/users/own',{
+        const response=await fetch('/api/users/own',{
             credentials: 'include',
         })
         const data=await response.json()
@@ -24,7 +24,7 @@ export const fetchLoggedInUser=()=>{
 }
 export const updateUser = (update: AuthResI) => {
     return new Promise(async (resolve) => {
-        const response = await fetch('http://localhost:3000/users' ,{
+        const response = await fetch('/api/users' ,{
             method: "PATCH",
             credentials: 'include',
             body: JSON.stringify(update),

@@ -9,12 +9,15 @@ interface ProtectedAdminProps {
 
 const ProtectedAdmin: FC<ProtectedAdminProps> = ({ children }) => {
     const user = useSelector(selectLoggedInUser)
-    const userInfo=useSelector(selectUserInfo)
+    const userInfo=useSelector(selectUserInfo);
+    console.log(userInfo);
+    
 
     if (!user) {
         return <Navigate to={'/signin'} />
     }
     if (user && userInfo?.role!=='admin') {
+        
         return <Navigate to={'/'} />
     }
     return <>{children}</>

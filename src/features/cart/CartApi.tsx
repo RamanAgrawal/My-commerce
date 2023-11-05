@@ -4,7 +4,7 @@ import { CartItemI, CartItemResI } from "../../models/Models";
 
 export const addTocart = (item: CartItemI) => {
     return new Promise(async (resolve) => {
-        const response = await fetch('http://localhost:3000/cart', {
+        const response = await fetch('/api/cart', {
             credentials: 'include',
             method: "POST",
             body: JSON.stringify(item),
@@ -20,7 +20,7 @@ export const fetchCartItems = () => {
     return new Promise(async (resolve) => {
         // console.log(userId);
         
-        const response = await fetch('http://localhost:3000/cart',{
+        const response = await fetch('/api/cart',{
             credentials: 'include',
         })
         const data = await response.json()
@@ -32,7 +32,7 @@ export const fetchCartItems = () => {
 
 export const updatecart = (update:Omit<CartItemResI,'user' | 'product'>) => {
     return new Promise(async (resolve) => {
-        const response = await fetch('http://localhost:3000/cart/' + update.id, {
+        const response = await fetch('/api/cart/' + update.id, {
             method: "PATCH",
             body: JSON.stringify(update),
             headers: { "content-type": "application/json" }
@@ -45,7 +45,7 @@ export const updatecart = (update:Omit<CartItemResI,'user' | 'product'>) => {
 }
 export const deleteItemFromCart = (itemId: string) => {
     return new Promise(async (resolve) => {
-        const response = await fetch('http://localhost:3000/cart/' + itemId, {
+        const response = await fetch('/api/cart/' + itemId, {
             method: "DELETE",
             headers: { "content-type": "application/json" }
         })

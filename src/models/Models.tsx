@@ -86,7 +86,7 @@ export interface OrderI {
     status: string;
 }
 export interface UpdateOrderI {
-    status: string;
+    status: {status:string};
     id: string
 }
 export interface OrderResI {

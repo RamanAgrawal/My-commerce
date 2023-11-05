@@ -6,7 +6,7 @@ export const createOrder = (order: OrderI) => {
     return new Promise(async (resolve) => {
         console.log("in create order", order);
         
-        const responce = await fetch('http://localhost:3000/order', {
+        const responce = await fetch('/api/order', {
             method: 'POST',
             body: JSON.stringify(order),
             headers: { "content-type": "application/json" }
@@ -19,7 +19,7 @@ export const createOrder = (order: OrderI) => {
 export const updateOrder = (order: UpdateOrderI) => {
     return new Promise(async (resolve) => {
    
-        const responce = await fetch('http://localhost:3000/order/' +order.id, {
+        const responce = await fetch('/api/order/' +order.id, {
             method: 'PATCH',
             body: JSON.stringify(order.status),
             headers: { "content-type": "application/json" }
@@ -45,7 +45,7 @@ export const fetchAllOrders = (pagination: PaginationI,sort:SortI) => {
 
     return new Promise(async (resolve) => {
         // TODO: we will not hard-code server URL here
-        const response = await fetch('http://localhost:3000/order?' + queryString);
+        const response = await fetch('/api/order?' + queryString);
         const productData = await response.json();
         const totalOrders = await response.headers.get("X-Total-Count")
         console.log("ordersrsdfsdf", productData);

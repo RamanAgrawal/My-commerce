@@ -6,7 +6,7 @@ import { ProductDataI } from "../../models/Models";
 export const fetchSingleProduct = (id:string) => {
   return new Promise((resolve) => {
     //TODO: we will not hard-code server URL here
-    fetch('http://localhost:3000/products/'+id)
+    fetch('/api/products/'+id)
       .then((response) => response.json())
       .then((data) => resolve({ data }));
   }
@@ -16,7 +16,7 @@ export const fetchSingleProduct = (id:string) => {
 export const createProduct = (product:unknown) => {
   return new Promise((resolve) => {
     //TODO: we will not hard-code server URL here
-    fetch('http://localhost:3000/products/',{
+    fetch('/api/products/',{
       method: 'POST',
       body: JSON.stringify(product),
       headers: {
@@ -33,7 +33,7 @@ export const createProduct = (product:unknown) => {
 export const updateProduct = (update: ProductDataI) => {
 
   return new Promise(async (resolve) => {
-      const response = await fetch('http://localhost:3000/products/' +update.id, {
+      const response = await fetch('/api/products/' +update.id, {
           method: "PATCH",
           body: JSON.stringify(update),
           headers: { "content-type": "application/json" }
@@ -50,7 +50,7 @@ export const updateProduct = (update: ProductDataI) => {
 export const fetchCategories = () => {
   return new Promise((resolve) => {
     //TODO: we will not hard-code server URL here
-    fetch('http://localhost:3000/categories')
+    fetch('/api/categories')
       .then((response) => response.json())
       .then((data) => resolve({ data }));
   }
@@ -59,7 +59,7 @@ export const fetchCategories = () => {
 export const fetchBrands = () => {
   return new Promise((resolve) => {
     //TODO: we will not hard-code server URL here
-    fetch('http://localhost:3000/brands')
+    fetch('/api/brands')
       .then((response) => response.json())
       .then((data) => resolve({ data }));
   }
@@ -95,13 +95,13 @@ queryString+=`admin=${admin}&`
 
   return new Promise<{ data: Data }>(async (resolve) => {
     // TODO: we will not hard-code server URL here
-    const response = await fetch('http://localhost:3000/products?' + queryString);
+    const response = await fetch('/api/products?' + queryString);
     console.log(response);
     
     const productData = await response.json();
     const totalItems = await response.headers.get("X-Total-Count")
     resolve({ data: { products: productData, totalItems } });
-    //   fetch('http://localhost:3000/products?' + queryString)
+    //   fetch('/api/products?' + queryString)
     //   .then((response) => response.json())
     //   .then((data) => resolve({ data }));
   });

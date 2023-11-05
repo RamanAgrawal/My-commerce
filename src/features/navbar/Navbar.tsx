@@ -4,7 +4,7 @@ import { Bars3Icon, ShoppingCartIcon, XMarkIcon } from '@heroicons/react/24/outl
 import Profile from '../../assets/logo.jpg'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { selectLoggedInUser } from '../auth/authSlice'
+
 import { selectUserInfo } from '../user/userSlice'
 const navigation = [
   { name: 'Home', path: '/', current: false,user:true },

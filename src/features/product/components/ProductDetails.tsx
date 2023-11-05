@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from '../../../store/store'
 import { fetchSingleProductAsync, selectSingleProduct } from '../ProductSlice'
 import { addToCartAsync, selectCart } from '../../cart/CartSlice'
-import { selectLoggedInUser } from '../../auth/authSlice'
+// import { selectLoggedInUser } from '../../auth/authSlice'
 import { ProductDataI } from '../../../models/Models'
 import { discountedPrice } from '../../../utils'
 

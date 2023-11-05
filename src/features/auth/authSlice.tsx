@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice, SerializedError, Slice } from '@reduxjs/toolkit';
 import { loginUser, createUser, signOut, checkAuth } from './authApi';
-import { AxiosResponse } from 'axios';
+import {  AxiosResponse } from 'axios';
 import { AuthResI, UserDataI } from '../../models/Models';
 
-interface AuthStateI  {
+interface AuthStateI {
     loggedInUser: AuthResI | null;
     status: string;
     error: SerializedError | null
@@ -17,11 +17,11 @@ const initialState: AuthStateI = {
 
 export const createUserAsync = createAsyncThunk(
     'users/createUser',
-    async (userData: Omit<AuthResI,'id'>) => {
+    async (userData: Omit<AuthResI, 'id'>) => {
         const response = await createUser(userData) as AxiosResponse<AuthResI>;
         // The value we return becomes the `fulfilled` action payload
         console.log(response.data);
-        
+
         return response.data as AuthResI
     }
 );
@@ -37,12 +37,12 @@ export const loginUserAsync = createAsyncThunk(
 
 export const checkAuthAsync = createAsyncThunk('user/checkAuth', async () => {
     try {
-      const response = await checkAuth();
-      return response.data;
+        const response = await checkAuth() as AxiosResponse<AuthResI>;
+        return response.data
     } catch (error) {
-      console.log(error);
+        console.log(error);
     }
-  });
+});
 
 export const signOutAsync = createAsyncThunk(
     'user/signOut',
@@ -80,7 +80,7 @@ const authSlice: Slice<AuthStateI> = createSlice({
                 state.status = 'completed'
                 state.error = action.error
             })
-          
+
             .addCase(signOutAsync.pending, (state) => {
                 state.status = 'loading';
             })

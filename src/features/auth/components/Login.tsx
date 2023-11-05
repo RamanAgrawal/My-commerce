@@ -1,6 +1,6 @@
 import { Link, Navigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { checkUserAsync, selectError, selectLoggedInUser } from '../authSlice';
+import { loginUserAsync, selectError, selectLoggedInUser } from '../authSlice';
 import { AppDispatch } from '../../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { LoginFormDataI } from '../../../models/Models';
@@ -12,19 +12,19 @@ const Login = () => {
   const error = useSelector(selectError)
   const user = useSelector(selectLoggedInUser)
 
-  let route;
-  if (user?.role === 'admin') {
-    route = <Navigate to={'/admin'} replace={true} />
-  } else {
-    route = <Navigate to={'/'} replace={true} />
-  }
+  // let route;
+  // if (user?.role === 'admin') {
+  //   route = <Navigate to={'/admin'} replace={true} />
+  // } else {
+  //   route = <Navigate to={'/'} replace={true} />
+  // }
 
-  console.log(error);
+  // console.log(error);
   
 
   return (
     <>{
-      user && route
+      user && <Navigate to={'/'} replace={true} />
     }
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -41,7 +41,7 @@ const Login = () => {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form noValidate
             className="space-y-6" onSubmit={handleSubmit(data => {
-              dispatch(checkUserAsync(data))
+              dispatch(loginUserAsync(data))
             })}>
             <div>
               <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">

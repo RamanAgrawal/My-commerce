@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, SerializedError, Slice } from '@reduxjs/toolkit';
-import { checkUser, createUser, signOut } from './authApi';
+import { loginUser, createUser, signOut, checkAuth } from './authApi';
 import { AxiosResponse } from 'axios';
 import { AuthResI, UserDataI } from '../../models/Models';
 
@@ -26,13 +26,23 @@ export const createUserAsync = createAsyncThunk(
     }
 );
 
-export const checkUserAsync = createAsyncThunk(
-    'user/checkUser',
+export const loginUserAsync = createAsyncThunk(
+    'user/loginUser',
     async (loginInfo: UserDataI) => {
-        const response = await checkUser(loginInfo) as AxiosResponse<AuthResI>;
+        const response = await loginUser(loginInfo) as AxiosResponse<AuthResI>;
         return response.data as AuthResI
     }
 );
+
+
+export const checkAuthAsync = createAsyncThunk('user/checkAuth', async () => {
+    try {
+      const response = await checkAuth();
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  });
 
 export const signOutAsync = createAsyncThunk(
     'user/signOut',
@@ -58,15 +68,15 @@ const authSlice: Slice<AuthStateI> = createSlice({
                 console.log(action.payload);
 
             })
-            .addCase(checkUserAsync.pending, (state) => {
+            .addCase(loginUserAsync.pending, (state) => {
                 state.status = 'loading';
             })
-            .addCase(checkUserAsync.fulfilled, (state, action) => {
+            .addCase(loginUserAsync.fulfilled, (state, action) => {
                 state.status = 'completed'
                 state.loggedInUser = action.payload
                 console.log(action.payload);
             })
-            .addCase(checkUserAsync.rejected, (state, action) => {
+            .addCase(loginUserAsync.rejected, (state, action) => {
                 state.status = 'completed'
                 state.error = action.error
             })

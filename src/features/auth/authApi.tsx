@@ -2,6 +2,8 @@
 import { UserDataI } from "../../models/Models";
 
 export const createUser = (userData: UserDataI) => {
+    console.log(userData);
+    
     return new Promise(async (resolve) => {
         const response = await fetch('http://localhost:3000/auth/signup', {
             method: "POST",
@@ -12,11 +14,12 @@ export const createUser = (userData: UserDataI) => {
         resolve({ data })
     })
 }
-export const checkUser = (loginInfo: UserDataI) => {
+export const loginUser = (loginInfo: UserDataI) => {
     return new Promise(async (resolve, reject) => {
         try {
             const response = await fetch('http://localhost:3000/auth/login', {
                 method: "POST",
+                credentials: 'include',
                 body: JSON.stringify(loginInfo),
                 headers: { "content-type": "application/json" }
 
@@ -32,11 +35,26 @@ export const checkUser = (loginInfo: UserDataI) => {
         } catch (error) {
             reject(error)
         }
-
-
-
     })
 }
+
+export const checkAuth=()=> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const response = await fetch('/auth/check');
+        if (response.ok) {
+          const data = await response.json();
+          resolve({ data });
+        } else {
+          const error = await response.text();
+          reject(error);
+        }
+      } catch (error) {
+        reject( error );
+      }
+  
+    });
+  }
 
 export function signOut() {
     return new Promise(async (resolve) => {

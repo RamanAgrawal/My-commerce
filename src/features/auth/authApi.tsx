@@ -64,7 +64,7 @@ export function signOut() {
     return new Promise(async (resolve,reject) => {
           try {
             const response = await fetch('/api/auth/logout');
-            console.log("in signout",response);
+
             
             if (response.ok) {
               resolve({ data:'success' });

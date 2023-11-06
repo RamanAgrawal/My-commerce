@@ -1,36 +1,45 @@
-/* eslint-disable no-async-promise-executor */
-import axios from "axios"
-import { AuthResI } from "../../models/Models"
 
-export const fetchLoggedInUserOrder=()=>{
-    return new Promise(async(resolve)=>{
-        const response=await axios('/api/order')
-        const data=await response.data
-        resolve({data})
-        console.log(data);
-        
-    })
-}
-export const fetchLoggedInUser=()=>{
-    return new Promise(async(resolve)=>{
-        const response=await fetch('/api/users/own',{
-            credentials: 'include',
-        })
-        const data=await response.json()
-        resolve({data})
-        console.log(data);
-        
-    })
-}
-export const updateUser = (update: AuthResI) => {
-    return new Promise(async (resolve) => {
-        const response = await fetch('/api/users' ,{
-            method: "PATCH",
-            credentials: 'include',
-            body: JSON.stringify(update),
-            headers: { "content-type": "application/json" }
-        })
-        const data = await response.json()
-        resolve({ data })
-    })
-}
+import axios from '../../axiosConfig';
+import { AuthResI } from '../../models/Models';
+
+export const fetchLoggedInUserOrder = async () => {
+  try {
+    const response = await axios.get('/api/order');
+    const data = response.data;
+    console.log(data);
+    return { data };
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const fetchLoggedInUser = async () => {
+  try {
+    const response = await axios.get('/api/users/own', {
+      withCredentials: true,
+    });
+    const data = response.data;
+    console.log(data);
+    return { data };
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const updateUser = async (update: AuthResI) => {
+  try {
+    const response = await axios.patch('/api/users', update, {
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const data = response.data;
+    return { data };
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};

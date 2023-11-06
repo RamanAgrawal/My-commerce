@@ -1,83 +1,83 @@
-/* eslint-disable no-async-promise-executor */
+
+import axios from "../../axiosConfig"
 import { UserDataI } from "../../models/Models";
 
-export const createUser = (userData: UserDataI) => {
-    console.log(userData);
-    
-    return new Promise(async (resolve) => {
-        const response = await fetch('https://ecommerce-backend-tawny.vercel.app/api/auth/signup', {
-            method: "POST",
-            body: JSON.stringify(userData),
-            credentials: 'include',
-            headers: { "content-type": "application/json" }
-        })
-        const data = await response.json()
-        resolve({ data })
-    })
-}
-export const loginUser = (loginInfo: UserDataI) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            const response = await fetch('https://ecommerce-backend-tawny.vercel.app/api/auth/login', {
-                method: "POST",
-                credentials: 'include',
-                body: JSON.stringify(loginInfo),
-                headers: { "content-type": "application/json" }
 
-            })
-            if (response.ok) {
-                const data = await response.json()
-                resolve({ data })
-            } else {
-                const error = await response.json()
-                reject(error)
-            }
-
-        } catch (error) {
-            reject(error)
-        }
-    })
-}
-
-export const checkAuth=()=> {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const response = await fetch('/auth/check',{
-            credentials: 'include',
-        });
-        if (response.ok) {
-          const data = await response.json();
-          resolve({ data });
-        } else {
-          const error = await response.text();
-          reject(error);
-        }
-      } catch (error) {
-        reject( error );
-      }
-  
+export const createUser = async (userData:UserDataI) => {
+  try {
+    const response = await axios.post('/api/auth/signup', userData, {
+      withCredentials: true, // To include cookies in the request
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
+
+    return response;
+  } catch (error) {
+    console.error(error);
+    throw error; // You can choose to handle or rethrow the error here
   }
+};
 
-export function signOut() {
-    console.log("in signout");
-    
-    return new Promise(async (resolve,reject) => {
-          try {
-            const response = await fetch('/api/auth/logout');
 
-            
-            if (response.ok) {
-              resolve({ data:'success' });
-            } else {
-              const error = await response.text();
-              reject(error);
-            }
-          } catch (error) {
-            console.log(error)
-            reject( error );
-          }
 
-        resolve({ data: 'success' });
+export const loginUser = async (loginInfo:UserDataI) => {
+  try {
+    const response = await axios.post('/api/auth/login', loginInfo, {
+      withCredentials: true, // To include cookies in the request
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
-}
+    
+    
+    if (response.status === 200) {
+      console.log(response.data);
+      return response;
+    } else {
+      // If the response status is not 200 (OK), handle the error.
+      throw new Error('Request failed with status: ' + response.status);
+    }
+  } catch (error) {
+    console.error(error);
+    throw error; // You can choose to handle or rethrow the error here
+  }
+};
+
+
+
+
+
+export const checkAuth = async () => {
+  try {
+    const response = await axios.get('/auth/check', {
+      withCredentials: true, // To include cookies in the request
+    });
+
+    if (response.status === 200) {
+      return response;
+    } else {
+      // If the response status is not 200 (OK), handle the error.
+      throw new Error('Request failed with status: ' + response.status);
+    }
+  } catch (error) {
+    console.error(error);
+    throw error; // You can choose to handle or rethrow the error here
+  }
+};
+
+export const signOut = async () => {
+  try {
+    const response = await axios.get('/api/auth/logout');
+
+    if (response.status === 200) {
+      return 'success';
+    } else {
+      // If the response status is not 200 (OK), handle the error.
+      throw new Error('Request failed with status: ' + response.status);
+    }
+  } catch (error) {
+    console.error(error);
+    throw error; // You can choose to handle or rethrow the error here
+  }
+};

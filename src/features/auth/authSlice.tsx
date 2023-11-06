@@ -47,8 +47,8 @@ export const checkAuthAsync = createAsyncThunk('user/checkAuth', async () => {
 export const signOutAsync = createAsyncThunk(
     'user/signOut',
     async () => {
-        const response = await signOut() as AxiosResponse<AuthResI>;
-        return response.data as AuthResI
+        const response = await signOut() as string;
+        return response as string
     }
 );
 

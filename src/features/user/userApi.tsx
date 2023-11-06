@@ -4,7 +4,7 @@ import { AuthResI } from '../../models/Models';
 
 export const fetchLoggedInUserOrder = async () => {
   try {
-    const response = await axios.get('/api/order');
+    const response = await axios.get('/api/order/own');
     const data = response.data;
     console.log(data);
     return { data };

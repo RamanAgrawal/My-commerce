@@ -36,8 +36,7 @@ export const updatecart = async (update: Omit<CartItemResI, 'user' | 'product'>)
       headers: { 'Content-Type': 'application/json' },
     });
 
-    const data = response;
-    return { data };
+    return response;
   } catch (error) {
     console.error('Error updating cart item:', error);
     throw error;

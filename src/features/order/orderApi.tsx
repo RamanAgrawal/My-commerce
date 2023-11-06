@@ -34,7 +34,7 @@ export const updateOrder = async (order: UpdateOrderI) => {
 
 export const fetchAllOrders = async (pagination: PaginationI, sort: SortI) => {
   try {
-    const params = new URLSearchParams({ ...pagination, ...sort });
+    const params = new URLSearchParams({ ...pagination, ...sort }as unknown as Record<string, string>);
     const response = await axios.get(`/api/order?${params.toString()}`);
 
     const totalOrders = response.headers['x-total-count'];

@@ -22,22 +22,22 @@ const colors: Colors[] = [
   { name: 'Gray', class: 'bg-gray-200', selectedClass: 'ring-gray-400' },
   { name: 'Black', class: 'bg-gray-900', selectedClass: 'ring-gray-900' },
 ]
-const highlights: string[] = [
-  'Hand cut and sewn locally',
-  'Dyed with our proprietary colors',
-  'Pre-washed & pre-shrunk',
-  'Ultra-soft 100% cotton',
-]
-const sizes = [
-  { name: 'XXS', inStock: false },
-  { name: 'XS', inStock: true },
-  { name: 'S', inStock: true },
-  { name: 'M', inStock: true },
-  { name: 'L', inStock: true },
-  { name: 'XL', inStock: true },
-  { name: '2XL', inStock: true },
-  { name: '3XL', inStock: true },
-]
+// const highlights: string[] = [
+//   'Hand cut and sewn locally',
+//   'Dyed with our proprietary colors',
+//   'Pre-washed & pre-shrunk',
+//   'Ultra-soft 100% cotton',
+// ]
+// const sizes = [
+//   { name: 'XXS', inStock: false },
+//   { name: 'XS', inStock: true },
+//   { name: 'S', inStock: true },
+//   { name: 'M', inStock: true },
+//   { name: 'L', inStock: true },
+//   { name: 'XL', inStock: true },
+//   { name: '2XL', inStock: true },
+//   { name: '3XL', inStock: true },
+// ]
 
 const reviews = { href: '#', average: 4, totalCount: 117 }
 
@@ -47,7 +47,7 @@ function classNames(...classes: any) {
 
 const ProductDetails = () => {
   const [selectedColor, setSelectedColor] = useState(colors[0])
-  const [selectedSize, setSelectedSize] = useState(sizes[2])
+  // const [selectedSize, setSelectedSize] = useState(sizes[2])
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate()
   const param = useParams()
@@ -223,7 +223,7 @@ const ProductDetails = () => {
               </div>
 
               {/* Sizes */}
-              <div className="mt-10">
+              {/* <div className="mt-10">
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-medium text-gray-900">Size</h3>
                   <a href="#" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
@@ -282,7 +282,7 @@ const ProductDetails = () => {
                     ))}
                   </div>
                 </RadioGroup>
-              </div>
+              </div> */}
                 {(product?.stock && product.stock <= 0 ? <p className="text-red-500 mt-10 px-8 py-3 rounded-md flex items-center justify-center bg-indigo-600 hover:bg-indigo-700">Out of stock</p> :
                 <button
                   onClick={handleCart}
@@ -304,7 +304,7 @@ const ProductDetails = () => {
               </div>
             </div>
 
-            <div className="mt-10">
+            {/* <div className="mt-10">
               <h3 className="text-sm font-medium text-gray-900">Highlights</h3>
 
               <div className="mt-4">
@@ -316,7 +316,7 @@ const ProductDetails = () => {
                   ))}
                 </ul>
               </div>
-            </div>
+            </div> */}
 
             <div className="mt-10">
               <h2 className="text-sm font-medium text-gray-900">Details</h2>

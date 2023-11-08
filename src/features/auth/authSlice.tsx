@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createAsyncThunk, createSlice, SerializedError, Slice } from '@reduxjs/toolkit';
 import { loginUser, createUser, signOut, checkAuth } from './authApi';
 import { AxiosResponse } from 'axios';
@@ -6,7 +7,7 @@ import { AuthResI, UserDataI } from '../../models/Models';
 interface AuthStateI {
     loggedInUser: AuthResI | null;
     status: string;
-    error: SerializedError | unknown | null;
+    error: SerializedError | unknown | null| any;
 }
 
 const initialState: AuthStateI = {

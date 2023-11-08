@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice, SerializedError, Slice } from '@reduxjs/toolkit';
 import { loginUser, createUser, signOut, checkAuth } from './authApi';
-import {  AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { AuthResI, UserDataI } from '../../models/Models';
 
 interface AuthStateI {
     loggedInUser: AuthResI | null;
     status: string;
-    error: SerializedError | null
+    error: SerializedError | unknown | null;
 }
 
 const initialState: AuthStateI = {
@@ -17,31 +17,35 @@ const initialState: AuthStateI = {
 
 export const createUserAsync = createAsyncThunk(
     'users/createUser',
-    async (userData: Omit<AuthResI, 'id'>) => {
-        const response = await createUser(userData) as AxiosResponse<AuthResI>;
-        // The value we return becomes the `fulfilled` action payload
-        console.log(response.data);
-
-        return response.data as AuthResI
+    async (userData: Omit<AuthResI, 'id'>, { rejectWithValue }) => {
+        try {
+            const response = await createUser(userData) as AxiosResponse<AuthResI>;
+            console.log(response.data);
+            return response.data;
+        } catch (error) {
+            console.log(error);
+            return rejectWithValue(error);
+        }
+        
     }
-);
+)
 
 export const loginUserAsync = createAsyncThunk(
     'user/loginUser',
-    async (loginInfo: UserDataI) => {
+    async (loginInfo: UserDataI,{ rejectWithValue }) => {
+        try{
         const response = await loginUser(loginInfo) as AxiosResponse<AuthResI>;
-        return response.data as AuthResI
+        return response.data;
+    } catch (error) {
+        return rejectWithValue(error);
+    }
     }
 );
 
 
 export const checkAuthAsync = createAsyncThunk('user/checkAuth', async () => {
-    try {
         const response = await checkAuth() as AxiosResponse<AuthResI>;
         return response.data
-    } catch (error) {
-        console.log(error);
-    }
 });
 
 export const signOutAsync = createAsyncThunk(
@@ -65,8 +69,10 @@ const authSlice: Slice<AuthStateI> = createSlice({
             .addCase(createUserAsync.fulfilled, (state, action) => {
                 state.status = 'completed'
                 state.loggedInUser = action.payload
-                console.log(action.payload);
-
+            })
+            .addCase(createUserAsync.rejected, (state, action) => {
+                state.status = 'completed'
+                state.error = action.payload;
             })
             .addCase(loginUserAsync.pending, (state) => {
                 state.status = 'loading';
@@ -74,13 +80,21 @@ const authSlice: Slice<AuthStateI> = createSlice({
             .addCase(loginUserAsync.fulfilled, (state, action) => {
                 state.status = 'completed'
                 state.loggedInUser = action.payload
-                console.log(action.payload);
+      
             })
             .addCase(loginUserAsync.rejected, (state, action) => {
                 state.status = 'completed'
                 state.error = action.error
             })
-
+            .addCase(checkAuthAsync.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(checkAuthAsync.fulfilled, (state, action) => {
+                state.status = 'completed'
+                state.loggedInUser = action.payload
+      
+            })
+     
             .addCase(signOutAsync.pending, (state) => {
                 state.status = 'loading';
             })

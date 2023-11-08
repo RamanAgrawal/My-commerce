@@ -25,7 +25,6 @@ export const fetchLoggedInUserOrderAsync = createAsyncThunk(
 export const fetchLoggedInUserAsync = createAsyncThunk(
     'user/fetchLoggedInUser',
     async () => {
-        console.log('dsfsdfsad',"aa gya bh9fhdfksh");
         
         const response = await fetchLoggedInUser() as AxiosResponse
         return response.data

@@ -6,7 +6,7 @@ export const fetchLoggedInUserOrder = async () => {
   try {
     const response = await axios.get('/api/order/own');
     const data = response.data;
-    console.log(data);
+
     return { data };
   } catch (error) {
     console.error(error);
@@ -20,7 +20,7 @@ export const fetchLoggedInUser = async () => {
       withCredentials: true,
     });
     const data = response.data;
-    console.log(data);
+
     return { data };
   } catch (error) {
     console.error(error);

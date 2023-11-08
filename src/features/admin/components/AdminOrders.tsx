@@ -31,7 +31,7 @@ const AdminOrders = () => {
 
     const handleSort = (sortOption: SortI) => {
         const sort = { _sort: sortOption._sort, _order: sortOption._order };
-        console.log({ sort });
+
         setSort(sort);
     };
 
@@ -51,7 +51,7 @@ const AdminOrders = () => {
 
     const handleOrderStatus = (e: ChangeEvent<HTMLSelectElement>, order: OrderResI) => {
         const updatedOrder = {id:order.id, status:{status: e.target.value} };
-        console.log(updatedOrder);
+
         
         dispatch(updateOrderAsync(updatedOrder))
         setEditableOrderId('')

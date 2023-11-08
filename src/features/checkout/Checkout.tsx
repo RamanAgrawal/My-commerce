@@ -30,7 +30,7 @@ const Checkout = () => {
     const cart = useSelector(selectCart);
     const user = useSelector(selectUserInfo);
     const items = cart.map((item) => ({ product: item.product.id, quantity: item.quantity }))
-    console.log(user);
+
 
     const currentOrder = useSelector(selectCurrentOrder);
 
@@ -39,7 +39,6 @@ const Checkout = () => {
 
     // Calculate total amount and total items in the cart
     const totalAmount = cart.reduce((amount, item) => discountedPrice(item.product) * item.quantity + amount, 0);
-    console.log(cart);
     
     const totalItems = cart.reduce((total, item) => item.quantity + total, 0);
 
@@ -77,7 +76,6 @@ const Checkout = () => {
                 PaymentMethod,
                 status: 'pending'
             };
-            console.log("fdfds",order);
             
             dispatch(createOrderAsync(order));
         } else {

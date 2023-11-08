@@ -23,8 +23,7 @@ const initialState:OrderStateI = {
 export const createOrderAsync = createAsyncThunk(
     'order/createOrder',
     async (order:OrderI) => {
-        console.log("in create order",order);
-        
+
         const response = await createOrder(order) as AxiosResponse<OrderResI>;
         // The value we return becomes the `fulfilled` action payload
         return response.data 
@@ -56,7 +55,6 @@ const orderSlice:Slice<OrderStateI> = createSlice({
     initialState,
     reducers: {
         resetOrder:(state)=>{
-            console.log("in reset order")
             
             state.currentOrder=null
         }

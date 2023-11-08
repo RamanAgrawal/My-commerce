@@ -61,14 +61,14 @@ const AdminProductDetails = () => {
     if (id)
       dispatch(fetchSingleProductAsync(id))
   }, [dispatch, id])
-  // console.log(product);
+
 
   const handleCart: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault()
     if (product) {
 
       const newItem = { product: product.id, quantity: 1 };
-      console.log(newItem);
+
 
       dispatch(addToCartAsync(newItem));
     }

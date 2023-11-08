@@ -21,7 +21,6 @@ const initialState: CartStateI = {
 export const addToCartAsync = createAsyncThunk(
     'cart/addToCart',
     async (item: CartItemI) => {
-        console.log("in cart slice", item);
 
         const response = await addTocart(item) as AxiosResponse<CartItemResI>;
         // The value we return becomes the `fulfilled` action payload
@@ -34,7 +33,6 @@ export const fetchCartAsync = createAsyncThunk(
     async () => {
         const response = await fetchCartItems() as AxiosResponse<CartItemResI[]>;
         // The value we return becomes the `fulfilled` action payload
-        console.log('response: ', response.data);
         return response.data as CartItemResI[]
     }
 
@@ -83,7 +81,7 @@ const cartSlice: Slice<CartStateI> = createSlice({
                 state.status = 'loading';
             })
             .addCase(addToCartAsync.fulfilled, (state, action) => {
-                console.log(action.payload);
+
                 
                 state.status = 'completed'
                 state.items.push({ ...action.payload, quantity: 1 });
@@ -123,10 +121,9 @@ const cartSlice: Slice<CartStateI> = createSlice({
             })
             .addCase(deleteItemFromCartAsync.fulfilled, (state, action) => {
                 state.status = 'completed'
-                console.log("payload:  ", action.payload.id);
 
                 const index = state.items.findIndex(item => item.id === action.payload.id)
-                console.log("index no: ", index);
+
 
                 state.items.splice(index, 1)
 

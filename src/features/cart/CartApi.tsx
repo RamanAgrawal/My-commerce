@@ -10,7 +10,7 @@ export const addTocart = async (item: CartItemI) => {
     });
 
     const data = response;
-    console.log(data);
+
     return data;
   } catch (error) {
     console.error('Error adding to cart:', error);
@@ -22,7 +22,6 @@ export const fetchCartItems = async () => {
   try {
     const response = await axios.get('/api/cart', { withCredentials: true });
     const data = response;
-    console.log(data);
     return data;
   } catch (error) {
     console.error('Error fetching cart items:', error);

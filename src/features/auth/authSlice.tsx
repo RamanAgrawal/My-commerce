@@ -8,12 +8,14 @@ interface AuthStateI {
     loggedInUser: AuthResI | null;
     status: string;
     error: SerializedError | unknown | null| any;
+    userChecked: boolean;
 }
 
 const initialState: AuthStateI = {
     loggedInUser: null,
     status: 'idle',
-    error: null
+    error: null,
+    userChecked: false,
 }
 
 export const createUserAsync = createAsyncThunk(
@@ -93,7 +95,7 @@ const authSlice: Slice<AuthStateI> = createSlice({
             .addCase(checkAuthAsync.fulfilled, (state, action) => {
                 state.status = 'completed'
                 state.loggedInUser = action.payload
-      
+                state.userChecked = true;
             })
      
             .addCase(signOutAsync.pending, (state) => {
@@ -109,5 +111,6 @@ const authSlice: Slice<AuthStateI> = createSlice({
 
 // export const { } = authSlice.actions
 export const selectLoggedInUser = (state: { auth: AuthStateI }) => state.auth.loggedInUser
-export const selectError = (state: { auth: AuthStateI }) => state.auth.error
+export const selectError = (state: { auth: AuthStateI }) => state.auth.error;
+export const selectUserChecked = (state: { auth: AuthStateI }) => state.auth.userChecked;
 export default authSlice.reducer

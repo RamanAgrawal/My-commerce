@@ -3,10 +3,10 @@ import Navbar from "../features/navbar/Navbar"
 
 const AdminProductFormPage = () => {
   return (
-    <div>
-      <Navbar/>
-      <ProductForm/>
-      </div>
+    <>
+      <Navbar />
+      <ProductForm />
+    </>
   )
 }
 

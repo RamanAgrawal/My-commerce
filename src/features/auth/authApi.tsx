@@ -5,23 +5,23 @@ import { UserDataI } from "../../models/Models";
 
 
 export const createUser = async (userData: UserDataI) => {
-    try {
-      const response = await axios.post('/api/auth/signup', userData, {
-        withCredentials: true, // To include cookies in the request
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      
-      return response;
-    } catch (error: any) {
-      if (error.response && error.response.data && error.response.data.message) {
-        // Access the error message from the response
-        throw error.response.data
-        // return error.response.data.message
-      } 
-      throw error; // You can choose to handle or rethrow the error here
+  try {
+    const response = await axios.post('/api/auth/signup', userData, {
+      withCredentials: true, // To include cookies in the request
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    return response;
+  } catch (error: any) {
+    if (error.response && error.response.data && error.response.data.message) {
+      // Access the error message from the response
+      throw error.response.data
+      // return error.response.data.message
     }
+    throw error; // You can choose to handle or rethrow the error here
+  }
 
 };
 
@@ -39,11 +39,11 @@ export const loginUser = async (loginInfo: UserDataI) => {
     if (response.status === 200) {
       console.log(response.data);
       return response;
-    } 
-    
-  } catch (error:any) {
+    }
+
+  } catch (error: any) {
     console.log(error);
-    
+
     if (error.response && error.response.data && error.response.data.message) {
       // Access the error message from the response
       throw (error.response);
@@ -78,7 +78,9 @@ export const checkAuth = async () => {
 
 export const signOut = async () => {
   try {
-    const response = await axios.get('/api/auth/logout');
+    const response = await axios.get('/api/auth/logout', {
+      withCredentials: true
+    });
 
     if (response.status === 200) {
       return 'success';

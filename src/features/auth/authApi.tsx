@@ -61,7 +61,7 @@ export const loginUser = async (loginInfo: UserDataI) => {
 export const checkAuth = async () => {
   try {
     const response = await axios.get('/api/auth/check', {
-      withCredentials: true, // To include cookies in the request
+      // withCredentials: true, // To include cookies in the request
     });
     if (response.status === 200) {
       return response;

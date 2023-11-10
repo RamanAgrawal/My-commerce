@@ -7,7 +7,7 @@ import { AuthResI, UserDataI } from '../../models/Models';
 interface AuthStateI {
     loggedInUser: AuthResI | null;
     status: string;
-    error: SerializedError | unknown | null| any;
+    error: SerializedError | unknown | null | any;
     userChecked: boolean;
 }
 
@@ -29,26 +29,26 @@ export const createUserAsync = createAsyncThunk(
             console.log(error);
             return rejectWithValue(error);
         }
-        
+
     }
 )
 
 export const loginUserAsync = createAsyncThunk(
     'user/loginUser',
-    async (loginInfo: UserDataI,{ rejectWithValue }) => {
-        try{
-        const response = await loginUser(loginInfo) as AxiosResponse<AuthResI>;
-        return response.data;
-    } catch (error) {
-        return rejectWithValue(error);
-    }
+    async (loginInfo: UserDataI, { rejectWithValue }) => {
+        try {
+            const response = await loginUser(loginInfo) as AxiosResponse<AuthResI>;
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error);
+        }
     }
 );
 
 
 export const checkAuthAsync = createAsyncThunk('user/checkAuth', async () => {
-        const response = await checkAuth() as AxiosResponse<AuthResI>;
-        return response.data
+    const response = await checkAuth() as AxiosResponse<AuthResI>;
+    return response.data
 });
 
 export const signOutAsync = createAsyncThunk(
@@ -83,7 +83,7 @@ const authSlice: Slice<AuthStateI> = createSlice({
             .addCase(loginUserAsync.fulfilled, (state, action) => {
                 state.status = 'completed'
                 state.loggedInUser = action.payload
-      
+
             })
             .addCase(loginUserAsync.rejected, (state, action) => {
                 state.status = 'completed'
@@ -95,6 +95,10 @@ const authSlice: Slice<AuthStateI> = createSlice({
             .addCase(checkAuthAsync.fulfilled, (state, action) => {
                 state.status = 'completed'
                 state.loggedInUser = action.payload
+                state.userChecked = true;
+            })
+            .addCase(checkAuthAsync.rejected, (state, action) => {
+                state.status = 'completed'
                 state.userChecked = true;
             })
      

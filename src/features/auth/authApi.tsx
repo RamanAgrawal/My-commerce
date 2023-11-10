@@ -37,7 +37,6 @@ export const loginUser = async (loginInfo: UserDataI) => {
     });
 
     if (response.status === 200) {
-      console.log(response.data);
       return response;
     }
 

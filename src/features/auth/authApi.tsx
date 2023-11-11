@@ -77,7 +77,7 @@ export const checkAuth = async () => {
 
 export const signOut = async () => {
   try {
-    const response = await axios.get('/api/auth/logout', {
+    const response = await axios.post('/api/auth/logout', {
       withCredentials: true
     });
 

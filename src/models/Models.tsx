@@ -1,4 +1,3 @@
-
 export interface UserDataI {
     name?: string;
     email: string;
@@ -74,7 +73,6 @@ export interface CartItemResI {
     product: ProductDataI;
     user: string;
     quantity: number
-    productId: number;
 }
 
 export interface OrderI {
@@ -85,7 +83,6 @@ export interface OrderI {
     selectedAddress: AddressI;
     PaymentMethod: string;
     status: string;
-    id?: string
 }
 export interface UpdateOrderI {
     status: {status:string};

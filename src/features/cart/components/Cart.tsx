@@ -3,23 +3,23 @@ import { ChangeEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { deleteItemFromCartAsync, selectCart, updateCartAsync, } from '../CartSlice';
 import { AppDispatch } from '../../../store/store';
-import { CartItemI } from '../../../models/Models';
+import { CartItemResI } from '../../../models/Models';
 import { discountedPrice } from '../../../utils';
 
 
 
 const Cart: React.FC = () => {
-  const products = useSelector(selectCart)
+  const cart = useSelector(selectCart)
   const dispatch = useDispatch<AppDispatch>()
-  const totalAmount = products.reduce((amount, item) => discountedPrice(item) * item.quantity + amount, 0)
-  const totalItems = products.reduce((total, item) => item.quantity + total, 0);
+  const totalAmount = cart.reduce((amount, item) => discountedPrice(item.product) * item.quantity + amount, 0)
+  const totalItems = cart.reduce((total, item) => item.quantity + total, 0);
 
 
-  const handleQuntity = (e: ChangeEvent<HTMLSelectElement>, item: CartItemI) => {
-    dispatch(updateCartAsync({ ...item, quantity: +e.target.value }))
+  const handleQuantity = (e: ChangeEvent<HTMLSelectElement>, item: CartItemResI) => {
+    dispatch(updateCartAsync({ id:item.id, quantity: +e.target.value }))
   }
 
-  const handleDelete = (id: any) => {
+  const handleDelete = (id: string) => {
     dispatch(deleteItemFromCartAsync(id))
   }
 
@@ -30,12 +30,12 @@ const Cart: React.FC = () => {
 
           <div className="flow-root">
             <ul role="list" className="-my-6 divide-y divide-gray-200">
-              {products && products.map((product) => (
-                <li key={product.id} className="flex py-6">
+              {cart && cart.map((item) => (
+                <li key={item.product.id} className="flex py-6">
                   <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                     <img
-                      src={product.thumbnail}
-                      alt={product.title}
+                      src={item.product.thumbnail}
+                      alt={item.product.title}
                       className="h-full w-full object-cover object-center"
                     />
                   </div>
@@ -44,15 +44,15 @@ const Cart: React.FC = () => {
                     <div>
                       <div className="flex justify-between text-base font-medium text-gray-900">
                         <h3>
-                          <p >{product.title}</p>
+                          <p >{item.product.title}</p>
                         </h3>
-                        <p className="ml-4">${discountedPrice(product)}</p>
+                        <p className="ml-4">${discountedPrice(item.product)}</p>
                       </div>
-                      <p className="mt-1 text-sm text-gray-500">{product.rating}</p>
+                      <p className="mt-1 text-sm text-gray-500">{item.product.rating}</p>
                     </div>
                     <div className="flex flex-1 items-end justify-between text-sm">
                       <div className="text-gray-500">Qty-
-                        <select name="quntity" id="quntity" value={product.quantity} onChange={(e) => handleQuntity(e, product)}>
+                        <select name="quntity" id="quntity" value={item.quantity} onChange={(e) => handleQuantity(e, item)}>
                           <option value="1">1</option>
                           <option value="2">2</option>
                           <option value="3">3</option>
@@ -62,7 +62,7 @@ const Cart: React.FC = () => {
 
                       <div className="flex">
                         <button
-                          onClick={() => handleDelete(product.id)}
+                          onClick={() => handleDelete(item.id)}
                           type="button"
                           className="font-medium text-indigo-600 hover:text-indigo-500"
                         >

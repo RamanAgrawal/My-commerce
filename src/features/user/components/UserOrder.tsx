@@ -2,21 +2,22 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from '../../../store/store'
 import { fetchLoggedInUserOrderAsync, selectUserInfo, selectUserOrders } from '../userSlice'
-import { discountedPrice } from '../../../utils'
+import { discountedPrice, setOrderStatusColor } from '../../../utils'
 
 
 
 const UserOrder = () => {
-  const dispatch = useDispatch<AppDispatch>()
-  const user = useSelector(selectUserInfo)
-  const order = useSelector(selectUserOrders)
+  const dispatch = useDispatch<AppDispatch>();
+  const user = useSelector(selectUserInfo);
+  const order = useSelector(selectUserOrders);
   useEffect(() => {
-    if (user?.id) {
-      dispatch(fetchLoggedInUserOrderAsync(+user.id))
+    if (user) {
+      dispatch(fetchLoggedInUserOrderAsync());
     }
 
-  }, [dispatch,user])
-  console.log(order);
+  }, [dispatch,user]);
+
+
 
   return (
     <div className='pt-16'>{order && order.map(order => (
@@ -25,12 +26,12 @@ const UserOrder = () => {
           <div className="flow-root">
             <h2 className='text-2xl font-bold mb-2'>Order #{order.id}</h2>
             <ul role="list" className="-my-6 divide-y divide-gray-200">
-              {order.products.map((product) => (
-                <li key={product.id} className="flex py-6">
+              {order.items.map((item) => (
+                <li key={item.product.id} className="flex py-6">
                   <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                     <img
-                      src={product.thumbnail}
-                      alt={product.title}
+                      src={item.product.thumbnail}
+                      alt={item.product.title}
                       className="h-full w-full object-cover object-center"
                     />
                   </div>
@@ -38,11 +39,11 @@ const UserOrder = () => {
                     <div>
                       <div className="flex justify-between text-base font-medium text-gray-900">
                         <h3>
-                          <p >{product.title}</p>
+                          <p >{item.product.title}</p>
                         </h3>
-                        <p className="ml-4">${discountedPrice(product)}</p>
+                        <p className="ml-4">${discountedPrice(item.product)}</p>
                       </div>
-                      <p className="mt-1 text-sm text-gray-500">{product.rating}</p>
+                      <p className="mt-1 text-sm text-gray-500">{item.product.rating}</p>
                     </div>
                     <div className="flex flex-1 items-end justify-between text-sm">
                       <div className="text-gray-500">Qty-{order.totalItems}
@@ -57,20 +58,21 @@ const UserOrder = () => {
 
 
         <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
+            <span>Status : </span>
+            <span className={setOrderStatusColor(order.status)}>{order.status}</span>
           <div className="flex justify-between text-base font-medium text-gray-900">
             <p>Subtotal</p>
             <p>${order.totalAmount}</p>
           </div>
           <div className="flex justify-between my-2 text-base font-medium text-gray-900">
-            <p>Total Items in Cart</p>
+            <p>Total Item</p>
             <p>{order.totalItems} items</p>
           </div>
-          <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
 
         </div>
       </div>
-    ))}</div>
-
+    ))}
+    </div>
   )
 }
 

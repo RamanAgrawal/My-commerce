@@ -1,92 +1,64 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createAsyncThunk, createSlice, SerializedError, Slice } from '@reduxjs/toolkit';
-import { checkUser, createUser, signOut } from './authApi';
+import { loginUser, createUser, signOut, checkAuth } from './authApi';
 import { AxiosResponse } from 'axios';
 import { AuthResI, UserDataI } from '../../models/Models';
-import { updateUser } from '../user/userApi';
 
-
-// const temUser=  {
-//     email: "iramanagrawal@gmail.com",
-//     password: "Agrawal@1",
-//     addresses: [
-//       {
-//         name: "Raman",
-//         email: "iramanagrawal@gmail.com",
-//         phoneNo: "09522063370",
-//         street: "Shivam mobiles, thakur road",
-//         city: "JAGDALPUR",
-//         state: "k10",
-//         pincode: "147852"
-//       },
-//       {
-//         name: "Raman",
-//         email: "iramanagrawal@gmail.com",
-//         phoneNo: "+918959095100",
-//         street: "agrawal material suppliers, near ambe rice mill, near ambe rice mill, near ambe rice mill",
-//         city: "thankhamharia",
-//         state: "Chhattisgarh",
-//         pincode: "123654"
-//       },
-//       {
-//         name: "Aman",
-//         email: "agrawalraman277@gmail.com",
-//         phoneNo: "09522063370",
-//         street: "Near ambe rice mile than khamharia",
-//         city: "Bemetara",
-//         state: "Chhattisgarh",
-//         pincode: "4657542"
-//       }
-//     ],
-//     id: '2'
-//   }
-interface AuthStateI  {
+interface AuthStateI {
     loggedInUser: AuthResI | null;
     status: string;
-    error: SerializedError | null
+    error: SerializedError | unknown | null | any;
+    userChecked: boolean;
 }
 
 const initialState: AuthStateI = {
     loggedInUser: null,
     status: 'idle',
-    error: null
+    error: null,
+    userChecked: false,
 }
-
 
 export const createUserAsync = createAsyncThunk(
     'users/createUser',
-    async (userData: AuthResI) => {
-        const response = await createUser(userData) as AxiosResponse<AuthResI>;
-        // The value we return becomes the `fulfilled` action payload
-        console.log(response.data);
-        
-        return response.data as AuthResI
+    async (userData: Omit<AuthResI, 'id'>, { rejectWithValue }) => {
+        try {
+            const response = await createUser(userData) as AxiosResponse<AuthResI>;
+            console.log(response.data);
+            return response.data;
+        } catch (error) {
+            console.log(error);
+            return rejectWithValue(error);
+        }
+
+    }
+)
+
+export const loginUserAsync = createAsyncThunk(
+    'user/loginUser',
+    async (loginInfo: UserDataI, { rejectWithValue }) => {
+        try {
+            const response = await loginUser(loginInfo) as AxiosResponse<AuthResI>;
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error);
+        }
     }
 );
 
-export const checkUserAsync = createAsyncThunk(
-    'user/checkUser',
-    async (loginInfo: UserDataI) => {
-        const response = await checkUser(loginInfo) as AxiosResponse<AuthResI>;
-        return response.data as AuthResI
-    }
-);
+
+export const checkAuthAsync = createAsyncThunk('user/checkAuth', async () => {
+    const response = await checkAuth() as AxiosResponse<AuthResI>;
+    return response.data
+});
 
 export const signOutAsync = createAsyncThunk(
     'user/signOut',
     async () => {
-        const response = await signOut() as AxiosResponse<AuthResI>;
-        return response.data as AuthResI
+        const response = await signOut() as string;
+        return response as string
     }
 );
 
-
-export const updateUserAsync = createAsyncThunk(
-    'users/updateUser',
-    async (update: AuthResI) => {
-        const response = await updateUser(update) as AxiosResponse<AuthResI>;
-        return response.data as AuthResI
-    }
-);
 
 const authSlice: Slice<AuthStateI> = createSlice({
     name: "auth",
@@ -100,28 +72,36 @@ const authSlice: Slice<AuthStateI> = createSlice({
             .addCase(createUserAsync.fulfilled, (state, action) => {
                 state.status = 'completed'
                 state.loggedInUser = action.payload
-                console.log(action.payload);
-
             })
-            .addCase(checkUserAsync.pending, (state) => {
+            .addCase(createUserAsync.rejected, (state, action) => {
+                state.status = 'completed'
+                state.error = action.payload;
+            })
+            .addCase(loginUserAsync.pending, (state) => {
                 state.status = 'loading';
             })
-            .addCase(checkUserAsync.fulfilled, (state, action) => {
+            .addCase(loginUserAsync.fulfilled, (state, action) => {
                 state.status = 'completed'
                 state.loggedInUser = action.payload
-                console.log(action.payload);
+
             })
-            .addCase(checkUserAsync.rejected, (state, action) => {
+            .addCase(loginUserAsync.rejected, (state, action) => {
                 state.status = 'completed'
                 state.error = action.error
             })
-            .addCase(updateUserAsync.pending, (state) => {
+            .addCase(checkAuthAsync.pending, (state) => {
                 state.status = 'loading';
             })
-            .addCase(updateUserAsync.fulfilled, (state, action) => {
+            .addCase(checkAuthAsync.fulfilled, (state, action) => {
                 state.status = 'completed'
                 state.loggedInUser = action.payload
+                state.userChecked = true;
             })
+            .addCase(checkAuthAsync.rejected, (state) => {
+                state.status = 'completed'
+                state.userChecked = true;
+            })
+     
             .addCase(signOutAsync.pending, (state) => {
                 state.status = 'loading';
             })
@@ -135,5 +115,6 @@ const authSlice: Slice<AuthStateI> = createSlice({
 
 // export const { } = authSlice.actions
 export const selectLoggedInUser = (state: { auth: AuthStateI }) => state.auth.loggedInUser
-export const selectError = (state: { auth: AuthStateI }) => state.auth.error
+export const selectError = (state: { auth: AuthStateI }) => state.auth.error;
+export const selectUserChecked = (state: { auth: AuthStateI }) => state.auth.userChecked;
 export default authSlice.reducer

@@ -1,63 +1,66 @@
 import { createAsyncThunk, createSlice, Slice } from '@reduxjs/toolkit';
 import { addTocart, deleteItemFromCart, fetchCartItems, resetCart, updatecart } from './CartApi';
 import { AxiosResponse } from 'axios';
-import { CartItemI } from '../../models/Models';
+import { CartItemI, CartItemResI } from '../../models/Models';
 
 
 
 interface CartStateI {
     value: number;
-    items: CartItemI[],
-    status:string
+    items: CartItemResI[],
+    status: string
 }
 
 const initialState: CartStateI = {
     items: [],
     value: 0,
-    status:'idle'
+    status: 'idle'
 }
 
 
 export const addToCartAsync = createAsyncThunk(
     'cart/addToCart',
-    async (item:CartItemI) => {
-        const response = await addTocart(item) as AxiosResponse<CartItemI>;
+    async (item: CartItemI) => {
+
+        const response = await addTocart(item) as AxiosResponse<CartItemResI>;
         // The value we return becomes the `fulfilled` action payload
-        return response.data as CartItemI
+
+        return response.data as CartItemResI
     }
 );
 export const fetchCartAsync = createAsyncThunk(
     'cart/fetchCartItems',
-    async (id:number) => {
-        const response = await fetchCartItems(id) as AxiosResponse<CartItemI[]>;
+    async () => {
+        const response = await fetchCartItems() as AxiosResponse<CartItemResI[]>;
         // The value we return becomes the `fulfilled` action payload
-        return response.data as CartItemI[]
+        return response.data as CartItemResI[]
     }
-    
+
 );
 
 export const updateCartAsync = createAsyncThunk(
     'cart/updateCart',
-    async (update:CartItemI) => {
-        const response = await updatecart(update) as AxiosResponse<CartItemI>;
+    async (update: Omit<CartItemResI, 'user' | 'product'>) => {
+        const response = await updatecart(update) as AxiosResponse<CartItemResI>;
         // The value we return becomes the `fulfilled` action payload
-        return response.data as CartItemI
+        return response.data as CartItemResI
     }
 );
 export const deleteItemFromCartAsync = createAsyncThunk(
     'cart/deleteItemFromCart',
-    async (itemId:number) => {
-        const response = await deleteItemFromCart(itemId) as AxiosResponse<{id:number}>;
+    async (itemId: string) => {
+        const response = await deleteItemFromCart(itemId) as AxiosResponse<{ id: string }>;
         // The value we return becomes the `fulfilled` action payload
         return response.data
     }
 );
 export const resetCartAsync = createAsyncThunk(
     'cart/resetCart',
-    async (userId:number) => {
-        const response = await resetCart(userId) as AxiosResponse
+    async () => {
+        const response = await resetCart() 
         // The value we return becomes the `fulfilled` action payload
-        return response.data
+
+        return response.status
     }
 );
 
@@ -78,18 +81,11 @@ const cartSlice: Slice<CartStateI> = createSlice({
                 state.status = 'loading';
             })
             .addCase(addToCartAsync.fulfilled, (state, action) => {
+
+                
                 state.status = 'completed'
-                const index = state.items.findIndex(item => item.productId === action.payload.productId);
-                if (index !== -1) {
-                  // Product is already in the cart, increase its quantity
-                  state.items[index].quantity += 1;
-                  console.log("quantity: ",state.items[index].quantity);
-                  
-                } else {
-                  // Product is not in the cart, add it with quantity 1
-                  state.items.push({ ...action.payload, quantity: 1 });
-                }
-                state.value+=action.payload.price
+                state.items.push({ ...action.payload, quantity: 1 });
+                state.value += action.payload.product.price
             })
             .addCase(fetchCartAsync.pending, (state) => {
                 state.status = 'loading';
@@ -99,7 +95,6 @@ const cartSlice: Slice<CartStateI> = createSlice({
                 // action.payload.forEach((fetchedItem) => {
                 //     // Check if the fetched item is already in the state
                 //     const existingCartItem = state.items.find((cartItem) => cartItem.productId === fetchedItem.productId);
-                
                 //     if (existingCartItem) {
                 //       // If the item is already in the state, increment the quantity
                 //       existingCartItem.quantity += fetchedItem.quantity;
@@ -108,7 +103,7 @@ const cartSlice: Slice<CartStateI> = createSlice({
                 //       state.items.push(fetchedItem);
                 //     }
                 //   });
-                state.items=action.payload
+                state.items = action.payload
                 // state.value+=action.payload.price
             })
             .addCase(updateCartAsync.pending, (state) => {
@@ -116,36 +111,35 @@ const cartSlice: Slice<CartStateI> = createSlice({
             })
             .addCase(updateCartAsync.fulfilled, (state, action) => {
                 state.status = 'completed'
-                const index=state.items.findIndex(item=>item.id===action.payload.id)
-                state.items[index]=action.payload
-                
+                const index = state.items.findIndex(item => item.id === action.payload.id)
+                state.items[index] = action.payload
+
             })
             .addCase(deleteItemFromCartAsync.pending, (state) => {
                 state.status = 'loading';
             })
             .addCase(deleteItemFromCartAsync.fulfilled, (state, action) => {
                 state.status = 'completed'
-                console.log("payload:  ",action.payload.id);
-                
-                const index=state.items.findIndex(item=>item.id===action.payload.id)
-                console.log("index no: ",index);
-                
-                state.items.splice(index,1)
-                
+
+                const index = state.items.findIndex(item => item.id === action.payload.id)
+
+
+                state.items.splice(index, 1)
+
             })
-            .addCase(resetCartAsync.pending,(state)=>{
-                state.status='loading';
+            .addCase(resetCartAsync.pending, (state) => {
+                state.status = 'loading';
             })
-            .addCase(resetCartAsync.fulfilled,(state)=>{
-                state.status='completed';
-                state.items=[]
+            .addCase(resetCartAsync.fulfilled, (state) => {
+                state.status = 'completed';
+                state.items = []
             })
-          
+
 
     },
 });
 
 export const { clearCart } = cartSlice.actions;
-export const selectCart= (state:{cart:CartStateI})=>state.cart.items
-export const selectTotalvalue= (state:{cart:CartStateI})=>state.cart.value
+export const selectCart = (state: { cart: CartStateI }) => state.cart.items
+export const selectTotalvalue = (state: { cart: CartStateI }) => state.cart.value
 export default cartSlice.reducer

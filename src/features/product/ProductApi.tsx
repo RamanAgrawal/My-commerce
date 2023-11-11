@@ -2,113 +2,159 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ProductDataI } from "../../models/Models";
 
-export const fetchAllProducts = () => {
-  return new Promise((resolve) => {
-    //TODO: we will not hard-code server URL here
-    // const response = await axios('http://localhost:3000/products') 
-    // const data = await response.data
-    // resolve({data})
-    fetch('http://localhost:3000/products')
-      .then((response) => response.json())
-      .then((data) => resolve({ data }));
-  }
-  );
-}
-export const fetchSingleProduct = (id:number) => {
-  return new Promise((resolve) => {
-    //TODO: we will not hard-code server URL here
-    fetch('http://localhost:3000/products/'+id)
-      .then((response) => response.json())
-      .then((data) => resolve({ data }));
-  }
-  );
-}
+import axios from "../../axiosConfig"
 
-export const createProduct = (product:unknown) => {
-  return new Promise((resolve) => {
-    //TODO: we will not hard-code server URL here
-    fetch('http://localhost:3000/products/',{
-      method: 'POST',
-      body: JSON.stringify(product),
+
+export const fetchSingleProduct = async (id:string) => {
+  try {
+    const response = await axios.get(`/api/products/${id}`, {
+      withCredentials: true, // To include cookies in the request
+    });
+
+    if (response.status === 200) {
+      return { data: response.data };
+    } else {
+      // If the response status is not 200 (OK), handle the error.
+      throw new Error('Request failed with status: ' + response.status);
+    }
+  } catch (error) {
+    console.error(error);
+    throw error; // You can choose to handle or rethrow the error here
+  }
+};
+
+
+
+export const createProduct = async (product:any) => {
+  try {
+    const response = await axios.post('/api/products', product, {
+      withCredentials: true, // To include cookies in the request
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
+    });
 
-    })
-      .then((response) => response.json())
-      .then((data) => resolve({ data }));
+    if (response.status === 200) {
+      return { data: response.data };
+    } else {
+      // If the response status is not 200 (OK), handle the error.
+      throw new Error('Request failed with status: ' + response.status);
+    }
+  } catch (error) {
+    console.error(error);
+    throw error; // You can choose to handle or rethrow the error here
   }
-  );
-}
+};
 
-export const updateProduct = (update: ProductDataI) => {
 
-  return new Promise(async (resolve) => {
-      const response = await fetch('http://localhost:3000/products/' +update.id, {
-          method: "PATCH",
-          body: JSON.stringify(update),
-          headers: { "content-type": "application/json" }
-      })
-      console.log(update.id);
-      
-      const data = await response.json()
-      console.log(data);
 
-      resolve({ data })
-  })
-}
 
-export const fetchCategories = () => {
-  return new Promise((resolve) => {
-    //TODO: we will not hard-code server URL here
-    fetch('http://localhost:3000/categories')
-      .then((response) => response.json())
-      .then((data) => resolve({ data }));
+export const updateProduct = async (update:ProductDataI) => {
+  try {
+    const response = await axios.patch(`/api/products/${update.id}`, update, {
+      withCredentials: true, // To include cookies in the request
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.status === 200) {
+      return  response;
+    } else {
+      // If the response status is not 200 (OK), handle the error.
+      throw new Error('Request failed with status: ' + response.status);
+    }
+  } catch (error) {
+    console.error(error);
+    throw error; // You can choose to handle or rethrow the error here
   }
-  );
-}
-export const fetchBrands = () => {
-  return new Promise((resolve) => {
-    //TODO: we will not hard-code server URL here
-    fetch('http://localhost:3000/brands')
-      .then((response) => response.json())
-      .then((data) => resolve({ data }));
+};
+
+
+export const fetchCategories = async () => {
+  try {
+    const response = await axios.get('/api/categories', {
+      withCredentials: true, // To include cookies in the request
+    });
+
+    if (response.status === 200) {
+      return { data: response.data };
+    } else {
+      // If the response status is not 200 (OK), handle the error.
+      throw new Error('Request failed with status: ' + response.status);
+    }
+  } catch (error) {
+    console.error(error);
+    throw error; // You can choose to handle or rethrow the error here
   }
-  );
-}
+};
+
+
+
+
+export const fetchBrands = async () => {
+  try {
+    const response = await axios.get('/api/brands', {
+      withCredentials: true, // To include cookies in the request
+    });
+
+    if (response.status === 200) {
+      return { data: response.data };
+    } else {
+      // If the response status is not 200 (OK), handle the error.
+      throw new Error('Request failed with status: ' + response.status);
+    }
+  } catch (error) {
+    console.error(error);
+    throw error; // You can choose to handle or rethrow the error here
+  }
+};
+
 export interface Data {
   products: ProductDataI[]
   totalItems: string | null
 }
-export const fetchProductsByFilters = async (filter: any, sort: any, pagination: any) => {
-  // const filter: Filter = { category: "smartphone" };
-  // TODO: on the server, we will support multi values
-  let queryString = '';
-  for (const key in filter) {
-    const categoryVal = filter[key]
-    if (categoryVal.length) {
-      const lastval = categoryVal[categoryVal.length - 1]
-      queryString += `${key}=${lastval}&`;
+
+
+
+
+export const fetchProductsByFilters = async (filter: any, sort: any, pagination: any ,admin:boolean) => {
+  // Build the query string from the filter, sort, and pagination parameters
+  const queryParams = {
+    ...filter,
+    ...sort,
+    ...pagination,
+  };
+
+  if (admin) {
+    queryParams.admin = admin;
+  }
+
+  try {
+    // Use Axios to make the GET request with the query parameters
+    const response = await axios.get('/api/products', {
+      params: queryParams,
+      withCredentials: true, // To include cookies in the request
+    });
+
+    if (response.status === 200) {
+      // Extract the product data and total items from the response
+      const productData = response.data;
+      const totalItems = response.headers['x-total-count'];
+
+      return { data: { products: productData, totalItems } };
+    } else {
+      // If the response status is not 200 (OK), handle the error.
+      throw new Error('Request failed with status: ' + response.status);
     }
-    // queryString += `${key}=${filter[key]}&`;z
+  } catch (error) {
+    console.error(error);
+    throw error; // You can choose to handle or rethrow the error here
   }
-  for (const key in sort) {
-    queryString += `${key}=${sort[key]}&`;
-  }
-  for (const key in pagination) {
-    queryString += `${key}=${pagination[key]}&`;
-  }
-  // console.log(queryString);
+};
 
 
-  return new Promise<{ data: Data }>(async (resolve) => {
-    // TODO: we will not hard-code server URL here
-    const response = await fetch('http://localhost:3000/products?' + queryString);
-    const productData = await response.json();
-    const totalItems = await response.headers.get("X-Total-Count")
-    resolve({ data: { products: productData, totalItems } });
-    //   fetch('http://localhost:3000/products?' + queryString)
-    //   .then((response) => response.json())
-    //   .then((data) => resolve({ data }));
-  });
-}
+
+
+
+

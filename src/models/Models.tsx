@@ -14,19 +14,19 @@ export interface AddressI {
     phoneNo: string,
 }
 
-export interface PaginationI{
-    _page:number;
-    _limit:number;
+export interface PaginationI {
+    _page: number;
+    _limit: number;
 }
-export interface SortI{
-    _sort:string;
-    _order:string;
+export interface SortI {
+    _sort: string;
+    _order: string;
 }
 
 export interface AuthResI extends UserDataI {
-    id?: string | undefined;
+    id: string;
     addresses: AddressI[]
-    role:string;
+    role: string;
 }
 export interface LoginFormDataI {
     email: string;
@@ -41,7 +41,7 @@ export interface SignupFormDataI {
 }
 
 export interface ProductDataI {
-    id: number;
+    id: string;
     title: string;
     price: number;
     thumbnail: string;
@@ -54,7 +54,7 @@ export interface ProductDataI {
     discountPercentage?: number;
     brand?: string;
     category?: string;
-    deleted?:boolean
+    deleted?: boolean
 }
 
 export interface CategoryI {
@@ -64,35 +64,45 @@ export interface CategoryI {
 }
 
 export interface CartItemI {
-    id?: number;
-    title: string;
-    price: number;
-    thumbnail: string;
-    imageAlt: string;
-    color: string;
-    rating: number;
-    images: string[];
-    description: string;
-    user: number;
+    product: string
+    // user: string;
+    quantity: number
+}
+
+export interface CartItemResI {
+    id: string;
+    product: ProductDataI;
+    user: string;
     quantity: number
     productId: number;
 }
 
 export interface OrderI {
-    products: CartItemI[];
+    items: { product: string, quantity: number }[];
     totalAmount: number;
     totalItems: number;
-    user: AuthResI | null;
+    user: string;
     selectedAddress: AddressI;
-    selectedPaymentMethod: string;
+    PaymentMethod: string;
     status: string;
     id?: string
 }
-export interface OrderResI extends OrderI {
-    id?: string
+export interface UpdateOrderI {
+    status: {status:string};
+    id: string
+}
+export interface OrderResI {
+    totalAmount: number;
+    totalItems: number;
+    user: string;
+    selectedAddress: AddressI;
+    PaymentMethod: string;
+    status: string;
+    items: CartItemResI[];
+    id: string
 }
 
 export interface AdminOrdersI {
-    orders:OrderResI[];
-    totalOrders:number;
+    orders: OrderResI[];
+    totalOrders: number;
 }

@@ -4,9 +4,10 @@ import { Bars3Icon, ShoppingCartIcon, XMarkIcon } from '@heroicons/react/24/outl
 import Profile from '../../assets/logo.jpg'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { selectLoggedInUser } from '../auth/authSlice'
+
+import { selectUserInfo } from '../user/userSlice'
 const navigation = [
-  { name: 'Home', path: '/', current: true,user:true },
+  { name: 'Home', path: '/', current: false,user:true },
   { name: 'Contect Us', path: '/contact', current: false,user:true },
   { name: 'About Us', path: '/about', current: false,user:true },
   { name: 'Products', path: '/admin', current: false,admin:true },
@@ -21,7 +22,8 @@ const classNames=(...classes: Array<string>) =>{
 }
 
 const Navbar:React.FC=()=> {
-  const user=useSelector(selectLoggedInUser);
+  const user=useSelector(selectUserInfo);
+ 
   
   const filteredNavigation = navigation.filter((item) => {
     if (user) {
@@ -39,7 +41,7 @@ const Navbar:React.FC=()=> {
     <Disclosure as="nav" className="bg-gray-800 border-red-600 fixed w-full z-10">
       {({ open }) => (
         <>
-          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+          <div className="mx-auto px-2 sm:px-6 lg:px-8">
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
@@ -57,7 +59,7 @@ const Navbar:React.FC=()=> {
                 <div className="flex flex-shrink-0 items-center">
                   <img
                     className="h-8 w-auto"
-                    src="https://e7.pngegg.com/pngimages/928/468/png-clipart-canada-amazon-com-california-amazon-drive-amazon-prime-adidas-logo-s-text-service.png"
+                    src="/ecommerce.png"
                     alt="Your Company"
                   />
                 </div>

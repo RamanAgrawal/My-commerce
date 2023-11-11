@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice, SerializedError, Slice } from '@reduxjs/toolkit';
 import { AxiosResponse } from 'axios';
 import { createOrder, fetchAllOrders, updateOrder } from './orderApi';
-import { AdminOrdersI, OrderI, OrderResI, PaginationI, SortI } from '../../models/Models';
+import { AdminOrdersI, OrderI, OrderResI, PaginationI, SortI, UpdateOrderI } from '../../models/Models';
 
 interface OrderStateI{
-    orders:OrderI[];
+    orders:OrderResI[];
     status:string;
     currentOrder:OrderResI|null
     error:SerializedError|null;
@@ -23,6 +23,7 @@ const initialState:OrderStateI = {
 export const createOrderAsync = createAsyncThunk(
     'order/createOrder',
     async (order:OrderI) => {
+
         const response = await createOrder(order) as AxiosResponse<OrderResI>;
         // The value we return becomes the `fulfilled` action payload
         return response.data 
@@ -31,7 +32,7 @@ export const createOrderAsync = createAsyncThunk(
 
 export const updateOrderAsync = createAsyncThunk(
     'order/updateOrder',
-    async (order:OrderI) => {
+    async (order:UpdateOrderI) => {
         const response = await updateOrder(order) as AxiosResponse<OrderResI>;
         // The value we return becomes the `fulfilled` action payload
         return response.data 
@@ -54,6 +55,7 @@ const orderSlice:Slice<OrderStateI> = createSlice({
     initialState,
     reducers: {
         resetOrder:(state)=>{
+            
             state.currentOrder=null
         }
     },

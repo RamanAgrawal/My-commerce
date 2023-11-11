@@ -1,161 +1,148 @@
 import './App.css'
 import { useEffect } from 'react'
-import SignIn from './pages/SignIn'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import SignUp from './pages/SignUpPage';
-import Home from './pages/Home';
-import CartPage from './pages/CartPage';
-import Contact from './pages/Contact';
-import About from './pages/About';
-import CheckoutPage from './pages/CheckoutPage';
-import ProductDetailsPage from './pages/ProductDetailsPage';
-import Protected from './features/auth/components/Protected';
+import { RouterProvider } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from './store/store';
-import PageNotFound from './pages/404Page'
-import { selectLoggedInUser } from './features/auth/authSlice';
+import { checkAuthAsync, selectLoggedInUser, selectUserChecked } from './features/auth/authSlice';
 import { fetchCartAsync } from './features/cart/CartSlice';
-import OrderSuccess from './pages/OrderSuccess';
-import UserOrderPage from './pages/UserOrderPage';
-import UserProfilePage from './pages/UserProfilePage';
-import AddAddress from './pages/AddAddress';
 import { fetchLoggedInUserAsync } from './features/user/userSlice';
-import Logout from './features/auth/components/Logout';
-import ForgotPasswordPage from './pages/ForgotPasswordPage';
-import ProtectedAdmin from './features/auth/components/ProtectedAdmin';
-import AdminHome from './pages/AdminHome';
-import AdminProductDetailsPage from './pages/AdminProductDetailsPage';
-import AdminProductFormPage from './pages/AdminProductFormPage';
-import AdminOrdersPage from './pages/AdminOrdersPage';
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Protected>
-      <Home />,
-    </Protected>
+import { router } from './Router';
 
-  },
-  {
-    path: "/admin",
-    element: <ProtectedAdmin>
-      <AdminHome />,
-    </ProtectedAdmin>
 
-  },
-  {
-    path: "/signin",
-    element: <SignIn />,
+//   {
+//     path: "/",
+//     element: <Protected>
+//       <Home />,
+//     </Protected>
 
-  },
-  {
-    path: "/signup",
-    element: <SignUp />,
+//   },
+//   {
+//     path: "/admin",
+//     element: <ProtectedAdmin>
+//       <AdminHome />,
+//     </ProtectedAdmin>
 
-  },
-  {
-    path: "/logout",
-    element: <Logout />,
+//   },
+//   {
+//     path: "/signin",
+//     element: <SignIn />,
 
-  },
-  {
-    path: "/forgot-password",
-    element: <ForgotPasswordPage />,
+//   },
+//   {
+//     path: "/signup",
+//     element: <SignUp />,
 
-  },
-  {
-    path: "/cart",
-    element: <Protected><CartPage /></Protected>,
+//   },
+//   {
+//     path: "/logout",
+//     element: <Logout />,
 
-  },
-  {
-    path: "/product-detail/:id",
-    element: <ProductDetailsPage />,
+//   },
+//   {
+//     path: "/forgot-password",
+//     element: <ForgotPasswordPage />,
 
-  },
-  {
-    path: "/admin/product-detail/:id",
-    element: <ProtectedAdmin>
-      <AdminProductDetailsPage />
-    </ProtectedAdmin>,
+//   },
+//   {
+//     path: "/cart",
+//     element: <Protected><CartPage /></Protected>,
 
-  },
-  {
-    path: "/admin/orders",
-    element: <ProtectedAdmin>
-      <AdminOrdersPage />
-    </ProtectedAdmin>,
+//   },
+//   {
+//     path: "/product-detail/:id",
+//     element: <ProductDetailsPage />,
 
-  },
-  {
-    path: "/admin/product-form",
-    element: <ProtectedAdmin>
-      <AdminProductFormPage />
-    </ProtectedAdmin>,
+//   },
+//   {
+//     path: "/admin/product-detail/:id",
+//     element: <ProtectedAdmin>
+//       <AdminProductDetailsPage />
+//     </ProtectedAdmin>,
 
-  },
-  {
-    path: "/admin/product-form/edit/:id",
-    element: <ProtectedAdmin>
-      <AdminProductFormPage />
-    </ProtectedAdmin>,
+//   },
+//   {
+//     path: "/admin/orders",
+//     element: <ProtectedAdmin>
+//       <AdminOrdersPage />
+//     </ProtectedAdmin>,
 
-  },
-  {
-    path: "/checkout",
-    element: <Protected><CheckoutPage /></Protected>,
+//   },
+//   {
+//     path: "/admin/product-form",
+//     element: <ProtectedAdmin>
+//       <AdminProductFormPage />
+//     </ProtectedAdmin>,
 
-  },
-  {
-    path: "/contact",
-    element: <Contact />,
+//   },
+//   {
+//     path: "/admin/product-form/edit/:id",
+//     element: <ProtectedAdmin>
+//       <AdminProductFormPage />
+//     </ProtectedAdmin>,
 
-  },
-  {
-    path: "/about",
-    element: <About />,
+//   },
+//   {
+//     path: "/checkout",
+//     element: <Protected><CheckoutPage /></Protected>,
 
-  },
-  {
-    path: "/orders",
-    element: <UserOrderPage />,
+//   },
+//   {
+//     path: "/contact",
+//     element: <Contact />,
 
-  },
-  {
-    path: "/profile",
-    element: <UserProfilePage />,
+//   },
+//   {
+//     path: "/about",
+//     element: <About />,
 
-  },
-  {
-    path: "/addaddress",
-    element: <AddAddress />,
+//   },
+//   {
+//     path: "/orders",
+//     element: <UserOrderPage />,
 
-  },
-  {
-    path: "/order-succcess/:id",
-    element: <OrderSuccess />,
+//   },
+//   {
+//     path: "/profile",
+//     element: <UserProfilePage />,
 
-  },
-  {
-    path: "*",
-    element: <PageNotFound />,
+//   },
+//   {
+//     path: "/addaddress",
+//     element: <AddAddress />,
 
-  },
+//   },
+//   {
+//     path: "/order-succcess/:id",
+//     element: <OrderSuccess />,
 
-]);
+//   },
+//   {
+//     path: "*",
+//     element: <PageNotFound />,
+
+//   },
+
+// ]);
 function App() {
   const dispatch = useDispatch<AppDispatch>()
   const user = useSelector(selectLoggedInUser)
+  const userChecked = useSelector(selectUserChecked)
 
   useEffect(() => {
-    if (user?.id) {
-      dispatch(fetchCartAsync(+user.id))
-      dispatch(fetchLoggedInUserAsync(+user.id))
+    dispatch(checkAuthAsync())
+  },[dispatch])
+
+  useEffect(() => {
+    if (user) {
+      dispatch(fetchCartAsync())
+      dispatch(fetchLoggedInUserAsync())
     }
   }, [dispatch, user])
 
-  return (
-    <RouterProvider router={router} />
+  return (<>
+    {userChecked && <RouterProvider router={router} />}
+  </>
   )
 }
 

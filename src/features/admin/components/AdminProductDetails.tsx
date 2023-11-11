@@ -6,10 +6,10 @@ import { RadioGroup } from '@headlessui/react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from '../../../store/store'
-import {  fetchSingleProductAsync, selectSingleProduct } from '../../product/ProductSlice'
-import {  addToCartAsync } from '../../cart/CartSlice'
-import { selectLoggedInUser } from '../../auth/authSlice'
-import { CartItemI, ProductDataI } from '../../../models/Models'
+import { fetchSingleProductAsync, selectSingleProduct } from '../../product/ProductSlice'
+import { addToCartAsync } from '../../cart/CartSlice'
+// import { selectLoggedInUser } from '../../auth/authSlice'
+import { ProductDataI } from '../../../models/Models'
 import { discountedPrice } from '../../../utils'
 
 interface Colors {
@@ -50,42 +50,34 @@ const AdminProductDetails = () => {
   const [selectedSize, setSelectedSize] = useState(sizes[2])
   const dispatch = useDispatch<AppDispatch>();
   const param = useParams()
-  const id = Number(param.id)
-  const product:ProductDataI|null = useSelector(selectSingleProduct)
-  const user=useSelector(selectLoggedInUser)
-  let userId:number;
-  if(user){
-    userId=Number(user.id)
-  }
+  const id = param.id
+  const product: ProductDataI | null = useSelector(selectSingleProduct)
+  // const user = useSelector(selectLoggedInUser)
+  // let userId: string;
+  // if (user) {
+  //   userId = user.id
+  // }
   useEffect(() => {
-    dispatch(fetchSingleProductAsync(id))
+    if (id)
+      dispatch(fetchSingleProductAsync(id))
   }, [dispatch, id])
-  // console.log(product);
 
-  
-  const handlecart: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+
+  const handleCart: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault()
-    // if(product){
-    //   const newItem={...product,quantity:1,user:userId}
-    //   delete newItem['id'];
-    //   dispatch(addToCartAsync(newItem))
-
-    // }
-
     if (product) {
-      const newItem = { ...product } as CartItemI;
-      delete newItem.id;
-      newItem.quantity = 1;
-      newItem.user = userId;
+
+      const newItem = { product: product.id, quantity: 1 };
+
+
       dispatch(addToCartAsync(newItem));
     }
-    
   }
 
   return (
     <div className="bg-white pt-12">
-      {product&&<div className="pt-6">
-        
+      {product && <div className="pt-6">
+
         {/* Image gallery */}
         <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
           <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
@@ -255,7 +247,7 @@ const AdminProductDetails = () => {
               </div>
 
               <button
-              onClick={handlecart}
+                onClick={handleCart}
                 type="submit"
                 className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >

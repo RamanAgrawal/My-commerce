@@ -16,15 +16,17 @@ const initialState: UserStateI = {
 
 export const fetchLoggedInUserOrderAsync = createAsyncThunk(
     'user/fetchLoggedInUserOrder',
-    async (userId: number) => {
-        const response = await fetchLoggedInUserOrder(userId) as AxiosResponse
+    async () => {
+        const response = await fetchLoggedInUserOrder() as AxiosResponse
         return response.data
     }
 )
+
 export const fetchLoggedInUserAsync = createAsyncThunk(
     'user/fetchLoggedInUser',
-    async (userId: number) => {
-        const response = await fetchLoggedInUser(userId) as AxiosResponse
+    async () => {
+        
+        const response = await fetchLoggedInUser() as AxiosResponse
         return response.data
     }
 )

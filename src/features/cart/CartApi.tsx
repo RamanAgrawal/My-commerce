@@ -1,59 +1,71 @@
 /* eslint-disable no-async-promise-executor */
 import { AxiosResponse } from "axios";
-import { CartItemI } from "../../models/Models";
+import axios from "../../axiosConfig";
+import { CartItemI, CartItemResI } from "../../models/Models";
 
-export const addTocart = (item: CartItemI) => {
-    return new Promise(async (resolve) => {
-        const response = await fetch('http://localhost:3000/cart', {
-            method: "POST",
-            body: JSON.stringify(item),
-            headers: { "content-type": "application/json" }
-        })
-        const data = await response.json()
-        resolve({ data })
-    })
-}
-export const fetchCartItems = (userId: number) => {
-    return new Promise(async (resolve) => {
-        const response = await fetch('http://localhost:3000/cart?user=' + userId)
-        const data = await response.json()
-        resolve({ data })
-    })
-}
+export const addTocart = async (item: CartItemI) => {
+  try {
+    const response = await axios.post('/api/cart', item, {
+      withCredentials: true,
+      headers: { 'Content-Type': 'application/json' },
+    });
 
-export const updatecart = (update: CartItemI) => {
-    return new Promise(async (resolve) => {
-        const response = await fetch('http://localhost:3000/cart/' + update.id, {
-            method: "PATCH",
-            body: JSON.stringify(update),
-            headers: { "content-type": "application/json" }
-        })
-        const data = await response.json()
+    const data = response;
 
+    return data;
+  } catch (error) {
+    console.error('Error adding to cart:', error);
+    throw error;
+  }
+};
 
-        resolve({ data })
-    })
-}
-export const deleteItemFromCart = (itemId: number) => {
-    return new Promise(async (resolve) => {
-        const response = await fetch('http://localhost:3000/cart/' + itemId, {
-            method: "DELETE",
-            headers: { "content-type": "application/json" }
-        })
-        await response.json();
-        resolve({ data: { id: itemId } })
-    })
-}
+export const fetchCartItems = async () => {
+  try {
+    const response = await axios.get('/api/cart', { withCredentials: true });
+    const data = response;
+    return data;
+  } catch (error) {
+    console.error('Error fetching cart items:', error);
+    throw error;
+  }
+};
 
-export const resetCart = (userID: number) => {
-    // console.log("in cart api", userID);
+export const updatecart = async (update: Omit<CartItemResI, 'user' | 'product'>) => {
+  try {
+    const response = await axios.patch(`/api/cart/${update.id}`, update, {
+      headers: { 'Content-Type': 'application/json' },
+    });
 
-    return new Promise(async (resolve) => {
-        const response = await fetchCartItems(userID) as AxiosResponse
-        const items = response.data
-        for (const item of items) {
-            await deleteItemFromCart(item.id)
-        }
-        resolve({ status: 'success' })
-    })
-}
+    return response;
+  } catch (error) {
+    console.error('Error updating cart item:', error);
+    throw error;
+  }
+};
+
+export const deleteItemFromCart = async (itemId: string) => {
+  try {
+    const response = await axios.delete(`/api/cart/${itemId}`, {
+      headers: { 'Content-Type': 'application/json' },
+    });
+    await response;
+    return { data: { id: itemId } };
+  } catch (error) {
+    console.error('Error deleting cart item:', error);
+    throw error;
+  }
+};
+
+export const resetCart = async () => {
+  try {
+    const response = await fetchCartItems() as AxiosResponse;
+    const items = response.data;
+    for (const item of items) {
+      await deleteItemFromCart(item.id);
+    }
+    return { status: 'success' };
+  } catch (error) {
+    console.error('Error resetting cart:', error);
+    throw error;
+  }
+};

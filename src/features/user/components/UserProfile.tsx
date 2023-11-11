@@ -51,8 +51,8 @@ const UserProfile: FC = () => {
 
       <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
         <h1 className='mt-0.5 text-3xl text-gray-500'> Your Address</h1>
-        <div className="flex justify-between flex-wrap">
-          <Link to={'/addaddress'} className='flex justify-center mt-3 items-center p-4 border-dotted border-2 border-gray-400 h-60 lg:w-[32%] sm:w-auto rounded-md'>
+        <div className="grid grid-cols-3 gap-5">
+          <Link to={'/addaddress'} className=' self-stretch flex justify-center mt-3 items-center p-4 border-dotted border-2 border-gray-400 h-60 rounded-md'>
             <p className='text-4xl'>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -61,9 +61,9 @@ const UserProfile: FC = () => {
               Add Address </p>
           </Link>
           {
-            userInfo?.addresses.map((address, index) => (
+            userInfo?.addresses?.map((address, index) => (
 
-              <div key={index} className='p-4 mt-3 border-2 relative border-gray-400 h-60 lg:w-[32%] md:w-[24rem] box-border rounded-md'>
+              <div key={index} className='p-4 mt-3 self-stretch border-2 relative border-gray-400 h-60 box-border rounded-md'>
 
                 <div className='font-bold'>{address.name}</div>
                 <div>{address.street}</div>

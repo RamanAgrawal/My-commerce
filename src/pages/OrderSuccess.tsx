@@ -12,10 +12,9 @@ const OrderSuccess = () => {
   const user = useSelector(selectUserInfo)
   const dispatch = useDispatch<AppDispatch>()
   useEffect(() => {
-    if (user?.id) {
-      console.log("in orderpage:  ",user.id);
-      dispatch(resetCartAsync(+user.id))
-      dispatch(resetOrder)
+    if (user) {
+      dispatch(resetCartAsync())
+      dispatch(resetOrder({}))
     }
   }, [dispatch,user])
 

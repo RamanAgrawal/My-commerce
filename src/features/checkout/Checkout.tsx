@@ -95,7 +95,7 @@ const Checkout = () => {
     return (
         <>  {!cart.length && (alert("please add something first"), <Navigate to={'/'} />)}
             {currentOrder && <Navigate to={`/order-succcess/${currentOrder.id}`} replace={true} />}
-            <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5 p-10">
+            <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5 lg:p-10">
                 <div className="lg:col-span-3 bg-white p-10">
                     <AddAddressForm handleSubmitHandler={handleSubmitHandler} hideCancelButton />
                     <div className="border-b border-gray-900/10 pb-12">

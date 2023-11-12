@@ -54,7 +54,7 @@ const ProductDetails = () => {
   const id = param.id
   const product: ProductDataI | null = useSelector(selectSingleProduct)
   const cart = useSelector(selectCart);
-  const user=useSelector(selectLoggedInUser)
+  const user = useSelector(selectLoggedInUser)
   useEffect(() => {
     if (id)
       dispatch(fetchSingleProductAsync(id))
@@ -69,7 +69,7 @@ const ProductDetails = () => {
   const handleCart: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
 
-    if(!user){
+    if (!user) {
       alert('please login to add items in cart')
       return navigate('/signin')
     }
@@ -160,8 +160,15 @@ const ProductDetails = () => {
           {/* Options */}
           <div className="mt-4 lg:row-span-3 lg:mt-0">
             <h2 className="sr-only">Product information</h2>
-            <p className="text-3xl tracking-tight text-gray-900">${discountedPrice(product)}</p>
-            <p className="text-3xl tracking-tight text-gray-600 line-through">${product.price}</p>
+            {product.discountPercentage &&
+              <span className="text-4xl tracking-tight text-red-400 pr-1">
+                -{Math.floor(product.discountPercentage)}%
+              </span>}
+            <span className="text-4xl tracking-tight text-gray-900">${discountedPrice(product)}</span>
+            <p>
+              <span className='text-1xl tracking-tight text-gray-600'>M.R.P.:</span>
+              <span className="text-1xl tracking-tight text-gray-600 line-through">${product.price}</span>
+            </p>
 
             {/* Reviews */}
             <div className="mt-6">
@@ -172,7 +179,7 @@ const ProductDetails = () => {
                     <StarIcon
                       key={rating}
                       className={classNames(
-                        reviews.average > rating ? 'text-gray-900' : 'text-gray-200',
+                        product.rating > rating ? 'text-gray-900' : 'text-gray-200',
                         'h-5 w-5 flex-shrink-0'
                       )}
                       aria-hidden="true"
@@ -284,7 +291,7 @@ const ProductDetails = () => {
                   </div>
                 </RadioGroup>
               </div> */}
-                {(product?.stock && product.stock <= 0 ? <p className="text-red-500 mt-10 px-8 py-3 rounded-md flex items-center justify-center bg-indigo-600 hover:bg-indigo-700">Out of stock</p> :
+              {(product?.stock && product.stock <= 0 ? <p className="text-red-500 mt-10 px-8 py-3 rounded-md flex items-center justify-center bg-indigo-600 hover:bg-indigo-700">Out of stock</p> :
                 <button
                   onClick={handleCart}
                   type="submit"

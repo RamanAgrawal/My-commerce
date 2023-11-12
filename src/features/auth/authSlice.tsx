@@ -63,7 +63,11 @@ export const signOutAsync = createAsyncThunk(
 const authSlice: Slice<AuthStateI> = createSlice({
     name: "auth",
     initialState,
-    reducers: {},
+    reducers: {
+        clearAuthState: (state) => {
+            state.loggedInUser = null;
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(createUserAsync.pending, (state) => {
@@ -101,7 +105,7 @@ const authSlice: Slice<AuthStateI> = createSlice({
                 state.status = 'completed'
                 state.userChecked = true;
             })
-     
+
             .addCase(signOutAsync.pending, (state) => {
                 state.status = 'loading';
             })
@@ -113,7 +117,7 @@ const authSlice: Slice<AuthStateI> = createSlice({
     },
 });
 
-// export const { } = authSlice.actions
+export const { clearAuthState} = authSlice.actions
 export const selectLoggedInUser = (state: { auth: AuthStateI }) => state.auth.loggedInUser
 export const selectError = (state: { auth: AuthStateI }) => state.auth.error;
 export const selectUserChecked = (state: { auth: AuthStateI }) => state.auth.userChecked;

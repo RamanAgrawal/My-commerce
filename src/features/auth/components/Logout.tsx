@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { AppDispatch } from '../../../store/store';
 import { clearCart } from '../../cart/CartSlice';
+import { clearUserInfo } from '../../user/userSlice';
+import { clearAuthState } from '../../auth/authSlice';
 
 function Logout() {
   const dispatch = useDispatch<AppDispatch>();
@@ -11,7 +13,9 @@ function Logout() {
 
   useEffect(() => {
     dispatch(signOutAsync());
-    dispatch(clearCart)
+    dispatch(clearCart({}))
+    dispatch(clearUserInfo({}))
+    dispatch(clearAuthState({}))
   });
 
   // but useEffect runs after render, so we have to delay navigate part

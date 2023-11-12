@@ -55,6 +55,24 @@ export interface ProductDataI {
     category?: string;
     deleted?: boolean
 }
+//products list models
+export interface ProductSortI {
+    name: string;
+    sort: string;
+    order: string;
+    current: boolean;
+}
+export interface ProductFilterOptionsI {
+    value: string;
+    label: string;
+    checked: boolean
+}
+
+export interface ProductFilterI {
+    id: string,
+    name: string,
+    options: ProductFilterOptionsI[]
+}
 
 export interface CategoryI {
     value: string,

@@ -8,9 +8,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from '../../../store/store'
 import { fetchSingleProductAsync, selectSingleProduct } from '../ProductSlice'
 import { addToCartAsync, selectCart } from '../../cart/CartSlice'
-// import { selectLoggedInUser } from '../../auth/authSlice'
 import { ProductDataI } from '../../../models/Models'
 import { discountedPrice } from '../../../utils'
+import { selectLoggedInUser } from '../../auth/authSlice'
 
 interface Colors {
   name: string;
@@ -54,7 +54,7 @@ const ProductDetails = () => {
   const id = param.id
   const product: ProductDataI | null = useSelector(selectSingleProduct)
   const cart = useSelector(selectCart);
-
+  const user=useSelector(selectLoggedInUser)
   useEffect(() => {
     if (id)
       dispatch(fetchSingleProductAsync(id))
@@ -68,6 +68,11 @@ const ProductDetails = () => {
 
   const handleCart: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
+
+    if(!user){
+      alert('please login to add items in cart')
+      return navigate('/signin')
+    }
     if (incart) {
       navigate('/cart')
     }

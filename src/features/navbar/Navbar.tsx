@@ -22,6 +22,7 @@ const classNames=(...classes: Array<string>) =>{
 
 const Navbar:React.FC=()=> {
   const user=useSelector(selectUserInfo);
+
  
   
   const filteredNavigation = navigation.filter((item) => {
@@ -94,8 +95,8 @@ const Navbar:React.FC=()=> {
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
-                  <div>
-                    <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                  <div>{
+                    user?<Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">Open user menu</span>
                       <img
@@ -103,7 +104,9 @@ const Navbar:React.FC=()=> {
                         src={Profile}
                         alt=""
                       />
-                    </Menu.Button>
+                    </Menu.Button>:<Link className=' text-white hover:text-gray-400 ' to={'/signin'}>login</Link>
+                    }
+                    
                   </div>
                   <Transition
                     as={Fragment}

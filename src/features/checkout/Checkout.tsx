@@ -258,7 +258,7 @@ const Checkout = () => {
                                     <Link to="/">
                                         <button
                                             type="button"
-                                            className="font-medium text-indigo-600 hover:text-indigo-500"
+                                            className="font-medium text-indigo-600 hover:text-indigo-500 pl-1"
                                         //onClick={() => setOpen(false)}
                                         >
                                             Continue Shopping

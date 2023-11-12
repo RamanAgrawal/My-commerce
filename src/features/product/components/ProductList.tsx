@@ -4,7 +4,7 @@ import { Fragment, useEffect, useState, ChangeEvent, Dispatch, SetStateAction, F
 import { fetchProductsByFiltersAsync, selectAllProducts, selectTotalItems, selectCategories, fetchCategoriesAsync, fetchBrandsAsync, selectBrands } from '../ProductSlice'
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
-import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
+import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon } from '@heroicons/react/20/solid'
 
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'

@@ -25,6 +25,7 @@ const Checkout = () => {
     // States to manage selected address and payment method
     const [selectedAddress, setSelectedAddress] = useState<AddressI | null>(null);
     const [PaymentMethod, setPaymentMethod] = useState<string>('cash');
+    const [showAddressForm, setShowAddressForm] = useState<boolean>(false)
 
     // Selecting data from Redux store using useSelector
     const cart = useSelector(selectCart);
@@ -39,7 +40,7 @@ const Checkout = () => {
 
     // Calculate total amount and total items in the cart
     const totalAmount = cart.reduce((amount, item) => discountedPrice(item.product) * item.quantity + amount, 0);
-    
+
     const totalItems = cart.reduce((total, item) => item.quantity + total, 0);
 
     // Function to handle quantity change for items in the cart
@@ -76,7 +77,7 @@ const Checkout = () => {
                 PaymentMethod,
                 status: 'pending'
             };
-            
+
             dispatch(createOrderAsync(order));
         } else {
             alert('Enter Address and Payment method');
@@ -90,6 +91,7 @@ const Checkout = () => {
             );
             reset();
         }
+        setShowAddressForm(prev=>!prev)
     }
 
     return (
@@ -97,45 +99,55 @@ const Checkout = () => {
             {currentOrder && <Navigate to={`/order-succcess/${currentOrder.id}`} replace={true} />}
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5 lg:p-10">
                 <div className="lg:col-span-3 bg-white p-10">
-                    <AddAddressForm handleSubmitHandler={handleSubmitHandler} hideCancelButton />
+                    {showAddressForm ? <AddAddressForm handleSubmitHandler={handleSubmitHandler} hideCancelButton />
+                        : <button
+                            onClick={() => setShowAddressForm(prev => !prev)}
+                            className="flex mt-6 items-center justify-center rounded-lg border border-transparent bg-yellow-400 px-6 py-3 text-base font-medium text-black
+                                    shadow-lg hover:bg-yellow-500 cursor-pointer" >
+                            {user && user.addresses.length ? "Add new Address" : "Please Add Address"}
+                        </button>
+                    }
                     <div className="border-b border-gray-900/10 pb-12">
-                        <h2 className="text-base font-semibold leading-7 text-gray-900">Address</h2>
-                        <p className="mt-1 text-sm leading-6 text-gray-600">
-                            Choose from Existing Address
-                        </p>
-                        <ul role="list" className="divide-y divide-gray-100">
-                            {user && user.addresses.map((address: AddressI, index) => (
-                                <li key={index} className="flex justify-between gap-x-6 py-3 border-solid border-4 mb-3 p-2">
-                                    <div className="flex gap-x-4 overflow-hidden">
-                                        <input type="radio"
-                                            onChange={() => handleAddress(index)}
-                                            name="address"
-                                            value={index}
-                                            className='h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-600'
-                                        />
-                                        <div className="min-w-0 flex-auto">
-                                            <p className="text-sm font-semibold leading-6 text-gray-900">{address.name}</p>
-                                            <p className="mt-1 truncate text-xs leading-5 text-gray-500">{address.street}</p>
-                                            <span className="mt-1 truncate text-xs leading-5 text-gray-500">,{address.city}</span>
+                        {user && user.addresses.length > 0 && <>
+                            <h2 className="text-base font-semibold leading-7 text-gray-900">Address</h2>
+                            <p className="mt-1 text-sm leading-6 text-gray-600">
+                                Choose from Existing Address
+                            </p>
+                            <ul role="list" className="divide-y divide-gray-100">
+                                {user && user.addresses.map((address: AddressI, index) => (
+                                    <li key={index} className="flex justify-between gap-x-6 py-3 border-solid border-4 mb-3 p-2">
+                                        <div className="flex gap-x-4 overflow-hidden">
+                                            <input type="radio"
+                                                onChange={() => handleAddress(index)}
+                                                name="address"
+                                                value={index}
+                                                className='h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-600'
+                                            />
+                                            <div className="min-w-0 flex-auto">
+                                                <p className="text-sm font-semibold leading-6 text-gray-900">{address.name}</p>
+                                                <p className="mt-1 truncate text-xs leading-5 text-gray-500">{address.street}</p>
+                                                <span className="mt-1 truncate text-xs leading-5 text-gray-500">,{address.city}</span>
 
-                                            <p className="mt-1 truncate text-xs leading-5 text-gray-500">{address.state}</p>
-                                        </div>
-                                    </div>
-                                    <div className="hidden sm:flex sm:flex-col sm:items-end">
-                                        <p className="text-sm leading-6 text-gray-900">{address.phoneNo}</p>
-                                        <p className="text-sm leading-6 text-gray-900">{address.email}</p>
-
-                                        <div className="mt-1 flex items-center gap-x-1.5">
-                                            <div className="flex-none rounded-full bg-emerald-500/20 p-1">
-                                                <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                                                <p className="mt-1 truncate text-xs leading-5 text-gray-500">{address.state}</p>
                                             </div>
-                                            <p className="text-xs leading-5 text-gray-500">{address.pincode}</p>
                                         </div>
+                                        <div className="hidden sm:flex sm:flex-col sm:items-end">
+                                            <p className="text-sm leading-6 text-gray-900">{address.phoneNo}</p>
+                                            <p className="text-sm leading-6 text-gray-900">{address.email}</p>
 
-                                    </div>
-                                </li>
-                            ))}
-                        </ul>
+                                            <div className="mt-1 flex items-center gap-x-1.5">
+                                                <div className="flex-none rounded-full bg-emerald-500/20 p-1">
+                                                    <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                                                </div>
+                                                <p className="text-xs leading-5 text-gray-500">{address.pincode}</p>
+                                            </div>
+
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
+                        </>
+                        }
 
                         <div className="mt-10 space-y-10">
                             {/* ******************************Payments**************************** */}

@@ -57,6 +57,9 @@ export const DesktopFilters: FC<FilterProps> = ({ HandleFilter, filters }) => {
         ))}
     </form>
 }
+
+
+
 interface MobileFiltersProps extends FilterProps {
     mobileFiltersOpen: boolean;
     setMobileFiltersOpen: Dispatch<SetStateAction<boolean>>

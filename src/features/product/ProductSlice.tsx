@@ -145,6 +145,7 @@ export const productSlice: Slice<ProductStateI> = createSlice({
 
 // export const { increment } = productSlice.actions;
 export const {clearSelectedProduct}=productSlice.actions
+export const selectProductStatus = (state: { product: ProductStateI }) => state.product.status;
 export const selectAllProducts = (state: { product: ProductStateI }) => state.product.products;
 export const selectSingleProduct = (state: { product: ProductStateI }) => state.product.selectedProduct;
 export const selectTotalItems = (state: { product: ProductStateI }) => state.product.totalItems;

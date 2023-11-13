@@ -85,7 +85,6 @@ const ProductList: FC = () => {
     const handleSort = (option: ProductSortI) => {
         const newSort = { _sort: option.sort, _order: option.order }
         setSort(newSort)
-        // dispatch(fetchProductsByFiltersAsync(newSort))
     }
     const handlePagination = (page: number) => {
         setPage(page)

@@ -18,3 +18,5 @@ export const setOrderStatusColor = (status: string) => {
             break;
     }
 }
+
+export const isMobile = window.innerWidth <= 600; 

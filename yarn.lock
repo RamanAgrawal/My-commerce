@@ -1624,6 +1624,7 @@ __metadata:
     eslint-plugin-react-refresh: ^0.4.3
     postcss: ^8.4.27
     react: ^18.2.0
+    react-content-loader: ^6.2.1
     react-dom: ^18.2.0
     react-hook-form: ^7.45.3
     react-redux: ^8.1.2
@@ -3682,6 +3683,15 @@ __metadata:
   version: 1.2.3
   resolution: "queue-microtask@npm:1.2.3"
   checksum: b676f8c040cdc5b12723ad2f91414d267605b26419d5c821ff03befa817ddd10e238d22b25d604920340fd73efd8ba795465a0377c4adf45a4a41e4234e42dc4
+  languageName: node
+  linkType: hard
+
+"react-content-loader@npm:^6.2.1":
+  version: 6.2.1
+  resolution: "react-content-loader@npm:6.2.1"
+  peerDependencies:
+    react: ">=16.0.0"
+  checksum: f777d408256a4218677e47f4cf3988d9fd8e556450e9b85ee1eb3952a5d5802573cea0df5eaf4dbc936c9522f355657de6f8ab0ecdf035d7dccdef15b45c9dae
   languageName: node
   linkType: hard
 

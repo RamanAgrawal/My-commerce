@@ -12,11 +12,11 @@ interface ConnectedProductListProps {
 const ProductGrid: FC<ConnectedProductListProps> = ({ products }) => {
     const status = useSelector(selectProductStatus)
     return (<>
-        {status === 'loading' && <ProductListSkeleton />}
         <div className="lg:col-span-3">
             <div className="bg-white">
                 <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-0 lg:max-w-full lg:px-8">
                     <h2 className="text-2xl font-bold tracking-tight text-gray-900"> Products</h2>
+                    {status === 'loading' && <ProductListSkeleton />}
 
                     <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
                         {products.map((product: ProductDataI) => (

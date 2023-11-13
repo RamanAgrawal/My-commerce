@@ -3,7 +3,6 @@ import SignUp from './pages/SignUpPage';
 import Home from './pages/Home';
 import CartPage from './pages/CartPage';
 import Contact from './pages/Contact';
-import About from './pages/About';
 import CheckoutPage from './pages/CheckoutPage';
 import ProductDetailsPage from './pages/ProductDetailsPage';
 import Protected from './features/auth/components/Protected';
@@ -102,11 +101,6 @@ export const router = createBrowserRouter([
   {
     path: "/contact",
     element: <Contact />,
-
-  },
-  {
-    path: "/about",
-    element: <About />,
 
   },
   {

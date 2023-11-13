@@ -2,7 +2,6 @@ import { FC } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
 import { ITEM_PER_PAGE} from '../constent'
 
-
 interface PaginationProps {
     handlePagination: (page: number) => void
     page: number;
@@ -55,8 +54,7 @@ const Pagination: FC<PaginationProps> = ({ handlePagination, page, totalItems })
                         )
 
                         )}
-                        {/*  // ! TODO: show the button only when not in last page  */}
-                        {page * ITEM_PER_PAGE !== totalItems && <div
+                        {page * ITEM_PER_PAGE !== totalItems &&totalItems>ITEM_PER_PAGE && <div
                             onClick={() => handlePagination(page + 1)}
                             className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
                         >

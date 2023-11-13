@@ -73,6 +73,7 @@ const userSlice: Slice = createSlice({
 })
 
 export const {clearUserInfo}=userSlice.actions
+export const selectUserStatus = (state: { user: UserStateI }) => state.user.status;
 export const selectUserOrders=(state:{user:UserStateI})=>state.user.userOrder;
 export const selectUserInfo=(state:{user:UserStateI})=>state.user.userInfo;
 export default userSlice.reducer

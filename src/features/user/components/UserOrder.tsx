@@ -1,8 +1,9 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from '../../../store/store'
-import { fetchLoggedInUserOrderAsync, selectUserInfo, selectUserOrders } from '../userSlice'
+import { fetchLoggedInUserOrderAsync, selectUserInfo, selectUserOrders, selectUserStatus } from '../userSlice'
 import { discountedPrice, setOrderStatusColor } from '../../../utils'
+import OrderSkeleton from '../../loaders/OrderSkeleton'
 
 
 
@@ -10,6 +11,7 @@ const UserOrder = () => {
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector(selectUserInfo);
   const order = useSelector(selectUserOrders);
+  const status=useSelector(selectUserStatus)
   useEffect(() => {
     if (user) {
       dispatch(fetchLoggedInUserOrderAsync());
@@ -22,6 +24,7 @@ const UserOrder = () => {
   return (
     <div className='pt-16 mx-auto max-w-6xl px-2 sm:px-6 lg:px-8 bg-white'>
       <h1 className='text-4xl font-bold'>Your Orders</h1>
+      {status==='loading' && <OrderSkeleton/>}
       {order.length? order.map(order => (
         <div className="mx-auto max-w-6xl px-2 sm:px-6 lg:px-8 bg-white 4">
           <div className="border-t border-gray-200 px-4 py-6 sm:px-6">

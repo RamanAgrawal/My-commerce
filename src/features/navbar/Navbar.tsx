@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import { selectUserInfo } from '../user/userSlice'
+import { selectCart } from '../cart/CartSlice'
 const navigation = [
   { name: 'Home', path: '/', current: false,user:true },
   { name: 'Products', path: '/admin', current: false,admin:true },
@@ -21,7 +22,7 @@ const classNames=(...classes: Array<string>) =>{
 const Navbar:React.FC=()=> {
   const user=useSelector(selectUserInfo);
 
- 
+  const cartItems=useSelector(selectCart)
   
   const filteredNavigation = navigation.filter((item) => {
     if (user) {
@@ -89,7 +90,11 @@ const Navbar:React.FC=()=> {
                     <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
                   </button>
                 </Link>
-
+                {cartItems.length > 0 && (
+                        <span className="inline-flex items-center z-10 rounded-md mb-7 -ml-3 bg-yellow-100 px-2 py-1 text-xs font-medium text-gray-700 ring-1 ring-inset ring-red-600/10">
+                          {cartItems.length}
+                        </span>
+                      )}
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">

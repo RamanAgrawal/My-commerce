@@ -1,16 +1,30 @@
 import { Link, Navigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { loginUserAsync, selectError, selectLoggedInUser } from '../authSlice';
+import { loginUserAsync, selectAuthStatus, selectError, selectLoggedInUser } from '../authSlice';
 import { AppDispatch } from '../../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { LoginFormDataI } from '../../../models/Models';
+import Spinner from '../../loaders/Spinner';
 
+ export const AuthLoading = (authStatus:string) => {
+    switch (authStatus) {
+      case 'loading':
+        return <Spinner />
+      case 'completed':
+        return null
 
+      default:
+        return null
+    }
+  }
 const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormDataI>()
   const dispatch = useDispatch<AppDispatch>()
   const error = useSelector(selectError)
   const user = useSelector(selectLoggedInUser)
+  const authStatus = useSelector(selectAuthStatus)
+
+ 
 
   // let route;
   // if (user?.role === 'admin') {
@@ -20,7 +34,7 @@ const Login = () => {
   // }
 
   // console.log(error);
-  
+
 
   return (
     <>{
@@ -50,7 +64,7 @@ const Login = () => {
               <div className="mt-2">
                 <input
                   id="email"
-                  {...register("email", { required: "please enter a valid email", pattern: { value: /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi, message: 'invalid email' } })}
+                  {...register("email", { required: "please enter a valid email", pattern: { value: /\b[\w.-]+@[\w.-]+\.\w{2,4}\b/gi, message: 'invalid email' } })}
                   type="email"
                   autoComplete="email"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -87,7 +101,7 @@ const Login = () => {
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Sign in
+                Sign in {AuthLoading(authStatus)}
               </button>
             </div>
           </form>

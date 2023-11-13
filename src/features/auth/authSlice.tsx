@@ -118,6 +118,7 @@ const authSlice: Slice<AuthStateI> = createSlice({
 });
 
 export const { clearAuthState} = authSlice.actions
+export const selectAuthStatus= (state: { auth: AuthStateI }) => state.auth.status;
 export const selectLoggedInUser = (state: { auth: AuthStateI }) => state.auth.loggedInUser
 export const selectError = (state: { auth: AuthStateI }) => state.auth.error;
 export const selectUserChecked = (state: { auth: AuthStateI }) => state.auth.userChecked;

@@ -2,8 +2,9 @@ import { Link, Navigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../../store/store';
-import { createUserAsync, selectError, selectLoggedInUser } from '../authSlice';
+import { createUserAsync, selectAuthStatus, selectError, selectLoggedInUser } from '../authSlice';
 import { SignupFormDataI } from '../../../models/Models';
+import { AuthLoading } from './Login';
 
 
 
@@ -13,6 +14,7 @@ const Signup = () => {
   const user = useSelector(selectLoggedInUser)
   const dispatch = useDispatch<AppDispatch>()
   const error = useSelector(selectError)
+  const authStatus = useSelector(selectAuthStatus)
 
   return (
     <>{user && <Navigate to={'/'} replace={true} />}
@@ -125,7 +127,7 @@ const Signup = () => {
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Sign up
+                Sign up  {AuthLoading(authStatus)}
               </button>
             </div>
           </form>

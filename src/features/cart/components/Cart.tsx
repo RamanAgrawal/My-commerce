@@ -5,6 +5,7 @@ import { deleteItemFromCartAsync, selectCart, updateCartAsync, } from '../CartSl
 import { AppDispatch } from '../../../store/store';
 import { CartItemResI } from '../../../models/Models';
 import { discountedPrice } from '../../../utils';
+import { selectLoggedInUser } from '../../auth/authSlice';
 
 
 
@@ -13,6 +14,7 @@ const Cart: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>()
   const totalAmount = cart.reduce((amount, item) => discountedPrice(item.product) * item.quantity + amount, 0)
   const totalItems = cart.reduce((total, item) => item.quantity + total, 0);
+  const user=useSelector(selectLoggedInUser)
 
 
   const handleQuantity = (e: ChangeEvent<HTMLSelectElement>, item: CartItemResI) => {
@@ -115,7 +117,7 @@ const Cart: React.FC = () => {
       </div> :
         <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
           <h1>Your Cart is Empty</h1>
-          <div className='flex flex-wrap gap-2'>
+          {!user&&<div className='flex flex-wrap gap-2'>
             <Link
               to="/signin"
               className="flex mt-6 items-center justify-center rounded-lg border border-transparent bg-yellow-400 px-6 text-base font-semibold text-black shadow-sm hover:bg-yellow-500"
@@ -128,7 +130,7 @@ const Cart: React.FC = () => {
             >
               Sign up now
             </Link>
-          </div>
+          </div>}
         </div>
       }
     </div>

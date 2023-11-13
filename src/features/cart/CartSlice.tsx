@@ -57,7 +57,7 @@ export const deleteItemFromCartAsync = createAsyncThunk(
 export const resetCartAsync = createAsyncThunk(
     'cart/resetCart',
     async () => {
-        const response = await resetCart() 
+        const response = await resetCart()
         // The value we return becomes the `fulfilled` action payload
 
         return response.status
@@ -82,7 +82,6 @@ const cartSlice: Slice<CartStateI> = createSlice({
             })
             .addCase(addToCartAsync.fulfilled, (state, action) => {
 
-                
                 state.status = 'completed'
                 state.items.push({ ...action.payload, quantity: 1 });
                 state.value += action.payload.product.price
@@ -92,19 +91,8 @@ const cartSlice: Slice<CartStateI> = createSlice({
             })
             .addCase(fetchCartAsync.fulfilled, (state, action) => {
                 state.status = 'completed'
-                // action.payload.forEach((fetchedItem) => {
-                //     // Check if the fetched item is already in the state
-                //     const existingCartItem = state.items.find((cartItem) => cartItem.productId === fetchedItem.productId);
-                //     if (existingCartItem) {
-                //       // If the item is already in the state, increment the quantity
-                //       existingCartItem.quantity += fetchedItem.quantity;
-                //     } else {
-                //       // If the item is not in the state, add it to the state's items array
-                //       state.items.push(fetchedItem);
-                //     }
-                //   });
                 state.items = action.payload
-                // state.value+=action.payload.price
+
             })
             .addCase(updateCartAsync.pending, (state) => {
                 state.status = 'loading';

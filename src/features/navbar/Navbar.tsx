@@ -8,8 +8,6 @@ import { useSelector } from 'react-redux'
 import { selectUserInfo } from '../user/userSlice'
 const navigation = [
   { name: 'Home', path: '/', current: false,user:true },
-  { name: 'Contect Us', path: '/contact', current: false,user:true },
-  { name: 'About Us', path: '/about', current: false,user:true },
   { name: 'Products', path: '/admin', current: false,admin:true },
   { name: 'Orders', path: '/admin/orders', current: false,admin:true },
 

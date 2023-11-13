@@ -1,12 +1,14 @@
+import Footer from "../features/footer/Footer"
 import Navbar from "../features/navbar/Navbar"
 import ProductDetails from "../features/product/components/ProductDetails"
 
 const ProductDetailsPage = () => {
   return (
-    <div>
+    <>
       <Navbar/>
-
-      <ProductDetails/></div>
+      <ProductDetails/>
+      <Footer/>
+      </>
   )
 }
 

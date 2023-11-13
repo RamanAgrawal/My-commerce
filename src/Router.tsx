@@ -19,6 +19,7 @@ import AdminProductDetailsPage from './pages/AdminProductDetailsPage';
 import AdminProductFormPage from './pages/AdminProductFormPage';
 import AdminOrdersPage from './pages/AdminOrdersPage';
 import { createBrowserRouter } from 'react-router-dom';
+import PrivacyPage from './pages/PrivacyPage';
 
 
 
@@ -27,6 +28,11 @@ export const router = createBrowserRouter([
     path: "/",
     element:
       <Home />
+  },
+  {
+    path: "/privacy",
+    element:
+      <PrivacyPage />
   },
   {
     path: "/admin",

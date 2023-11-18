@@ -9,6 +9,8 @@ const Footer = () => {
           <a href="https://my-ecommercee.vercel.app/" className="flex items-center">
             <img
               src="/ecommerce.png"
+              height={32}
+              width={32}
               className="h-8 me-3"
               alt="Mycommerce Logo"
             />

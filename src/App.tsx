@@ -1,4 +1,5 @@
 import './App.css'
+import { Suspense } from 'react'
 import { useEffect } from 'react'
 import { RouterProvider } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,6 +11,7 @@ import { ToastContainer } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
 import { router } from './Router';
+import Loader from './features/loaders/Loader';
 
 
 
@@ -20,7 +22,7 @@ function App() {
 
   useEffect(() => {
     dispatch(checkAuthAsync())
-  },[dispatch])
+  }, [dispatch])
 
   useEffect(() => {
     if (user) {
@@ -30,9 +32,14 @@ function App() {
   }, [dispatch, user])
 
   return (<>
-   
-   
-    {userChecked && <> <ToastContainer /><RouterProvider router={router} /></>}
+
+
+    {userChecked &&
+      <Suspense fallback={<Loader />}>
+        <ToastContainer />
+        <RouterProvider router={router} />
+      </Suspense>
+    }
   </>
   )
 }

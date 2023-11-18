@@ -1,26 +1,26 @@
-import SignIn from './pages/SignIn'
-import SignUp from './pages/SignUpPage';
-import Home from './pages/Home';
-import CartPage from './pages/CartPage';
-import Contact from './pages/Contact';
-import CheckoutPage from './pages/CheckoutPage';
-import ProductDetailsPage from './pages/ProductDetailsPage';
-import Protected from './features/auth/components/Protected';
-import PageNotFound from './pages/404Page'
-import OrderSuccess from './pages/OrderSuccess';
-import UserOrderPage from './pages/UserOrderPage';
-import UserProfilePage from './pages/UserProfilePage';
-import AddAddress from './pages/AddAddress';
-import Logout from './features/auth/components/Logout';
-import ForgotPasswordPage from './pages/ForgotPasswordPage';
-import ProtectedAdmin from './features/auth/components/ProtectedAdmin';
-import AdminHome from './pages/AdminHome';
-import AdminProductDetailsPage from './pages/AdminProductDetailsPage';
-import AdminProductFormPage from './pages/AdminProductFormPage';
-import AdminOrdersPage from './pages/AdminOrdersPage';
+import { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
-import PrivacyPage from './pages/PrivacyPage';
-
+const SignIn = lazy(() => import('./pages/SignIn'));
+const SignUp = lazy(() => import('./pages/SignUpPage'));
+const Home = lazy(() => import('./pages/Home'));
+const CartPage = lazy(() => import('./pages/CartPage'));
+const Contact = lazy(() => import('./pages/Contact'));
+const CheckoutPage = lazy(() => import('./pages/CheckoutPage'));
+const ProductDetailsPage = lazy(() => import('./pages/ProductDetailsPage'));
+const Protected = lazy(() => import('./features/auth/components/Protected'));
+const PageNotFound = lazy(() => import('./pages/404Page'));
+const OrderSuccess = lazy(() => import('./pages/OrderSuccess'));
+const UserOrderPage = lazy(() => import('./pages/UserOrderPage'));
+const UserProfilePage = lazy(() => import('./pages/UserProfilePage'));
+const AddAddress = lazy(() => import('./pages/AddAddress'));
+const Logout = lazy(() => import('./features/auth/components/Logout'));
+const ForgotPasswordPage = lazy(() => import('./pages/ForgotPasswordPage'));
+const ProtectedAdmin = lazy(() => import('./features/auth/components/ProtectedAdmin'));
+const AdminHome = lazy(() => import('./pages/AdminHome'));
+const AdminProductDetailsPage = lazy(() => import('./pages/AdminProductDetailsPage'));
+const AdminProductFormPage = lazy(() => import('./pages/AdminProductFormPage'));
+const AdminOrdersPage = lazy(() => import('./pages/AdminOrdersPage'));
+const PrivacyPage = lazy(() => import('./pages/PrivacyPage'));
 
 
 export const router = createBrowserRouter([

@@ -98,11 +98,6 @@ const Cart: React.FC = () => {
           </ul>
         </div>
       </div>
-      {/* <div className="flex justify-center h-36 items-center"> */}
-
-
-
-      {/* </div> */}
 
       {cart.length ? <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
         <div className="flex justify-between text-base font-medium text-gray-900">
@@ -129,7 +124,6 @@ const Cart: React.FC = () => {
               <button
                 type="button"
                 className="font-medium text-indigo-600 hover:text-indigo-500 pl-1"
-              // onClick={() => setOpen(false)}
               >
                 Continue Shopping
                 <span aria-hidden="true"> &rarr;</span>
@@ -141,6 +135,12 @@ const Cart: React.FC = () => {
       </div> :
         <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
           <h1>Your Cart is Empty</h1>
+          <Link
+          to="/"
+          className="flex mt-6 items-center justify-center rounded-md border border-transparent bg-yellow-400 px-6 py-3 text-base font-semibold text-black shadow-sm hover:bg-yellow-500"
+        >
+          Continue Shopping
+        </Link>
           {!user && <div className='flex flex-wrap gap-2'>
             <Link
               to="/signin"

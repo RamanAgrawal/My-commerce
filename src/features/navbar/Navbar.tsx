@@ -57,6 +57,8 @@ const Navbar: React.FC = () => {
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <Link to={'/'} className="flex flex-shrink-0 items-center">
                   <img
+                    height={32}
+                    width={32}
                     className="h-8 w-auto"
                     src="/ecommerce.png"
                     alt="Your Company"

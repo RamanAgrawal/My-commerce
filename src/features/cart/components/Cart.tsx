@@ -1,20 +1,24 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { deleteItemFromCartAsync, selectCart, updateCartAsync, } from '../CartSlice';
 import { AppDispatch } from '../../../store/store';
 import { CartItemResI } from '../../../models/Models';
 import { discountedPrice } from '../../../utils';
 import { selectLoggedInUser } from '../../auth/authSlice';
+import Model from '../../../components/Model';
+import { toast } from 'react-toastify';
 
 
 
 const Cart: React.FC = () => {
+  const [openModel, setOpenModel] = useState(false);
+  const [editID,setEditId]=useState<string>('')
   const cart = useSelector(selectCart)
   const dispatch = useDispatch<AppDispatch>()
   const totalAmount = cart.reduce((amount, item) => discountedPrice(item.product) * item.quantity + amount, 0)
   const totalItems = cart.reduce((total, item) => item.quantity + total, 0);
-  const user=useSelector(selectLoggedInUser)
+  const user = useSelector(selectLoggedInUser)
 
 
   const handleQuantity = (e: ChangeEvent<HTMLSelectElement>, item: CartItemResI) => {
@@ -22,10 +26,26 @@ const Cart: React.FC = () => {
   }
 
   const handleDelete = (id: string) => {
-    dispatch(deleteItemFromCartAsync(id))
+    setOpenModel(true);
+    setEditId(id)
+  }
+  const deleteHandler=async()=>{
+    await dispatch(deleteItemFromCartAsync(editID))
+    setOpenModel(false)
+    toast.error('Item removed from cart', {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      });
   }
 
-  return (
+  return (<>
+    {openModel && <Model setOpenModel={setOpenModel} handleDelete={deleteHandler} />}
     <div className="mx-auto max-w-6xl px-2 sm:px-6 lg:px-8 bg-white pt-24">
       <h1 className="text-4xl font-bold tracking-tight text-gray-900 mb-3">Shopping Cart</h1>
       <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
@@ -78,7 +98,11 @@ const Cart: React.FC = () => {
           </ul>
         </div>
       </div>
+      {/* <div className="flex justify-center h-36 items-center"> */}
 
+
+
+      {/* </div> */}
 
       {cart.length ? <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
         <div className="flex justify-between text-base font-medium text-gray-900">
@@ -117,7 +141,7 @@ const Cart: React.FC = () => {
       </div> :
         <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
           <h1>Your Cart is Empty</h1>
-          {!user&&<div className='flex flex-wrap gap-2'>
+          {!user && <div className='flex flex-wrap gap-2'>
             <Link
               to="/signin"
               className="flex mt-6 items-center justify-center rounded-lg border border-transparent bg-yellow-400 px-6 text-base font-semibold text-black shadow-sm hover:bg-yellow-500"
@@ -133,7 +157,7 @@ const Cart: React.FC = () => {
           </div>}
         </div>
       }
-    </div>
+    </div></>
   )
 }
 export default Cart

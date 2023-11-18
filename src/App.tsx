@@ -6,7 +6,9 @@ import { AppDispatch } from './store/store';
 import { checkAuthAsync, selectLoggedInUser, selectUserChecked } from './features/auth/authSlice';
 import { fetchCartAsync } from './features/cart/CartSlice';
 import { fetchLoggedInUserAsync } from './features/user/userSlice';
+import { ToastContainer } from 'react-toastify';
 
+import 'react-toastify/dist/ReactToastify.css';
 import { router } from './Router';
 
 
@@ -28,7 +30,9 @@ function App() {
   }, [dispatch, user])
 
   return (<>
-    {userChecked && <RouterProvider router={router} />}
+   
+   
+    {userChecked && <> <ToastContainer /><RouterProvider router={router} /></>}
   </>
   )
 }

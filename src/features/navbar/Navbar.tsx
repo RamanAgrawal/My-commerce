@@ -8,22 +8,22 @@ import { useSelector } from 'react-redux'
 import { selectUserInfo } from '../user/userSlice'
 import { selectCart } from '../cart/CartSlice'
 const navigation = [
-  { name: 'Home', path: '/', current: false,user:true },
-  { name: 'Products', path: '/admin', current: false,admin:true },
-  { name: 'Orders', path: '/admin/orders', current: false,admin:true },
+  { name: 'Home', path: '/', current: false, user: true },
+  { name: 'Products', path: '/admin', current: false, admin: true },
+  { name: 'Orders', path: '/admin/orders', current: false, admin: true },
 
 ]
 
 
-const classNames=(...classes: Array<string>) =>{
+const classNames = (...classes: Array<string>) => {
   return classes.filter(Boolean).join(' ')
 }
 
-const Navbar:React.FC=()=> {
-  const user=useSelector(selectUserInfo);
+const Navbar: React.FC = () => {
+  const user = useSelector(selectUserInfo);
+  const cart = useSelector(selectCart)
+  const cartItems = cart.reduce((total, item) => item.quantity + total, 0);
 
-  const cartItems=useSelector(selectCart)
-  
   const filteredNavigation = navigation.filter((item) => {
     if (user) {
       if (user.role === 'user' && item.user) {
@@ -35,7 +35,7 @@ const Navbar:React.FC=()=> {
     }
     return false;
   });
-  
+
   return (
     <Disclosure as="nav" className="bg-gray-800 border-red-600 fixed w-full z-10">
       {({ open }) => (
@@ -65,16 +65,16 @@ const Navbar:React.FC=()=> {
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
                     {filteredNavigation.map((item) => (<Link
-                        key={item.name}
-                        to={item.path}
-                        className={classNames(
-                          item.current ? 'border-b-2 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                          'rounded-md px-3 py-2 text-sm font-medium'
-                        )}
-                        aria-current={item.current ? 'page' : undefined}
-                      >
-                        {item.name}
-                      </Link>
+                      key={item.name}
+                      to={item.path}
+                      className={classNames(
+                        item.current ? 'border-b-2 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                        'rounded-md px-3 py-2 text-sm font-medium'
+                      )}
+                      aria-current={item.current ? 'page' : undefined}
+                    >
+                      {item.name}
+                    </Link>
                     ))}
                   </div>
                 </div>
@@ -90,16 +90,16 @@ const Navbar:React.FC=()=> {
                     <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
                   </button>
                 </Link>
-                {cartItems.length > 0 && (
-                        <span className="inline-flex items-center z-10 rounded-md mb-7 -ml-3 bg-yellow-100 px-2 py-1 text-xs font-medium text-gray-700 ring-1 ring-inset ring-red-600/10">
-                          {cartItems.length}
-                        </span>
-                      )}
+                {cartItems > 0 && (
+                  <span className="inline-flex items-center z-10 rounded-md mb-7 -ml-3 bg-yellow-100 px-2 py-1 text-xs font-medium text-gray-700 ring-1 ring-inset ring-red-600/10">
+                    {cartItems}
+                  </span>
+                )}
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
                   <div>{
-                    user?<Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    user ? <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">Open user menu</span>
                       <img
@@ -107,9 +107,9 @@ const Navbar:React.FC=()=> {
                         src={Profile}
                         alt=""
                       />
-                    </Menu.Button>:<Link className=' text-white hover:text-gray-400 ' to={'/signin'}>login</Link>
-                    }
-                    
+                    </Menu.Button> : <Link className=' text-white hover:text-gray-400 ' to={'/signin'}>login</Link>
+                  }
+
                   </div>
                   <Transition
                     as={Fragment}
@@ -162,7 +162,7 @@ const Navbar:React.FC=()=> {
             <div className="space-y-1 px-2 pb-3 pt-2">
               {filteredNavigation.map((item) => (
                 <Disclosure.Button key={item.name}>
-         <Link
+                  <Link
 
                     to={item.path}
                     className={classNames(

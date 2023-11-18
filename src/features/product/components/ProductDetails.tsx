@@ -12,6 +12,7 @@ import { ProductDataI } from '../../../models/Models'
 import { discountedPrice } from '../../../utils'
 import { selectLoggedInUser } from '../../auth/authSlice'
 import Spinner from '../../loaders/Spinner'
+import { toast } from 'react-toastify'
 
 interface Colors {
   name: string;
@@ -67,6 +68,16 @@ const ProductDetails = () => {
       setloading(true)
       await dispatch(addToCartAsync(newItem));
       setloading(false)
+      toast.success('Product added to cart', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
 
     }
   }

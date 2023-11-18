@@ -140,7 +140,7 @@ const AdminOrders = () => {
                                                     <option value="delivered">Delivered</option>
                                                     <option value="cancelled">Cancelled</option>
                                                 </select> :
-                                                    <span className={`${setOrderStatusColor(order.status)}py-1 px-3 rounded-full text-xs`}>
+                                                    <span className={`${setOrderStatusColor(order.status)} py-1 px-3 rounded-full text-xs`}>
                                                         {order.status}
                                                     </span>
                                                 }

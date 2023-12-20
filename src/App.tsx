@@ -8,12 +8,9 @@ import { checkAuthAsync, selectLoggedInUser, selectUserChecked } from './feature
 import { fetchCartAsync } from './features/cart/CartSlice';
 import { fetchLoggedInUserAsync } from './features/user/userSlice';
 import { ToastContainer } from 'react-toastify';
-
 import 'react-toastify/dist/ReactToastify.css';
 import { router } from './Router';
 import Loader from './features/loaders/Loader';
-
-
 
 function App() {
   const dispatch = useDispatch<AppDispatch>()
@@ -32,8 +29,6 @@ function App() {
   }, [dispatch, user])
 
   return (<>
-
-
     {userChecked &&
       <Suspense fallback={<Loader />}>
         <ToastContainer />

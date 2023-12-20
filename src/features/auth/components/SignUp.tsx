@@ -1,23 +1,38 @@
-import { Link, Navigate } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch } from '../../../store/store';
-import { createUserAsync, selectAuthStatus, selectError, selectLoggedInUser } from '../authSlice';
-import { SignupFormDataI } from '../../../models/Models';
-import { AuthLoading } from './Login';
-
+import { Link, Navigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../../store/store";
+import {
+  createUserAsync,
+  selectAuthStatus,
+  selectError,
+  selectLoggedInUser,
+} from "../authSlice";
+import { SignupFormDataI } from "../../../models/Models";
+import Button from "../../../components/Button";
 
 
 const Signup = () => {
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<SignupFormDataI>();
+  const user = useSelector(selectLoggedInUser);
+  const dispatch = useDispatch<AppDispatch>();
+  const error = useSelector(selectError);
+  const authStatus = useSelector(selectAuthStatus);
 
-  const { handleSubmit, register, formState: { errors } } = useForm<SignupFormDataI>()
-  const user = useSelector(selectLoggedInUser)
-  const dispatch = useDispatch<AppDispatch>()
-  const error = useSelector(selectError)
-  const authStatus = useSelector(selectAuthStatus)
+  const passWordPattern = {
+    value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm,
+    message: `at least 8 characters
+- must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number
+- Can contain special characters`
+  };
 
   return (
-    <>{user && <Navigate to={'/'} replace={true} />}
+    <>
+      {user && <Navigate to={"/"} replace={true} />}
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -31,48 +46,54 @@ const Signup = () => {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form noValidate
+          <form
+            noValidate
             className="space-y-6"
-            onSubmit={handleSubmit(data => {
-              dispatch(createUserAsync(
-                {
+            onSubmit={handleSubmit((data) => {
+              dispatch(
+                createUserAsync({
                   name: data.name,
                   email: data.email,
                   password: data.password,
                   addresses: [],
-                  role: 'user'
-                }
-              ))
-            })}>
+                  role: "user",
+                })
+              );
+            })}
+          >
             <div>
-              <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="name" className="label">
                 Full Name
               </label>
               <div className="mt-2">
                 <input
                   id="text"
                   {...register("name", { required: "please enter Your name" })}
-
                   type="text"
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="input"
                 />
                 <p className="text-red-500">{errors?.name?.message}</p>
               </div>
             </div>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="email" className="label">
                 Email address
               </label>
               <div className="mt-2">
                 <input
                   id="email"
-                  {...register("email", { required: "please enter a valid email", pattern: { value: /\b[\w.-]+@[\w.-]+\.\w{2,4}\b/gi, message: 'invalid email' } })}
-
+                  {...register("email", {
+                    required: "please enter a valid email",
+                    pattern: {
+                      value: /\b[\w.-]+@[\w.-]+\.\w{2,4}\b/gi,
+                      message: "invalid email",
+                    },
+                  })}
                   type="email"
                   autoComplete="email"
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="input"
                 />
                 <p className="text-red-500">{errors?.email?.message}</p>
                 <p className="text-red-500">{error?.message}</p>
@@ -80,8 +101,8 @@ const Signup = () => {
             </div>
 
             <div>
-              <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+              <div className="flexBetween">
+                <label htmlFor="password" className="label">
                   Password
                 </label>
               </div>
@@ -89,22 +110,18 @@ const Signup = () => {
                 <input
                   id="password"
                   {...register("password", {
-                    required: 'password is required', pattern: {
-                      value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm,
-                      message: `- at least 8 characters
-                  - must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number
-                  - Can contain special characters`}
+                    required: "password is required",
+                    pattern:passWordPattern
                   })}
                   type="password"
-
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="input"
                 />
                 <p className="text-red-500">{errors?.password?.message}</p>
               </div>
             </div>
             <div>
-              <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+              <div className="flexBetween">
+                <label htmlFor="password" className="label">
                   Confirm Password
                 </label>
               </div>
@@ -113,35 +130,38 @@ const Signup = () => {
                   id="confirm-password"
                   {...register("confirm_password", {
                     required: "confirm password is required",
-                    validate: (value, formValues) => value === formValues.password || "password not matched"
+                    validate: (value, formValues) =>
+                      value === formValues.password || "password not matched",
                   })}
                   type="password"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="input"
                 />
-                <p className="text-red-500">{errors?.confirm_password?.message}</p>
+                <p className="text-red-500">
+                  {errors?.confirm_password?.message}
+                </p>
               </div>
             </div>
 
-            <div>
-              <button
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Sign up  {AuthLoading(authStatus)}
-              </button>
-            </div>
+            <Button
+              label="Sign up "
+              variant="primary"
+              loading={authStatus == "loading"}
+            />
           </form>
 
           <p className="mt-10 text-center text-sm text-gray-500">
-            alredy have account?{' '}
-            <Link to='/signin' className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+            alredy have account?{" "}
+            <Link
+              to="/signin"
+              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+            >
               signin
             </Link>
           </p>
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Signup
+export default Signup;

@@ -120,7 +120,7 @@ const AdminOrders = () => {
                                                 </div>))}
                                             </td>
                                             <td className="py-3 px-6 text-center">
-                                                <div className="flex items-center justify-center">
+                                                <div className="flexCenter">
                                                     ${order.totalAmount}
                                                 </div>
                                             </td>

@@ -1,35 +1,38 @@
-import { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, ShoppingCartIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import Profile from '../../assets/logo.jpg'
-import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { Fragment } from "react";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
+import {
+  Bars3Icon,
+  ShoppingCartIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
+import Profile from "../../assets/logo.jpg";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-import { selectUserInfo } from '../user/userSlice'
-import { selectCart } from '../cart/CartSlice'
+import { selectUserInfo } from "../user/userSlice";
+import { selectCart } from "../cart/CartSlice";
 const navigation = [
-  { name: 'Home', path: '/', current: false, user: true },
-  { name: 'Products', path: '/admin', current: false, admin: true },
-  { name: 'Orders', path: '/admin/orders', current: false, admin: true },
-
-]
-
+  { name: "Home", path: "/", current: false, user: true },
+  { name: "My Order", path: "/orders", current: false, user: true },
+  { name: "Products", path: "/admin", current: false, admin: true },
+  { name: "Orders", path: "/admin/orders", current: false, admin: true },
+];
 
 const classNames = (...classes: Array<string>) => {
-  return classes.filter(Boolean).join(' ')
-}
+  return classes.filter(Boolean).join(" ");
+};
 
 const Navbar: React.FC = () => {
   const user = useSelector(selectUserInfo);
-  const cart = useSelector(selectCart)
+  const cart = useSelector(selectCart);
   const cartItems = cart.reduce((total, item) => item.quantity + total, 0);
 
   const filteredNavigation = navigation.filter((item) => {
     if (user) {
-      if (user.role === 'user' && item.user) {
+      if (user.role === "user" && item.user) {
         return true;
       }
-      if (user.role === 'admin' && item.admin) {
+      if (user.role === "admin" && item.admin) {
         return true;
       }
     }
@@ -37,14 +40,17 @@ const Navbar: React.FC = () => {
   });
 
   return (
-    <Disclosure as="nav" className="bg-gray-800 border-red-600 fixed w-full z-10">
+    <Disclosure
+      as="nav"
+      className="bg-gray-800 border-red-600 fixed w-full z-10"
+    >
       {({ open }) => (
         <>
           <div className="mx-auto px-2 sm:px-6 lg:px-8">
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
-                <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                <Disclosure.Button className="relative inline-flexCenter rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <span className="absolute -inset-0.5" />
                   <span className="sr-only">Open main menu</span>
                   {open ? (
@@ -55,7 +61,7 @@ const Navbar: React.FC = () => {
                 </Disclosure.Button>
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                <Link to={'/'} className="flex flex-shrink-0 items-center">
+                <Link to={"/"} className="flex flex-shrink-0 items-center">
                   <img
                     height={32}
                     width={32}
@@ -66,17 +72,20 @@ const Navbar: React.FC = () => {
                 </Link>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
-                    {filteredNavigation.map((item) => (<Link
-                      key={item.name}
-                      to={item.path}
-                      className={classNames(
-                        item.current ? 'border-b-2 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                        'rounded-md px-3 py-2 text-sm font-medium'
-                      )}
-                      aria-current={item.current ? 'page' : undefined}
-                    >
-                      {item.name}
-                    </Link>
+                    {filteredNavigation.map((item) => (
+                      <Link
+                        key={item.name}
+                        to={item.path}
+                        className={classNames(
+                          item.current
+                            ? "border-b-2 text-white"
+                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                          "rounded-md px-3 py-2 text-sm font-medium"
+                        )}
+                        aria-current={item.current ? "page" : undefined}
+                      >
+                        {item.name}
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -100,18 +109,25 @@ const Navbar: React.FC = () => {
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
-                  <div>{
-                    user ? <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                      <span className="absolute -inset-1.5" />
-                      <span className="sr-only">Open user menu</span>
-                      <img
-                        className="h-8 w-8 rounded-full"
-                        src={Profile}
-                        alt=""
-                      />
-                    </Menu.Button> : <Link className=' text-white hover:text-gray-400 ' to={'/signin'}>login</Link>
-                  }
-
+                  <div>
+                    {user ? (
+                      <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                        <span className="absolute -inset-1.5" />
+                        <span className="sr-only">Open user menu</span>
+                        <img
+                          className="h-8 w-8 rounded-full"
+                          src={Profile}
+                          alt=""
+                        />
+                      </Menu.Button>
+                    ) : (
+                      <Link
+                        className=" text-white hover:text-gray-400 "
+                        to={"/signin"}
+                      >
+                        login
+                      </Link>
+                    )}
                   </div>
                   <Transition
                     as={Fragment}
@@ -126,8 +142,11 @@ const Navbar: React.FC = () => {
                       <Menu.Item>
                         {({ active }) => (
                           <Link
-                            to={'/profile'}
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                            to={"/profile"}
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}
                           >
                             Your Profile
                           </Link>
@@ -136,8 +155,11 @@ const Navbar: React.FC = () => {
                       <Menu.Item>
                         {({ active }) => (
                           <Link
-                            to={'/orders'}
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                            to={"/orders"}
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}
                           >
                             My Orders
                           </Link>
@@ -146,8 +168,11 @@ const Navbar: React.FC = () => {
                       <Menu.Item>
                         {({ active }) => (
                           <Link
-                            to='/logout'
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                            to="/logout"
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}
                           >
                             Sign out
                           </Link>
@@ -165,13 +190,14 @@ const Navbar: React.FC = () => {
               {filteredNavigation.map((item) => (
                 <Disclosure.Button key={item.name}>
                   <Link
-
                     to={item.path}
                     className={classNames(
-                      item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                      'block rounded-md px-3 py-2 text-base font-medium'
+                      item.current
+                        ? "bg-gray-900 text-white"
+                        : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                      "block rounded-md px-3 py-2 text-base font-medium"
                     )}
-                    aria-current={item.current ? 'page' : undefined}
+                    aria-current={item.current ? "page" : undefined}
                   >
                     {item.name}
                   </Link>
@@ -182,7 +208,7 @@ const Navbar: React.FC = () => {
         </>
       )}
     </Disclosure>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

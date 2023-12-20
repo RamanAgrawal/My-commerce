@@ -1,9 +1,10 @@
-import StripeCheckout from "../features/checkout/StripeCheckout"
+// import StripeCheckout from "../features/checkout/StripeCheckout"
 
 
 const StripeCheckoutPage = () => {
   return (
-    <StripeCheckout/>
+    // <StripeCheckout/>
+    <div></div>
   )
 }
 

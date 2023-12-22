@@ -1,11 +1,9 @@
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ProductDataI } from "../../models/Models";
 
-import axios from "../../axiosConfig"
+import axios from "../../axiosConfig";
 
-
-export const fetchSingleProduct = async (id:string) => {
+export const fetchSingleProduct = async (id: string) => {
   try {
     const response = await axios.get(`/api/products/${id}`, {
       withCredentials: true, // To include cookies in the request
@@ -15,7 +13,7 @@ export const fetchSingleProduct = async (id:string) => {
       return { data: response.data };
     } else {
       // If the response status is not 200 (OK), handle the error.
-      throw new Error('Request failed with status: ' + response.status);
+      throw new Error("Request failed with status: " + response.status);
     }
   } catch (error) {
     console.error(error);
@@ -23,14 +21,12 @@ export const fetchSingleProduct = async (id:string) => {
   }
 };
 
-
-
-export const createProduct = async (product:any) => {
+export const createProduct = async (product: any) => {
   try {
-    const response = await axios.post('/api/products', product, {
+    const response = await axios.post("/api/products", product, {
       withCredentials: true, // To include cookies in the request
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
 
@@ -38,7 +34,7 @@ export const createProduct = async (product:any) => {
       return { data: response.data };
     } else {
       // If the response status is not 200 (OK), handle the error.
-      throw new Error('Request failed with status: ' + response.status);
+      throw new Error("Request failed with status: " + response.status);
     }
   } catch (error) {
     console.error(error);
@@ -46,34 +42,30 @@ export const createProduct = async (product:any) => {
   }
 };
 
-
-
-
-export const updateProduct = async (update:ProductDataI) => {
+export const updateProduct = async (update: ProductDataI) => {
   try {
     const response = await axios.patch(`/api/products/${update.id}`, update, {
       withCredentials: true, // To include cookies in the request
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
 
     if (response.status === 200) {
-      return  response;
+      return response;
     } else {
       // If the response status is not 200 (OK), handle the error.
-      throw new Error('Request failed with status: ' + response.status);
+      throw new Error("Request failed with status: " + response.status);
     }
   } catch (error) {
     console.error(error);
     throw error; // You can choose to handle or rethrow the error here
   }
 };
-
 
 export const fetchCategories = async () => {
   try {
-    const response = await axios.get('/api/categories', {
+    const response = await axios.get("/api/categories", {
       withCredentials: true, // To include cookies in the request
     });
 
@@ -81,7 +73,7 @@ export const fetchCategories = async () => {
       return { data: response.data };
     } else {
       // If the response status is not 200 (OK), handle the error.
-      throw new Error('Request failed with status: ' + response.status);
+      throw new Error("Request failed with status: " + response.status);
     }
   } catch (error) {
     console.error(error);
@@ -89,12 +81,9 @@ export const fetchCategories = async () => {
   }
 };
 
-
-
-
 export const fetchBrands = async () => {
   try {
-    const response = await axios.get('/api/brands', {
+    const response = await axios.get("/api/brands", {
       withCredentials: true, // To include cookies in the request
     });
 
@@ -102,7 +91,7 @@ export const fetchBrands = async () => {
       return { data: response.data };
     } else {
       // If the response status is not 200 (OK), handle the error.
-      throw new Error('Request failed with status: ' + response.status);
+      throw new Error("Request failed with status: " + response.status);
     }
   } catch (error) {
     console.error(error);
@@ -111,14 +100,16 @@ export const fetchBrands = async () => {
 };
 
 export interface Data {
-  products: ProductDataI[]
-  totalItems: string | null
+  products: ProductDataI[];
+  totalItems: string | null;
 }
 
-
-
-
-export const fetchProductsByFilters = async (filter: any, sort: any, pagination: any ,admin:boolean) => {
+export const fetchProductsByFilters = async (
+  filter: any,
+  sort: any,
+  pagination: any,
+  admin: boolean
+) => {
   // Build the query string from the filter, sort, and pagination parameters
   const queryParams = {
     ...filter,
@@ -132,7 +123,7 @@ export const fetchProductsByFilters = async (filter: any, sort: any, pagination:
 
   try {
     // Use Axios to make the GET request with the query parameters
-    const response = await axios.get('/api/products', {
+    const response = await axios.get("/api/products", {
       params: queryParams,
       withCredentials: true, // To include cookies in the request
     });
@@ -140,21 +131,15 @@ export const fetchProductsByFilters = async (filter: any, sort: any, pagination:
     if (response.status === 200) {
       // Extract the product data and total items from the response
       const productData = response.data;
-      const totalItems = response.headers['x-total-count'];
+      const totalItems = response.headers["x-total-count"];
 
       return { data: { products: productData, totalItems } };
     } else {
       // If the response status is not 200 (OK), handle the error.
-      throw new Error('Request failed with status: ' + response.status);
+      throw new Error("Request failed with status: " + response.status);
     }
   } catch (error) {
     console.error(error);
     throw error; // You can choose to handle or rethrow the error here
   }
 };
-
-
-
-
-
-

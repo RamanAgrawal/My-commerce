@@ -20,7 +20,7 @@ const Home = () => {
         <Slider />
         <div className="min-h-[400px] hidden lg px-7 pb-10 min-w-full z-[5] lg:grid lg:grid-cols-4 gap-5 justify-center lg:justify-between absolute top-[50vh]">
           {HERO_DEAL_CARD_DATA.map((item) => (
-            <HeroDealCard cardData={item} />
+            <HeroDealCard cardData={item} key={item.heading} />
           ))}
         </div>
         <div className="lg:mt-24">

@@ -16,7 +16,7 @@ const SaleSectionCard: FC<SaleSectionCardProps> = ({ data }) => {
       <div className="w-full lg:w-1/2 grid grid-cols-2 gap-2 ">
         {data.map((item) => (
           <Link to={item.path}>
-            <div className=" bg-white p-4 shadow-md hover:scale-105 transition-all overflow-hidden">
+            <div className=" bg-white p-4 h-full shadow-md hover:scale-105 transition-all overflow-hidden">
               <h1 className="tracking-wider font-bold text-xl text-black">
                 {item.heading}
               </h1>
@@ -37,7 +37,7 @@ const SaleSectionCard: FC<SaleSectionCardProps> = ({ data }) => {
           </Link>
         ))}
       </div>
-      <div className="w-full lg:h-auto h-96 object-center lg:w-1/2 bg-cover bg-center md:bg-contain align-middle">
+      <div className="w-full lg:h-auto h-96 object-center lg:w-1/2 bg-cover align-middle">
         <img src="https://images.bewakoof.com/uploads/grid/app/YearEndSale-1x1-commmon-RMIK--1--1703076004.gif" />
       </div>
     </section>

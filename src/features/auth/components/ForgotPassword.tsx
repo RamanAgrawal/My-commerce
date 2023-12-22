@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { LoginFormDataI } from "../../../models/Models";
 import { AppDispatch } from "../../../store/store";
 import { useDispatch, useSelector } from "react-redux";
-import { resetPasswordAsync, resetPasswordRequestAsync, selectMailStatus } from "../authSlice";
+import {  resetPasswordRequestAsync, selectMailStatus } from "../authSlice";
 
 const ForgotPassword = () => {
   const {

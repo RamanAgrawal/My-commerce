@@ -10,7 +10,8 @@ import {
 } from "../authSlice";
 import { SignupFormDataI } from "../../../models/Models";
 import Button from "../../../components/Button";
-
+import { useState } from "react";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 
 const Signup = () => {
   const {
@@ -22,12 +23,12 @@ const Signup = () => {
   const dispatch = useDispatch<AppDispatch>();
   const error = useSelector(selectError);
   const authStatus = useSelector(selectAuthStatus);
-
+  const [showPassword, setShowPassword] = useState(false);
   const passWordPattern = {
     value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm,
     message: `at least 8 characters
 - must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number
-- Can contain special characters`
+- Can contain special characters`,
   };
 
   return (
@@ -106,16 +107,27 @@ const Signup = () => {
                   Password
                 </label>
               </div>
-              <div className="mt-2">
+              <div className="mt-2 relative">
                 <input
                   id="password"
                   {...register("password", {
                     required: "password is required",
-                    pattern:passWordPattern
+                    pattern: passWordPattern,
                   })}
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   className="input"
                 />
+                <span
+                  aria-label="show password"
+                  className="h-1 w-1 absolute top-2 right-6 cursor-pointer"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                >
+                  {showPassword ? (
+                    <EyeSlashIcon className="w-6 h-6" />
+                  ) : (
+                    <EyeIcon className="w-6 h-6" />
+                  )}
+                </span>
                 <p className="text-red-500">{errors?.password?.message}</p>
               </div>
             </div>
@@ -133,7 +145,7 @@ const Signup = () => {
                     validate: (value, formValues) =>
                       value === formValues.password || "password not matched",
                   })}
-                  type="password"
+                  type="text"
                   className="input"
                 />
                 <p className="text-red-500">

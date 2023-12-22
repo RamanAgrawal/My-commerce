@@ -10,6 +10,8 @@ import { AppDispatch } from "../../../store/store";
 import { useDispatch, useSelector } from "react-redux";
 import { LoginFormDataI } from "../../../models/Models";
 import Button from "../../../components/Button";
+import { useState } from "react";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 
 const Login = () => {
   const {
@@ -21,7 +23,7 @@ const Login = () => {
   const error = useSelector(selectError);
   const user = useSelector(selectLoggedInUser);
   const authStatus = useSelector(selectAuthStatus);
-
+  const [showPassword, setShowPassword] = useState(false);
   // let route;
   // if (user?.role === 'admin') {
   //   route = <Navigate to={'/admin'} replace={true} />
@@ -90,15 +92,26 @@ const Login = () => {
                   </Link>
                 </div>
               </div>
-              <div className="mt-2">
+              <div className="mt-2 relative">
                 <input
                   id="password"
                   {...register("password", {
                     required: "enter your passwoed first",
                   })}
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   className="input"
                 />
+                 <span
+                 aria-label="show password"
+                  className="h-1 w-1 absolute top-2 right-6 cursor-pointer"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                >
+                  {showPassword ? (
+                    <EyeSlashIcon className="w-6 h-6" />
+                  ) : (
+                    <EyeIcon className="w-6 h-6" />
+                  )}
+                </span>
                 <p className="text-red-500">{errors.password?.message}</p>
                 <p className="text-red-500">{error?.message}</p>
               </div>

@@ -31,7 +31,19 @@
 .bump {
   animation: bump 300ms ease-out;
 }
+::-webkit-scrollbar {
+  width: 10px;
+  background-color: gray;
 
+}
+::-webkit-scrollbar-thumb {
+  height: 50px;
+  background-clip: content-box;
+  background: linear-gradient(#111827,white);
+  border: 1px solid rgba(0, 0, 0, 1);
+  border-radius: 30px;
+
+}
 @keyframes bump {
   0% {
     transform: scale(1);
@@ -48,4 +60,46 @@
   100% {
     transform: scale(1);
   }
+}
+.carousel{
+    /* background-image:url('https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_1280.jpg'); */
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    object-fit: cover;
+}
+
+.swiper-button-prev,.swiper-button-next{
+  display:none;
+}
+@media (min-width: 640px){
+  .swiper-button-prev,.swiper-button-next{
+    display:flex;
+    position:absolute;
+    top:20vh;
+    color:white;
+    border-radius:50%;
+    border:1px solid #fff;
+    height:50px;
+    width:50px;
+    background:rgba(0,0,0,0.2);
+    background-filter:blur(10px);
+  }
+  .swiper-button-prev::after,.swiper-button-next::after{
+    font-size:30px;
+    font-weight:900;
+  }
+  .carousel+div::after{
+    background: linear-gradient(-180deg,rgba(234,237,237,0),#E3E6E6);
+    bottom: 0;
+    content: "";
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00E3E6E6', endColorstr='#E3E6E6', GradientType=0);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#00E3E6E6', endColorstr='#E3E6E6',GradientType=0)";
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    /* z-index: 1; */
+}
 }

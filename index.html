@@ -5,9 +5,17 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My-Commerce</title>
+    <link rel="stylesheet" href="/src/index.css" />
   </head>
   <body class="h-full ">
-    <div id="root"></div>
+    <div id="root">
+      <div class="flex space-x-2 justify-center items-center bg-white h-screen w-screen">
+        <span class="sr-only">Loading...</span>
+        <div class="h-8 w-8 bg-gray-900 rounded-full animate-bounce [animation-delay:-0.3s]" ></div>
+        <div class="h-8 w-8 bg-gray-900 rounded-full animate-bounce [animation-delay:-0.15s]" />
+        <div class="h-8 w-8 bg-gray-900 rounded-full animate-bounce" />
+    </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

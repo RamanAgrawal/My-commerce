@@ -1,4 +1,3 @@
-import './App.css'
 import { Suspense } from 'react'
 import { useEffect } from 'react'
 import { RouterProvider } from 'react-router-dom';

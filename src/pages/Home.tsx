@@ -9,7 +9,6 @@ import {
 } from "../constents";
 import Footer from "../features/footer/Footer";
 import Navbar from "../features/navbar/Navbar";
-import "../../styles/home.scss";
 import ProductSlider from "../layouts/hero/ProductSlider";
 import SecondCard from "../layouts/hero/SecondCard";
 import SaleSectionCard from "../layouts/hero/SaleSectionCard";

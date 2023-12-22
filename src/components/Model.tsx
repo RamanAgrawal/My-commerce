@@ -1,8 +1,9 @@
 interface ModelI {
   setOpenModel: (prev: boolean) => void;
   handleDelete: () => void;
+  text:string
 }
-const Model: React.FC<ModelI> = ({ setOpenModel, handleDelete }) => {
+const Model: React.FC<ModelI> = ({ setOpenModel, handleDelete ,text}) => {
   return (
     <>
       <div
@@ -51,7 +52,7 @@ const Model: React.FC<ModelI> = ({ setOpenModel, handleDelete }) => {
                 />
               </svg>
               <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                Are you sure you want to delete this product?
+                Are you sure you want to delete this {text}?
               </h3>
               <button
                 onClick={() => handleDelete()}

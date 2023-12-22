@@ -54,7 +54,7 @@ const Cart: React.FC = () => {
   return (
     <>
       {openModel && (
-        <Model setOpenModel={setOpenModel} handleDelete={deleteHandler} />
+        <Model text="product" setOpenModel={setOpenModel} handleDelete={deleteHandler} />
       )}
       <div className="mx-auto max-w-6xl px-2 sm:px-6 lg:px-8 bg-white pt-24">
         <h1 className="text-4xl font-bold tracking-tight text-gray-900 mb-3">

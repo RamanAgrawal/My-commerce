@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import axios from "../../axiosConfig"
-import { UserDataI } from "../../models/Models";
+import { ResetPasswordI, UserDataI } from "../../models/Models";
 
 
 export const createUser = async (userData: UserDataI) => {
@@ -74,6 +74,41 @@ export const checkAuth = async () => {
     throw error; // You can choose to handle or rethrow the error here
   }
 };
+
+export const resetPasswordRequest = async (email: string) => {
+  try {
+    const response = await axios.post('/api/auth/reset-password-request', { email }, {
+      withCredentials: true, // To include cookies in the request
+    });
+    if (response.status === 200) {
+      return response;
+    } else {
+      // If the response status is not 200 (OK), handle the error.
+      throw new Error('Request failed with status: ' + response.status);
+    }
+  } catch (error) {
+    console.error(error);
+    throw error; // You can choose to handle or rethrow the error here
+  }
+}
+export const resetPassword = async (data:ResetPasswordI) => {
+  const {token,email,password}=data;
+  try {
+    const response = await axios.post('/api/auth/reset-password', { token,email,password },{
+      withCredentials: true, // To include cookies in the request
+    });
+    if (response.status === 200) {
+      return response;
+    } else {
+      // If the response status is not 200 (OK), handle the error.
+      throw new Error('Request failed with status: ' + response.status);
+    }
+  } catch (error) {
+    console.error(error);
+    throw error; // You can choose to handle or rethrow the error here
+  }
+}
+
 
 export const signOut = async () => {
   try {

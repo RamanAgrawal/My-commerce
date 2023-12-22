@@ -5,6 +5,7 @@ const SignUp = lazy(() => import("./pages/SignUpPage"));
 import Home from "./pages/Home";
 import StripeCheckoutPage from "./pages/StripeCheckoutPage";
 import ProductPage from "./pages/ProductsPage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 const CartPage = lazy(() => import("./pages/CartPage"));
 const Contact = lazy(() => import("./pages/Contact"));
 const CheckoutPage = lazy(() => import("./pages/CheckoutPage"));
@@ -64,6 +65,10 @@ export const router = createBrowserRouter([
   {
     path: "/forgot-password",
     element: <ForgotPasswordPage />,
+  },
+  {
+    path: "/reset-password",
+    element: <ResetPasswordPage />,
   },
   {
     path: "/cart",

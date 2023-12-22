@@ -1,14 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createAsyncThunk, createSlice, SerializedError, Slice } from '@reduxjs/toolkit';
-import { loginUser, createUser, signOut, checkAuth } from './authApi';
+import { loginUser, createUser, signOut, checkAuth, resetPassword, resetPasswordRequest } from './authApi';
 import { AxiosResponse } from 'axios';
-import { AuthResI, UserDataI } from '../../models/Models';
+import { AuthResI, ResetPasswordI, UserDataI } from '../../models/Models';
 
 interface AuthStateI {
     loggedInUser: AuthResI | null;
     status: string;
     error: SerializedError | unknown | null | any;
     userChecked: boolean;
+    mailStatus:boolean;
+    passwordReset: boolean;
 }
 
 const initialState: AuthStateI = {
@@ -16,6 +18,8 @@ const initialState: AuthStateI = {
     status: 'idle',
     error: null,
     userChecked: false,
+    mailStatus:false,
+    passwordReset: false,
 }
 
 export const createUserAsync = createAsyncThunk(
@@ -56,6 +60,20 @@ export const signOutAsync = createAsyncThunk(
     async () => {
         const response = await signOut() as string;
         return response as string
+    }
+);
+export const resetPasswordRequestAsync = createAsyncThunk(
+    'user/resetPasswordRequest',
+    async (email:string) => {
+        const response = await resetPasswordRequest(email);
+        return response
+    }
+);
+export const resetPasswordAsync = createAsyncThunk(
+    'user/resetPassword',
+    async (data:ResetPasswordI) => {
+        const response = await resetPassword(data);
+        return response
     }
 );
 
@@ -105,6 +123,20 @@ const authSlice: Slice<AuthStateI> = createSlice({
                 state.status = 'completed'
                 state.userChecked = true;
             })
+            .addCase(resetPasswordRequestAsync.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(resetPasswordRequestAsync.fulfilled, (state) => {
+                state.status = 'completed'
+                state.mailStatus = true
+            })
+            .addCase(resetPasswordAsync.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(resetPasswordAsync.fulfilled, (state) => {
+                state.status = 'completed'
+                state.passwordReset = true
+            })
 
             .addCase(signOutAsync.pending, (state) => {
                 state.status = 'loading';
@@ -122,4 +154,6 @@ export const selectAuthStatus= (state: { auth: AuthStateI }) => state.auth.statu
 export const selectLoggedInUser = (state: { auth: AuthStateI }) => state.auth.loggedInUser
 export const selectError = (state: { auth: AuthStateI }) => state.auth.error;
 export const selectUserChecked = (state: { auth: AuthStateI }) => state.auth.userChecked;
+export const selectMailStatus = (state: { auth: AuthStateI }) => state.auth.mailStatus;
+export const selectPasswordReset = (state: { auth: AuthStateI }) => state.auth.passwordReset;
 export default authSlice.reducer

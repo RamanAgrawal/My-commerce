@@ -1,13 +1,21 @@
-import {Link} from 'react-router-dom'
-import {useForm} from 'react-hook-form'
-import { LoginFormDataI } from '../../../models/Models';
+import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { LoginFormDataI } from "../../../models/Models";
+import { AppDispatch } from "../../../store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { resetPasswordAsync, resetPasswordRequestAsync, selectMailStatus } from "../authSlice";
 
 const ForgotPassword = () => {
-const {register,handleSubmit,formState:{errors}}=useForm<LoginFormDataI>()
-
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormDataI>();
+  const mailStatus = useSelector(selectMailStatus);
+  const dispatch = useDispatch<AppDispatch>();
   return (
     <>
-    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
             className="mx-auto h-10 w-auto"
@@ -20,9 +28,13 @@ const {register,handleSubmit,formState:{errors}}=useForm<LoginFormDataI>()
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form noValidate
-           className="space-y-6"onSubmit={handleSubmit(data=>console.log(data)
-           )}>
+          <form
+            noValidate
+            className="space-y-6"
+            onSubmit={handleSubmit((data) => {
+              dispatch(resetPasswordRequestAsync(data.email));
+            })}
+          >
             <div>
               <label htmlFor="email" className="label">
                 Email address
@@ -30,17 +42,24 @@ const {register,handleSubmit,formState:{errors}}=useForm<LoginFormDataI>()
               <div className="mt-2">
                 <input
                   id="email"
-                  {...register("email",{required:"please enter a valid email",pattern:{value:/\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi,message:'invalid email'}})}
+                  {...register("email", {
+                    required: "please enter a valid email",
+                    pattern: {
+                      value: /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi,
+                      message: "invalid email",
+                    },
+                  })}
                   type="email"
                   autoComplete="email"
-                  
                   className="input"
                 />
                 <p className="text-red-500">{errors.email?.message}</p>
+                {mailStatus && (
+                  <p className="text-green-500">mail sent success</p>
+                )}
               </div>
             </div>
 
-           
             <div>
               <button
                 type="submit"
@@ -52,15 +71,18 @@ const {register,handleSubmit,formState:{errors}}=useForm<LoginFormDataI>()
           </form>
 
           <p className="mt-10 text-center text-sm text-gray-500">
-            Send me back to{' '}
-            <Link to="/signin" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-          Login
+            Send me back to{" "}
+            <Link
+              to="/signin"
+              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+            >
+              Login
             </Link>
           </p>
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default ForgotPassword;

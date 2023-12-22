@@ -21,6 +21,11 @@ export interface SortI {
     _sort: string;
     _order: string;
 }
+export interface ResetPasswordI{
+    email:string;
+    token:string;
+    password:string
+}
 
 export interface AuthResI extends UserDataI {
     id: string;

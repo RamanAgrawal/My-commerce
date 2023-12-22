@@ -33,7 +33,7 @@ const AddAddressForm = ({ handleSubmitHandler,editAddressData,hideCancelButton }
                 {/* <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6"> */}
                 <div className="sm:col-span-3">
                     <label htmlFor="first-name" className="label">
-                        Full name
+                        Full name<span className="text-red-600">*</span>
                     </label>
                     <div className="mt-2">
                         <input
@@ -48,7 +48,7 @@ const AddAddressForm = ({ handleSubmitHandler,editAddressData,hideCancelButton }
 
                 <div className="sm:col-span-4">
                     <label htmlFor="email" className="label">
-                        Email address
+                        Email address<span className="text-red-600">*</span>
                     </label>
                     <div className="mt-2">
                         <input
@@ -65,12 +65,13 @@ const AddAddressForm = ({ handleSubmitHandler,editAddressData,hideCancelButton }
 
                 <div className="sm:col-span-3">
                     <label htmlFor="phone" className="label">
-                        Phone No.
+                        Phone No.<span className="text-red-600">*</span>
                     </label>
                     <div className="mt-2">
                         <input
                             type='tel'
                             id="phone"
+                            maxLength={10}
                             {...register("phoneNo", { required: 'phoneNo is required' })}
                             autoComplete="phone"
                             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
@@ -81,7 +82,7 @@ const AddAddressForm = ({ handleSubmitHandler,editAddressData,hideCancelButton }
 
                 <div className="col-span-full">
                     <label htmlFor="street-address" className="label">
-                        Street address
+                        Street address<span className="text-red-600">*</span>
                     </label>
                     <div className="mt-2">
                         <input
@@ -96,7 +97,7 @@ const AddAddressForm = ({ handleSubmitHandler,editAddressData,hideCancelButton }
 
                 <div className="sm:col-span-2 sm:col-start-1">
                     <label htmlFor="city" className="label">
-                        City
+                        City<span className="text-red-600">*</span>
                     </label>
                     <div className="mt-2">
                         <input
@@ -111,7 +112,7 @@ const AddAddressForm = ({ handleSubmitHandler,editAddressData,hideCancelButton }
 
                 <div className="sm:col-span-2">
                     <label htmlFor="state" className="label">
-                        State / Province
+                        State / Province<span className="text-red-600">*</span>
                     </label>
                     <div className="mt-2">
                         <input
@@ -126,15 +127,15 @@ const AddAddressForm = ({ handleSubmitHandler,editAddressData,hideCancelButton }
 
                 <div className="sm:col-span-2">
                     <label htmlFor="pinCode" className="label">
-                        ZIP / Postal code
+                        ZIP / Postal code <span className="text-red-600">*</span>
                     </label>
                     <div className="mt-2">
                         <input
-                            type="text"
+                            type="number"
                             {...register("pincode", { required: 'pincode is required' })}
                             id="pincode"
                             autoComplete="pincode"
-                            className="input"
+                            className="input "
                         />
                     </div>
                 </div>

@@ -15,8 +15,8 @@ const SaleSectionCard: FC<SaleSectionCardProps> = ({ data }) => {
     <section className="flex flex-col-reverse lg:flex-row w-[96%] m-auto">
       <div className="w-full lg:w-1/2 grid grid-cols-2 gap-2 ">
         {data.map((item) => (
-          <Link to={item.path}>
-            <div className=" bg-white p-4 h-full shadow-md hover:scale-105 transition-all overflow-hidden">
+          <Link key={item.heading} to={item.path}>
+            <div className=" bg-white p-4 h-full shadow-md  transition-all overflow-hidden">
               <h1 className="tracking-wider font-bold text-xl text-black">
                 {item.heading}
               </h1>
@@ -24,7 +24,7 @@ const SaleSectionCard: FC<SaleSectionCardProps> = ({ data }) => {
                 src={item.img}
                 height={500}
                 width="full"
-                className="h-52 m-auto category-img object-fill"
+                className="h-52 m-auto category-img object-fill hover:scale-110"
                 alt=""
               />
               <div className="my-5">

@@ -66,8 +66,9 @@ const ProductSlider: FC<ProductSliderProps> = ({ data }) => {
           },
         }}
       >
-        {data.slideData.map((item) => (
+        {data.slideData.map((item,i) => (
           <SwiperSlide
+          key={i}
             onClick={() => navigate(`${item.path}`)}
             className="h-full w-full lg:w-1/5 cursor-pointer border-2 "
           >

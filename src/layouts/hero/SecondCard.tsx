@@ -6,7 +6,7 @@ interface ProductI {
   description: string;
   price: number;
   discountPercentage: number;
-  thumbnail:string;
+  thumbnail: string;
 }
 
 interface SecondCardProps {
@@ -40,6 +40,7 @@ const SecondCard = ({ products }: SecondCardProps) => {
       <div className="grid grid-cols-4 gap-1 w-full">
         {products.map((product, i) => (
           <div
+            key={i}
             onClick={() => setData({ active: i, product })}
             className={`p-3 flexCenter rounded-lg cursor-pointer ${
               data.active == i

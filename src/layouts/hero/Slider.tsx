@@ -23,8 +23,8 @@ const Slider = () => {
       pagination={{ clickable: true }}
       scrollbar={{ draggable: true }}
     >
-      {SliderData.map((slide) => (
-        <SwiperSlide className="h-full cursor-pointer">
+      {SliderData.map((slide,i) => (
+        <SwiperSlide key={i} className="h-full cursor-pointer">
           <img
             className="mx-auto h-full w-full lg:object-contain"
             src={slide.mob} 

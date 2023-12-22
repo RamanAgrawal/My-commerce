@@ -31,7 +31,8 @@ const Navbar: React.FC = () => {
   return (
     <Disclosure
       as="nav"
-      className="bg-gray-800 border-red-600 fixed w-full z-10"
+      className="bg-gray-950 border-red-600 fixed w-full z-10"
+      // className="bg-gray-800 border-red-600 fixed w-full z-10"
     >
       {({ open }) => (
         <>
@@ -61,6 +62,19 @@ const Navbar: React.FC = () => {
                 </Link>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
+                  <Link
+              
+                        to={'/products'}
+                        className={classNames(
+                          "/products" === pathname
+                            ? " text-white"
+                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                          "px-3 py-2 text-sm font-medium"
+                        )}
+                        // aria-current={item.path ? "page" : undefined}
+                      >
+                     Products
+                      </Link>
                     {filteredNavigation.map((item) => (
                       <Link
                         key={item.name}

@@ -37,7 +37,11 @@ const CartButton = () => {
         </button>
       </Link>
       {cartItems > 0 && (
-        <span className="inline-flex items-center z-10 rounded-md mb-7 -ml-3 bg-yellow-100 px-2 py-1 text-xs font-medium text-gray-700 ring-1 ring-inset ring-red-600/10">
+        <span
+          className={`${
+            btnIsHighlighted ? "bump" : ""
+          }inline-flex items-center z-10 rounded-md mb-7 -ml-3 bg-yellow-100 px-2 py-1 text-xs font-medium text-gray-700 ring-1 ring-inset ring-red-600/10`}
+        >
           {cartItems}
         </span>
       )}

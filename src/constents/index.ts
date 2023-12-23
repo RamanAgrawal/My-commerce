@@ -4,6 +4,11 @@ export const Navigation_Items = [
   { name: "Edit Products", path: "/admin", admin: true },
   { name: "Orders", path: "/admin/orders", admin: true },
 ];
+
+export   const passWordPattern = {
+  value: /^.{6,}$/gm,
+  message: `at least 6 characters`,
+};
 //profile menu drop down items
 export const MenuItems = [
   {

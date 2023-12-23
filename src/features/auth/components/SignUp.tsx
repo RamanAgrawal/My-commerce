@@ -12,6 +12,7 @@ import { SignupFormDataI } from "../../../models/Models";
 import Button from "../../../components/Button";
 import { useState } from "react";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
+import { passWordPattern } from "../../../constents";
 
 const Signup = () => {
   const {
@@ -24,12 +25,7 @@ const Signup = () => {
   const error = useSelector(selectError);
   const authStatus = useSelector(selectAuthStatus);
   const [showPassword, setShowPassword] = useState(false);
-  const passWordPattern = {
-    value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm,
-    message: `at least 8 characters
-- must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number
-- Can contain special characters`,
-  };
+
 
   return (
     <>

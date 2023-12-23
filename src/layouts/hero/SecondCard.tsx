@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { discountedPrice } from "../../utils";
 interface ProductI {
   id: string;
@@ -14,6 +14,22 @@ interface SecondCardProps {
 }
 const SecondCard = ({ products }: SecondCardProps) => {
   const [data, setData] = useState({ active: 0, product: products[0] });
+
+  useEffect(() => {
+    const intervel = setInterval(() => {
+      if (data.active < products.length - 1) {
+        setData({
+          active: data.active + 1,
+          product: products[data.active + 1],
+        });
+      } else {
+        setData({ active: 0, product: products[0] });
+      }
+    }, 3000);
+
+    return () => clearInterval(intervel);
+  }, [data.active,products]);
+
   return (
     <div className="w-full h-[450px] p-4 bg-white">
       <h1 className="font-bold text-2xl uppercase">Explore</h1>

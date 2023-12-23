@@ -43,6 +43,7 @@ const ProductSlider: FC<ProductSliderProps> = ({ data }) => {
         spaceBetween={2}
         slidesPerView={6}
         effect="fade"
+        loop={true}
         autoplay={{
           delay: 1500,
           disableOnInteraction: false,

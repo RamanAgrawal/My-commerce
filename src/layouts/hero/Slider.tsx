@@ -13,6 +13,7 @@ const Slider = () => {
       className="max-h-[700px] w-full"
       modules={[Navigation, Pagination, Autoplay, Virtual]}
       spaceBetween={0}
+      loop={true}
       slidesPerView={1}
       effect="fade"
       autoplay={{

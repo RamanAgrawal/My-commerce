@@ -5,7 +5,7 @@ export const Navigation_Items = [
   { name: "Orders", path: "/admin/orders", admin: true },
 ];
 
-export   const passWordPattern = {
+export const passWordPattern = {
   value: /^.{6,}$/gm,
   message: `at least 6 characters`,
 };
@@ -254,6 +254,45 @@ export const ProdData = [
 
     thumbnail: "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
   },
+  {
+    id: "2",
+    title: "iPhone X",
+    description:
+      "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+    price: 899,
+    discountPercentage: 17.94,
+    thumbnail: "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+  },
+];
+export const ProdData2 = [
+  {
+    id: "3",
+    title: "Samsung Universe 9",
+    description:
+      "Samsung's new variant which goes beyond Galaxy to the Universe",
+    price: 1249,
+    discountPercentage: 15.46,
+
+    thumbnail: "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
+  },
+  {
+    id: "1",
+    title: "iPhone 9",
+    description: "An apple mobile which is nothing like apple",
+    price: 549,
+    discountPercentage: 12.96,
+    thumbnail: "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+  },
+  {
+    id: "2",
+    title: "iPhone X",
+    description:
+      "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+    price: 899,
+    discountPercentage: 17.94,
+    thumbnail: "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+  },
+
   {
     id: "2",
     title: "iPhone X",

@@ -4,6 +4,7 @@ import {
   FIRST_PRODUCT_SLIDER_DATA,
   HERO_DEAL_CARD_DATA,
   ProdData,
+  ProdData2,
   SALE_SECTION_CARD_DATA,
   SECOND_PRODUCT_SLIDER_DATA,
 } from "../constents";
@@ -39,7 +40,7 @@ const Home = () => {
           <div className="col-span-2 h-96 object-center  bg-cover bg-center md:bg-contain align-middle">
             <img src="https://images.bewakoof.com/uploads/grid/app/1x1-1703164584.gif" />
           </div>
-          <SecondCard products={ProdData} />
+          <SecondCard products={ProdData2} />
         </div>
         <ProductSlider data={SECOND_PRODUCT_SLIDER_DATA} />
       </div>
